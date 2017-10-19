@@ -1,0 +1,13 @@
+{{#if twilio.setup.isRunning}}
+  Loading...
+{{else}}
+<button {{action (if twilio.record.isRunning twilio.disconnect (perform twilio.record))}}>
+  {{#if twilio.connect.isRunning}}
+    Connecting...
+  {{else if twilio.record.isRunning}}
+    save
+  {{else}}
+    record
+  {{/if}}
+</button>
+{{/if}}
