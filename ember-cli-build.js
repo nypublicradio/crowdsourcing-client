@@ -16,7 +16,7 @@ module.exports = function(defaults) {
       vendor: mergeTrees(['vendor', normalizeTree])
     },
     fingerprint: {
-      prepend: process.env.FINGERPRINT_PREPEND_URL
+      prepend: process.env.AWS_BUCKET_ROOT
     }
   });
 
