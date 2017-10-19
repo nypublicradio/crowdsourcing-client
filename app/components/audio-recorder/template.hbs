@@ -1,0 +1,25 @@
+<h2>Record Yourself</h2>
+
+<p>
+{{#if question.questionText}}
+  Press the record button and begin reading the script:
+{{else}}
+  Press the record button and begin telling your story.
+{{/if}}
+</p>
+
+{{{question.questionText}}}
+
+<div class="l-fixed-to-bottom">
+  {{#action-button
+    click=(action toggleRecord)
+    classNames=(if twilio.record.isRunning 'is-recording')}}
+    {{#if twilio.connect.isRunning}}
+      Connecting...
+    {{else if twilio.record.isRunning}}
+      Stop Recording
+    {{else}}
+      Start Recording
+    {{/if}}
+  {{/action-button}}
+</div>
