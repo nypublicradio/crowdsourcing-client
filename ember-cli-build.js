@@ -14,6 +14,9 @@ module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     trees: {
       vendor: mergeTrees(['vendor', normalizeTree])
+    },
+    fingerprint: {
+      prepend: process.env.FINGERPRINT_PREPEND_URL
     }
   });
 
