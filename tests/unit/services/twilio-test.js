@@ -7,11 +7,10 @@ import TwilioStub from '../../helpers/twilio-stub';
 moduleFor('service:twilio', 'Unit | Service | twilio', {
   beforeEach() {
     this.server = startMirage();
-    window.Twilio = TwilioStub;
+    window.Twilio = TwilioStub();
   },
   afterEach() {
     this.server.shutdown();
-    Object.keys(TwilioStub.Device).forEach(k => TwilioStub.Device[k].reset());
     delete window.Twilio;
   }
 });
