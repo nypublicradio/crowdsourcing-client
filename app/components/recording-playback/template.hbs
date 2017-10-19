@@ -1,0 +1,13 @@
+{{#unless noAudio}}
+<button class="play-button" disabled={{not isReady}} {{action 'playOrPause'}}>
+  {{#if isReady}}
+    {{if isPlaying 'Pause' 'Play'}}
+  {{else}}
+    Processing Audio...
+  {{/if}}
+</button>
+{{else}}
+<p>
+  There seems to be a problem loading the audio for call id: <code>{{connection.parameters.CallSid}}</code>. Please tell digital ops.
+</p>
+{{/unless}}
