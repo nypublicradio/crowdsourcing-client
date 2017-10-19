@@ -22,8 +22,8 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
-    twilioBackend: process.env.TWILIO_BACKEND || 'https://api.demo.nypr.digital/twilio',
     crowdsourcingService: process.env.CROWDSOURCING_SERVICE || 'https://api.demo.nypr.digital/crowdsourcing',
+    twilioService: process.env.TWILIO_SERVICE || 'https://api.demo.nypr.digital/twilio',
     twilioNumber: process.env.TWILIO_NUMBER || 16464551709,
     emberHifi: {
       connections: [{
