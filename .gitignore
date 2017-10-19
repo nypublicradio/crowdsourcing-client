@@ -21,3 +21,10 @@ testem.log
 .node_modules.ember-try/
 bower.json.ember-try
 package.json.ember-try
+
+# cruft n stuff
+.*~
+.*sw*
+.env
+.env.deploy*
+!.env.deploy.sample
