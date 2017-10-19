@@ -9,12 +9,12 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: node-deps-{{ checksum "package-lock.json" }}
+          key: node-deps-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
       - run:
           name: Install node dependencies
           command: npm i
       - save_cache:
-          key: node-deps-{{ checksum "package-lock.json" }}
+          key: node-deps-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
           paths:
             - node_modules
 
@@ -27,7 +27,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: node-deps-{{ checksum "package-lock.json" }}
+          key: node-deps-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
       - run:
           name: Test
           command: ./node_modules/ember-cli/bin/ember test
@@ -40,7 +40,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: node-deps-{{ checksum "package-lock.json" }}
+          key: node-deps-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
       - run:
           name: Deploy to S3
           command: |
