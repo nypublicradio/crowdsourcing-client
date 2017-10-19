@@ -29,6 +29,8 @@ export default function() {
   this.passthrough('https://media.twiliocdn.com/**');
   this.passthrough('https://eventgw.twilio.com/**');
   this.passthrough('https://api.demo.nypr.digital/twilio/token');
+  this.passthrough(`${config.crowdsourcingService}/**`);
+  this.passthrough(`${config.twilioService}/**`);
 }
 
 export function testConfig() {
