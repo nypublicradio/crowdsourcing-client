@@ -16,7 +16,7 @@ jobs:
       - save_cache:
           key: node-deps-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
           paths:
-            - node_modules
+            - ./node_modules
 
   test:
     docker:
