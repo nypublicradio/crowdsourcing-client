@@ -7,6 +7,9 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('survey', {path: ':id'}, function() {
+    this.route('step', {path: ':step'});
+  });
 });
 
 export default Router;
