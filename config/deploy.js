@@ -29,6 +29,7 @@ module.exports = function(deployTarget) {
       bucket: process.env.AWS_BUCKET,
       region: process.env.AWS_REGION,
       prefix: process.env.AWS_PREFIX,
+      allowOverwrite: true,
     }
   };
 
