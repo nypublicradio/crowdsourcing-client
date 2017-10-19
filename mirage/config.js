@@ -26,6 +26,9 @@ export default function() {
     http://www.ember-cli-mirage.com/docs/v0.3.x/shorthands/
   */
   
+  this.passthrough('https://media.twiliocdn.com/**');
+  this.passthrough('https://eventgw.twilio.com/**');
+  this.passthrough('https://api.demo.nypr.digital/twilio/token');
 }
 
 export function testConfig() {
