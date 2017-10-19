@@ -24,6 +24,14 @@ module.exports = function(environment) {
     },
     twilioBackend: process.env.TWILIO_BACKEND || 'https://api.demo.nypr.digital/twilio',
     twilioNumber: process.env.TWILIO_NUMBER || 16464551709,
+    emberHifi: {
+      connections: [{
+        name: 'Howler',
+        options: {
+          html5: false
+        }
+      }],
+    },
   };
 
   if (environment === 'development') {
