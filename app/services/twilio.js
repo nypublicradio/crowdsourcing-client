@@ -10,7 +10,6 @@ let timesFocused = 0;
 let intentToRecord = false;
 
 export default Service.extend({
-  timesFocused: 0,
   connections:  [],
   errors: {
     setup:      [],
