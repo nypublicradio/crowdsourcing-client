@@ -23,7 +23,7 @@ export default Service.extend({
   init() {
     this._super(...arguments);
     if (typeof window.Twilio === 'undefined') {
-      throw new Error('Twilio SDK is not loaded.');
+      console.warn('Twilio SDK is not loaded.'); // eslint-disable-line
     }
     window.addEventListener('focus', this.get('focusHandler'), false);
     this.set('sampler', bind(this, 'sampleAnalyser'));
