@@ -6,19 +6,7 @@ moduleForComponent('personal-info', 'Integration | Component | personal info', {
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   this.render(hbs`{{personal-info}}`);
 
   assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#personal-info}}
-      template block text
-    {{/personal-info}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
 });
