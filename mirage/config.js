@@ -26,6 +26,11 @@ export default function() {
     http://www.ember-cli-mirage.com/docs/v0.3.x/shorthands/
   */
   
+  // this audio file is served by the express server configured for development in the /server directory
+  // see the /status rule below
+  // NOTE this must come first because we can't reset the urlPrefix value to an empty string
+  this.passthrough('/static/silence.mp3');
+  
   this.passthrough('https://media.twiliocdn.com/**');
   this.passthrough('https://eventgw.twilio.com/**');
   this.passthrough('https://api.demo.nypr.digital/twilio/token');
@@ -35,6 +40,10 @@ export default function() {
 
   this.urlPrefix = config.crowdsourcingService;
   this.get('/survey/:id', 'survey');
+  
+  this.urlPrefix = config.twilioService;
+  // in development just point to a local static asset
+  this.get('/status', {path: '/static/silence.mp3'});
 }
 
 export function testConfig() {
