@@ -1,1 +1,7 @@
-{{component which survey=survey next=(action next)}}
+{{#if (eq step '1')}}
+  {{audio-recorder next=(action next)}}
+{{else if (eq step '2')}}
+  {{playback-button callId=progress.connection.parameters.CallSid next=(action next)}}
+{{else if (eq step '3')}}
+  {{personal-info next=(action next)}}
+{{/if}}
