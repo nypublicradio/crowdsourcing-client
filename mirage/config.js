@@ -31,6 +31,7 @@ export default function() {
   this.passthrough('https://api.demo.nypr.digital/twilio/token');
   this.passthrough(`${config.crowdsourcingService}/**`);
   this.passthrough(`${config.twilioService}/**`);
+  this.passthrough('https://demo-apps.nypr.org/**');
 }
 
 export function testConfig() {
