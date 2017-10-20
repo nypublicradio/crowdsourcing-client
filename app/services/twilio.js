@@ -1,7 +1,6 @@
 import Service from '@ember/service';
 import { bind } from '@ember/runloop';
 import { reads, union } from '@ember/object/computed';
-import { later, cancel } from '@ember/runloop';
 import { task } from 'ember-concurrency';
 import fetch from 'fetch';
 import config from '../config/environment';
@@ -9,9 +8,6 @@ import config from '../config/environment';
 let isMobileDevice = 'ontouchstart' in window;
 let timesFocused = 0;
 let intentToRecord = false;
-
-const NO_AUDIO = 'noaudio';
-const NOT_READY = 'AUDIO_NOT_READY';
 
 export default Service.extend({
   timesFocused: 0,
@@ -90,32 +86,6 @@ export default Service.extend({
   
   disconnect() {
     Twilio.Device.disconnectAll();
-  },
-  
-  getRecordingURL(callSid) {
-    return new Promise(resolve => {
-      let times = 0;
-      let isCleared;
-      let id = later(function interval(){
-        if (times >= 10) {
-          cancel(id)
-          return NO_AUDIO;
-        }
-        
-        fetch(`${config.twilioService}/status?client=${callSid}`)
-          .then(r => r.json())
-          .then(res => {
-            times++;
-            if (isCleared || res.message && res.message === NOT_READY) {
-              id = later(interval, 1000);
-              return;
-            }
-            resolve(res.path);
-            cancel(id);
-            isCleared = true;
-          })
-      }, 1000);
-    });
   },
 
   sampleAnalyser(sample) {
