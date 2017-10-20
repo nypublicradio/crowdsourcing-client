@@ -5,7 +5,13 @@
 {{#if (eq step '1')}}
   {{audio-recorder next=(action next)}}
 {{else if (eq step '2')}}
-  {{playback-button callId=progress.connection.parameters.CallSid next=(action next)}}
+  {{#playback-screen callId=progress.connection.parameters.CallSid as |url isReady|}}
+    
+    {{#action-button click=(action next (hash key='url' value=url)) disabled=(not isReady)}}
+      Use This Recording
+    {{/action-button}}
+  
+  {{/playback-screen}}
 {{else if (eq step '3')}}
   {{personal-info next=(action next)}}
 {{/if}}
