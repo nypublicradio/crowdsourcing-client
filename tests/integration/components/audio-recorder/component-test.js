@@ -1,24 +1,14 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { moduleForComponent } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import test from 'ember-sinon-qunit/test-support/test';
 
 moduleForComponent('audio-recorder', 'Integration | Component | audio recorder', {
   integration: true
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  this.set('twilio', this.spy());
+  this.render(hbs`{{audio-recorder twilio=twilio}}`);
 
-  this.render(hbs`{{audio-recorder}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#audio-recorder}}
-      template block text
-    {{/audio-recorder}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.ok(this.$().text().match('Record Yourself'));
 });

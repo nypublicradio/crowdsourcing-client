@@ -6,19 +6,7 @@ moduleForComponent('playback-button', 'Integration | Component | playback button
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   this.render(hbs`{{playback-button}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#playback-button}}
-      template block text
-    {{/playback-button}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$('.playback-button').length, 1);
 });

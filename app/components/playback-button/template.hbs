@@ -1,5 +1,5 @@
 {{#unless noAudio}}
-<button class="play-button" disabled={{initAudio.isRunning}} {{action 'playOrPause'}}>
+<button class="playback-button" disabled={{initAudio.isRunning}} {{action 'playOrPause'}}>
   {{#if initAudio.isIdle}}
     {{if isPlaying 'Pause' 'Play'}}
   {{else}}

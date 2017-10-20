@@ -5,6 +5,8 @@ export default Component.extend({
   progress: service(),
   router:   service(),
   
+  classNames: ['audio-survey-manager'],
+  
   next({ key, value }) {
     let step = parseInt(this.get('step'), 10);
     this.get('progress.cache').set(key, value);
