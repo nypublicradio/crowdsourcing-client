@@ -11,5 +11,9 @@ export default Component.extend({
     let step = parseInt(this.get('step'), 10);
     this.get('progress.cache').set(key, value);
     this.get('router').transitionTo('survey.step', step + 1);
+  },
+  
+  finish() {
+    this.get('router').transitionTo('survey.thank-you');
   }
 });
