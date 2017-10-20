@@ -47,6 +47,7 @@
     "ember-sinon": "^1.0.1",
     "ember-sinon-qunit": "^2.0.0",
     "ember-source": "~2.16.0",
+    "ember-truth-helpers": "^2.0.0",
     "loader.js": "^4.2.3",
     "normalize.css": "^7.0.0"
   },
