@@ -22,6 +22,7 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+    audioPollTimeout: 1000,
     crowdsourcingService: process.env.CROWDSOURCING_SERVICE || 'https://api.demo.nypr.digital/crowdsourcing',
     twilioService: process.env.TWILIO_SERVICE || 'https://api.demo.nypr.digital/twilio',
     twilioNumber: process.env.TWILIO_NUMBER || 16464551709,
