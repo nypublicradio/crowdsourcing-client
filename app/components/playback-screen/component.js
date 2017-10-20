@@ -9,8 +9,8 @@ const NO_AUDIO = 'noaudio';
 const NOT_READY = 'AUDIO_NOT_READY';
 
 export default Component.extend({
-  tagName:   '',
-  timeout:   config.audioPollTimeout,
+  timeout:    config.audioPollTimeout,
+  classNames: ['playback-screen'],
 
   hifi:      service(),
   isPlaying: computed('hifi.isPlaying', 'hifi.currentSound', function() {
@@ -29,9 +29,8 @@ export default Component.extend({
       this.set('noAudio', true);
     } else {
       this.set('url', url);
-      this.get('hifi').load(url).then(({sound}) => {
-        this.set('sound', sound);
-      });
+      yield this.get('hifi').load(url);
+      return true;
     }
   }),
   pollForAudio: task(function * (callSid) {
