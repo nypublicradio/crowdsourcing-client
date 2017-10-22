@@ -1,5 +1,11 @@
 <div class="audio-survey-header">
-  step {{step}} of 3
+  {{#if backText}}
+  <button {{action (if (eq step '2') back cancel)}}>{{backText}}</button>
+  {{/if}}
+  
+  <span>
+    step {{step}} of 3
+  </span>
 </div>
 
 {{#if (eq step '1')}}
