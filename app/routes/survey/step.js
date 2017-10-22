@@ -4,7 +4,7 @@ export default Route.extend({
   model({ step }) {
     return {
       step,
-      survey: this.modelFor('survey')
+      survey: this.modelFor('survey').survey
     };
   },
   setupController(controller, { survey }) {
