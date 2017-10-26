@@ -1,6 +1,17 @@
 {{#each personalQuestions as |question|}}
 <p>
   {{input value=(get changeset question.shortName) placeholder=question.label}}
+  {{#if (get changeset.error question.shortName)}}
+  <small>
+    <ul>
+      {{#each (get (get changeset.error question.shortName) 'validation') as |message|}}
+      <li>
+        {{message}}
+      </li>
+      {{/each}}
+    </ul>
+  </small>
+  {{/if}}
 </p>
 {{/each}}
 {{input type='submit' value='Submit Your Recording'}}
