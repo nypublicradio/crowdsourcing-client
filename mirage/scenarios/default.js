@@ -6,11 +6,17 @@ export default function(server) {
   */
 
   // required questions for dev testing
-  let firstName = server.create('question', {shortName: 'first-name', type: 't'});
-  let lastName = server.create('question', {shortName: 'last-name', type: 't'});
-  let email = server.create('question', {shortName: 'email', type: 'e'});
-  let audio = server.create('question', {shortName: 'audio', type: 'a'});
+  let audio =     {shortName: 'audio', inputType: 'a'};
+  let email =     {shortName: 'email', inputType: 'e', label: 'Email'};
+  let lastName =  {shortName: 'last-name', inputType: 't', label: 'Last name'};
+  let firstName = {shortName: 'first-name', inputType: 't', label: 'First name'};
+  
   server.createList('survey', 10, {
-    questions: [firstName, lastName, email, audio]
+    questions: [
+      server.create('question', audio),
+      server.create('question', firstName),
+      server.create('question', lastName),
+      server.create('question', email),
+    ]
   });
 }
