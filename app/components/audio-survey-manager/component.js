@@ -34,6 +34,12 @@ export default Component.extend({
   },
   
   finish() {
+    let audioUrl = this.get('audioUrl');
+    let audioField = this.get('survey.audioQuestions.firstObject');
+    let submission = this.get('submission');
+
+    submission.set(`answers.${audioField.get('shortName')}`, audioUrl);
+
     this.get('submission').save()
       .then(() => {
         this.get('router').transitionTo('survey.thank-you');
