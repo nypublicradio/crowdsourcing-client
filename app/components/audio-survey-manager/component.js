@@ -43,9 +43,4 @@ export default Component.extend({
   cancel() {
     this.get('router').transitionTo('survey.cancel');
   },
-  
-  validate({ key, newValue, oldValue, changes, content }) {
-    console.log(arguments);
-    return true
-  }
 });
