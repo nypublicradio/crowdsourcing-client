@@ -33,7 +33,7 @@ export default Component.extend({
         }
       })
       .catch(() => {
-        console.log('errored in validate');
+        console.log('errored in validate'); // eslint-disable-line
       });
   },
 });

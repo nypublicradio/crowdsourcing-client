@@ -14,8 +14,8 @@ export default Route.extend({
     if (survey.get('hasAudioQuestion')) {
       controller.set('surveyType', 'audio');
     } else {
-      console.log('could not find an audio question');
-      survey.get('questions').then(qs => qs.forEach(q => console.log(q.get('inputType'))));
-;   }
+      console.log('could not find an audio question'); // eslint-disable-line
+      survey.get('questions').then(qs => qs.forEach(q => console.log(q.get('inputType')))); // eslint-disable-line
+    }
   }
 });

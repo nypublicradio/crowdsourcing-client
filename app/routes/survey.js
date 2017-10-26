@@ -13,6 +13,6 @@ export default Route.extend({
   },
   
   error() {
-    console.log(arguments)
+    console.log(arguments); // eslint-disable-line
   }
 });
