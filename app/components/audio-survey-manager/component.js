@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
+import { reads } from '@ember/object/computed';
 
 export default Component.extend({
   router:   service(),
@@ -9,6 +10,8 @@ export default Component.extend({
   classNames: ['audio-survey-manager'],
   
   backText:   computed('step', function() {
+  callId:   reads('progress.connection.parameters.CallSid'),
+  audioUrl: reads('progress.url'),
     switch(this.get('step')) {
       case '2':
       return 'Re-Record';

@@ -11,7 +11,7 @@
 {{#if (eq step '1')}}
   {{audio-recorder next=(action next)}}
 {{else if (eq step '2')}}
-  {{#playback-screen callId=progress.connection.parameters.CallSid as |url isReady|}}
+  {{#playback-screen callId=callId as |url isReady|}}
     
     {{#action-button click=(action next (hash key='url' value=url)) disabled=(not isReady)}}
       Use This Recording
