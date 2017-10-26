@@ -40,6 +40,7 @@ export default function() {
 
   this.urlPrefix = config.crowdsourcingService;
   this.get('/survey/:id', 'survey');
+  this.post('/submission');
   
   this.urlPrefix = config.twilioService;
   // in development just point to a local static asset
