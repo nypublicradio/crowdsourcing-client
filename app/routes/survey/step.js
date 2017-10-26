@@ -2,9 +2,11 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   model({ step }) {
+    let { survey, submission } = this.modelFor('survey');
     return {
       step,
-      survey: this.modelFor('survey').survey
+      survey,
+      submission
     };
   },
   setupController(controller, { survey }) {
