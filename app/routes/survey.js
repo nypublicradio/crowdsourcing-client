@@ -5,9 +5,6 @@ export default Route.extend({
     return this.store.findRecord('survey', id)
       .then(survey => {
         let submission = this.store.createRecord('submission', { survey });
-        let answers = {};
-        survey.get('questions').mapBy('shortName').forEach(k => answers[k] = '');
-        submission.set('answers', answers);
         return {
           survey,
           submission
