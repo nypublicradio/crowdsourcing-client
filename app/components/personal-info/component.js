@@ -1,20 +1,24 @@
 import Component from '@ember/component';
-// import Changeset from 'ember-changeset';
+import Changeset from 'ember-changeset';
 import { filter } from '@ember/object/computed';
+import makeSubmissionValidations from '../../validations/submission';
+import lookupValidator from 'ember-changeset-validations';
 
 export default Component.extend({
   tagName:    'form',
   classNames: ['personal-info'],
-  // 
-  // init() {
-  //   this._super(...arguments);
-  //   let changeset = new Changeset(this.get('submission.answers'), this.get('validate'));
-  //   this.set('changeset', changeset);
-  // },
   
   personalQuestions: filter('questions', q => {
     return ['first-name', 'last-name', 'email'].includes(q.get('shortName'));
   }),
+  
+  init() {
+    this._super(...arguments);
+    let validations = makeSubmissionValidations(this.get('personalQuestions'));
+    let answers = this.get('submission.answers');
+    let changeset = new Changeset(answers, lookupValidator(validations), validations);
+    this.set('changeset', changeset);
+  },
   
   
   submit(e) {
