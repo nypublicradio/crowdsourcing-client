@@ -10,5 +10,9 @@ export default Route.extend({
           submission
         };
       });
+  },
+  
+  error() {
+    console.log(arguments)
   }
 });

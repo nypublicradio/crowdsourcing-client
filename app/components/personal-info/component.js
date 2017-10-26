@@ -31,6 +31,9 @@ export default Component.extend({
           changeset.execute();
           this.get('onSubmit')();
         }
+      })
+      .catch(() => {
+        console.log('errored in validate');
       });
   },
 });
