@@ -6,6 +6,6 @@ export default Component.extend({
   classNames: ['step-zero'],
 
   goTo(step) {
-    this.get('router').transitionTo('survey.step', this.get('survey'), step);
+    this.get('router').transitionTo('survey.step', step);
   }
 });
