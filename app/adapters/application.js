@@ -1,7 +1,8 @@
 import DS from 'ember-data';
+import { singularize } from 'ember-inflector';
 import config from '../config/environment';
 
 export default DS.JSONAPIAdapter.extend({
   host: config.crowdsourcingService,
-  pathForType: () => 'survey'
+  pathForType: modelName => singularize(modelName),
 });
