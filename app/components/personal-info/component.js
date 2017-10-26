@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 // import Changeset from 'ember-changeset';
-// import { filter } from '@ember/object/computed';
+import { filter } from '@ember/object/computed';
 
 export default Component.extend({
   tagName:    'form',
@@ -11,6 +11,10 @@ export default Component.extend({
   //   let changeset = new Changeset(this.get('submission.answers'), this.get('validate'));
   //   this.set('changeset', changeset);
   // },
+  
+  personalQuestions: filter('questions', q => {
+    return ['first-name', 'last-name', 'email'].includes(q.get('shortName'));
+  }),
   
   
   submit(e) {

@@ -1,4 +1,4 @@
-{{#each survey.questions as |question|}}
+{{#each personalQuestions as |question|}}
 <p>
   {{input value=(get changeset question.shortName) placeholder=question.label}}
 </p>
