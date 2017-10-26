@@ -6,6 +6,9 @@ export default DS.JSONAPISerializer.extend({
   serialize(snapshot/*, options*/) {
     let payload = this._super(...arguments);
     let questions = snapshot.record.get('survey.questions');
+    if (!questions) {
+      return payload;
+    }
     let { answers } = payload.data.attributes;
     payload.data.attributes.answers = [];
 

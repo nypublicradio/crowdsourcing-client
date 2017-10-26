@@ -6,7 +6,10 @@ moduleForComponent('personal-info', 'Integration | Component | personal info', {
 });
 
 test('it renders', function(assert) {
-  this.render(hbs`{{personal-info}}`);
+  this.set('submission', {
+    answers: {}
+  });
+  this.render(hbs`{{personal-info submission=submission}}`);
 
   assert.equal(this.$().text().trim(), '');
 });
