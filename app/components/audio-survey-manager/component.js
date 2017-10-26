@@ -34,10 +34,18 @@ export default Component.extend({
   },
   
   finish() {
-    this.get('router').transitionTo('survey.thank-you');
+    this.get('submission').save()
+      .then(() => {
+        this.get('router').transitionTo('survey.thank-you');
+      })
   },
   
   cancel() {
     this.get('router').transitionTo('survey.cancel');
+  },
+  
+  validate({ key, newValue, oldValue, changes, content }) {
+    console.log(arguments);
+    return true
   }
 });

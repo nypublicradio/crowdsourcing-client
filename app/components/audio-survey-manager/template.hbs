@@ -19,5 +19,9 @@
   
   {{/playback-screen}}
 {{else if (eq step '3')}}
-  {{personal-info onSubmit=(action finish)}}
+  {{personal-info
+    onSubmit=(action finish)
+    survey=survey
+    audioUrl=audioUrl
+    changeset=(changeset submission.answers validate)}}
 {{/if}}

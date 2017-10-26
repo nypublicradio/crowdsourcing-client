@@ -1,1 +1,6 @@
+{{#each survey.questions as |question|}}
+<p>
+  {{input value=(get changeset question.shortName) placeholder=question.label}}
+</p>
+{{/each}}
 {{input type='submit' value='Submit Your Recording'}}
