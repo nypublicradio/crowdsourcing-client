@@ -23,10 +23,13 @@ export default Component.extend({
   
   submit(e) {
     e.preventDefault();
-    this.get('changeset').save()
+    let changeset = this.get('changeset');
+    changeset
+      .validate()
       .then(() => {
-        if (this.get('onSubmit')) {
-          this.get('onSubmit')(this);
+        if (changeset.get('isValid')) {
+          changeset.execute();
+          this.get('onSubmit')();
         }
       });
   },
