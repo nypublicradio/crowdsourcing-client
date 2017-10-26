@@ -9,8 +9,8 @@ export default Component.extend({
   
   classNames: ['audio-survey-manager'],
 
-  callId:   reads('progress.connection.parameters.CallSid'),
-  audioUrl: reads('progress.url'),
+  callId:   reads('progress.cache.connection.parameters.CallSid'),
+  audioUrl: reads('progress.cache.url'),
   backText: computed('step', function() {
     switch(this.get('step')) {
       case '2':
