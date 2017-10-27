@@ -61,6 +61,7 @@ export default Component.extend({
   },
   actions: {
     playOrPause() {
+      this.$('.playback-button').blur();
       if (this.get('isPlaying')) {
         this.get('hifi').pause();
       } else {
