@@ -34,3 +34,8 @@ $audio-recorder__footer-height: 63px;
     max-width: 800px;
   }
 }
+
+.audio-recorder__button.is-recording {
+  background-color: $red;
+  color: white;
+}
