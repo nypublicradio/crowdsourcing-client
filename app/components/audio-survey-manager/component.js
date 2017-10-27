@@ -9,10 +9,10 @@ export default Component.extend({
   
   classNames: ['audio-survey-manager'],
 
-  callId:   reads('progress.cache.connection.parameters.CallSid'),
-  audioUrl: reads('progress.cache.url'),
-  backText: computed('step', function() {
+  callId:        reads('progress.cache.connection.parameters.CallSid'),
+  audioUrl:      reads('progress.cache.url'),
   audioQuestion: reads('survey.audioQuestions.firstObject'),
+  backText:      computed('step', function() {
     switch(this.get('step')) {
       case '2':
       return 'Re-Record';
