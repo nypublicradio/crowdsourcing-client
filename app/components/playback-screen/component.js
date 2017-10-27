@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
+import { htmlSafe } from '@ember/string';
 import { task, timeout } from 'ember-concurrency';
 import fetch from 'fetch';
 import config from '../../config/environment';
@@ -15,6 +16,12 @@ export default Component.extend({
   hifi:      service(),
   isPlaying: computed('hifi.isPlaying', 'hifi.currentSound', function() {
     return this.get('hifi.currentSound.url') === this.get('url') && this.get('hifi.isPlaying');
+  }),
+  percentPlayed: computed('hifi.position', 'hifi.duration', function() {
+    return (this.get('hifi.position') / this.get('hifi.duration')) * 100;
+  }),
+  progressWidth: computed('percentPlayed', function() {
+    return htmlSafe(`width: ${this.get('percentPlayed')}%;`);
   }),
   
   init() {
