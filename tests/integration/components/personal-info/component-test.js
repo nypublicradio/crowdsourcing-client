@@ -11,5 +11,5 @@ test('it renders', function(assert) {
   });
   this.render(hbs`{{personal-info submission=submission}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$('.personal-info').length, 1);
 });
