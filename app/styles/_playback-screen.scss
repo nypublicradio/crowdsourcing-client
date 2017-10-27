@@ -1,0 +1,57 @@
+@import "mixins/buttons";
+@import "mixins/colors";
+
+.playback-screen__header {
+  position: relative;
+  margin-bottom: 15px;
+  border-top: 1px solid $nearwhite;
+  border-bottom: 1px solid $nearwhite;
+  padding: 10px;
+  
+  display: flex;
+  align-items: center;
+  
+  text-transform: uppercase;
+  font-family: "Oswald", sans-serif;
+}
+
+.playback-button {
+  @include button-base;
+  display: inline-flex;
+  align-items: center;
+  
+  color: $teal;
+  text-transform: uppercase;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-right: 15px;
+  
+  &:focus {
+    outline: none;
+    color: black;
+  }
+}
+
+.playback-play {
+  display: inline-block;
+  height: 0;
+  width: 0;
+  border-left: 10px solid $teal;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  margin-right: 8px;
+}
+
+.playback-screen__progress {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  
+  background-color: $nearwhite;
+  
+  transition: width 150ms ease;
+}

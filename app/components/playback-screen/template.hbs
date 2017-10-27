@@ -1,15 +1,26 @@
-{{#unless noAudio}}
-<button class="playback-button" disabled={{initAudio.isRunning}} {{action 'playOrPause'}}>
-  {{#if initAudio.isIdle}}
-    {{if isPlaying 'Pause' 'Play'}}
+<div class="playback-screen__header">
+  <div class="playback-screen__progress" style={{progressWidth}}></div>
+  {{#unless noAudio}}
+  <button class="playback-button" disabled={{initAudio.isRunning}} {{action 'playOrPause'}}>
+    {{#if initAudio.isIdle}}
+      {{#if isPlaying}}
+      <span class="playback-pause"></span> Pause
+      {{else}}
+      <span class="playback-play"></span> Listen
+      {{/if}}
+    {{else}}
+      Processing Audio...
+    {{/if}}
+  </button>
+  
+  <span>
+    Your Recording
+  </span>
   {{else}}
-    Processing Audio...
-  {{/if}}
-</button>
-{{else}}
-<p>
-  There seems to be a problem loading the audio for call id: <code>{{callSid}}</code>. Please tell digital ops.
-</p>
-{{/unless}}
+  <p>
+    There seems to be a problem loading the audio for call id: <code>{{callSid}}</code>. Please tell digital ops.
+  </p>
+  {{/unless}}
+</div>
 
 {{yield url initAudio.isIdle}}
