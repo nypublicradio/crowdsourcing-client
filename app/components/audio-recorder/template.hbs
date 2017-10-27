@@ -14,7 +14,7 @@
   </p>
 {{/if}}
 
-<div class="l-fixed-to-bottom">
+<div class="audio-recorder__footer{{if question.questionText ' l-fixed-to-bottom'}}">
   {{#action-button
     click=(action toggleRecord)
     classNames=(if twilio.record.isRunning 'is-recording')}}

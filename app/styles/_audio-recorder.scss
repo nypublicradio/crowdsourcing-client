@@ -1,10 +1,12 @@
 @import "mixins/text";
 
+$audio-recorder__footer-height: 63px;
 
 .audio-recorder {
   display: flex;
   flex-direction: column;
   flex: 1;
+  padding-bottom: $audio-recorder__footer-height;
 }
 
 .audio-recorder__title {
@@ -17,4 +19,18 @@
   font-style: oblique;
   letter-spacing: 0.25px;
   overflow-y: scroll;
+}
+
+.audio-recorder__footer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: white;
+  height: $audio-recorder__footer-height;
+  
+  &.l-fixed-to-bottom {
+    padding: 0 15px;
+    margin: auto;
+    max-width: 800px;
+  }
 }
