@@ -9,7 +9,7 @@
 </div>
 
 {{#if (eq step '1')}}
-  {{audio-recorder next=(action next)}}
+  {{audio-recorder question=audioQuestion next=(action next)}}
 {{else if (eq step '2')}}
   {{#playback-screen callId=callId as |url isReady|}}
     

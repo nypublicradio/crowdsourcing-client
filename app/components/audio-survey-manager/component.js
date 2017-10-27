@@ -12,6 +12,7 @@ export default Component.extend({
   callId:   reads('progress.cache.connection.parameters.CallSid'),
   audioUrl: reads('progress.cache.url'),
   backText: computed('step', function() {
+  audioQuestion: reads('survey.audioQuestions.firstObject'),
     switch(this.get('step')) {
       case '2':
       return 'Re-Record';
