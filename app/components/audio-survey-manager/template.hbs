@@ -1,6 +1,6 @@
-<div class="audio-survey__header">
+<div class="audio-survey__header step-{{step}}">
   {{#if backText}}
-  <button {{action (if (eq step '2') back cancel)}}>{{backText}}</button>
+    <button class="audio-survey-header-button" {{action (if (eq step '2') back cancel)}}>{{backText}}</button>
   {{/if}}
   
   <span>

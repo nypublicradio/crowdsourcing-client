@@ -1,3 +1,4 @@
+@import "mixins/buttons";
 @import "mixins/colors";
 
 .audio-survey-manager {
@@ -7,8 +8,27 @@
 }
 
 .audio-survey__header {
-  text-align: right;
+  display: flex;
   border-bottom: 1px solid $lightgray;
   padding: 20px 0 10px;
   margin-bottom: 20px;
+  
+  &.step-2 {
+    justify-content: space-between;
+  }
+}
+
+.audio-survey-header-button {
+  @include button-base;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  
+  .step-2 > &:before {
+    content: "\2039";
+    font-size: 22px;
+    font-family: "Open Sans";
+    font-weight: 100;
+    display: inline-block;
+    margin-right: 5px;
+  }
 }
