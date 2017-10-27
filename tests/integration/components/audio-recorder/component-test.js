@@ -10,5 +10,5 @@ test('it renders', function(assert) {
   this.set('twilio', this.spy());
   this.render(hbs`{{audio-recorder twilio=twilio}}`);
 
-  assert.ok(this.$().text().match('Record Yourself'));
+  assert.equal(this.$('.audio-recorder').length, 1);
 });

@@ -11,7 +11,7 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{action-button}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.equal(this.$('.aciton-button').length, 1);
 
   // Template block usage:
   this.render(hbs`
