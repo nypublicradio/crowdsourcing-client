@@ -1,0 +1,6 @@
+@import "mixins/text";
+
+.cancel__header {
+  @include page-title;
+  margin: 20px 0;
+}
