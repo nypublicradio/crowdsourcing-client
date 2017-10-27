@@ -1,3 +1,4 @@
+@import "mixins/colors";
 @import "mixins/text";
 
 $audio-recorder__footer-height: 63px;
@@ -38,4 +39,33 @@ $audio-recorder__footer-height: 63px;
 .audio-recorder__button.is-recording {
   background-color: $red;
   color: white;
+}
+
+.record-icon {
+  display: inline-block;
+  position: relative;
+  background-color: $red;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: -3px;
+    bottom: -3px;
+    right: -3px;
+    border: 1px solid $red;
+    border-radius: 50%;
+  }
+}
+
+.stop-icon {
+  display: inline-block;
+  height: 13px;
+  width: 13px;
+  background-color: white;
+  margin-right: 5px;
 }
