@@ -1,3 +1,12 @@
+@import "mixins/colors";
+@import "mixins/text";
+@import "mixins/buttons";
+
+.personal-info__title {
+  @include page-title;
+  margin-bottom: 25px;
+}
+
 .personal-info__input {
   display: block;
   width: 100%;
@@ -18,3 +27,10 @@
   @include neon-button;
 }
 
+.personal-privacy {
+  display: block;
+  color: $gray;
+  text-decoration: none;
+  margin-bottom: 25px;
+  font-size: 12px;
+}

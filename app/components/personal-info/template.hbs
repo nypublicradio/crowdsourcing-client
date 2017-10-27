@@ -1,3 +1,5 @@
+<h2 class="personal-info__title">Enter your info</h2>
+
 {{#each personalQuestions as |question|}}
 
   {{input class="personal-info__input" value=(get changeset question.shortName) placeholder=question.label}}
@@ -14,5 +16,7 @@
   </small>
   {{/if}}
 {{/each}}
+
+<a href="http://www.wnyc.org/privacy/" class="personal-privacy" target="_blank" rel="help">Privacy Policy</a>
 
 {{input class="personal-info__submit" type='submit' value='Submit Your Recording'}}
