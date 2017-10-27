@@ -1,14 +1,18 @@
 <h2 class="audio-recorder__title">Record Yourself</h2>
 
-<p>
 {{#if question.questionText}}
-  Press the record button and begin reading the script:
-{{else}}
-  Press the record button and begin telling your story.
-{{/if}}
-</p>
+  <p>
+    Press the record button and begin reading the script:
+  </p>
 
-{{{question.questionText}}}
+  <p class="audio-recorder__script">
+    {{{question.questionText}}}
+  </p>
+{{else}}
+  <p>
+    Press the record button and begin telling your story.
+  </p>
+{{/if}}
 
 <div class="l-fixed-to-bottom">
   {{#action-button

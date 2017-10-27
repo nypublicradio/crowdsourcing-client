@@ -1,5 +1,11 @@
 @import "mixins/colors";
 
+.audio-survey-manager {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .audio-survey__header {
   text-align: right;
   border-bottom: 1px solid $lightgray;
