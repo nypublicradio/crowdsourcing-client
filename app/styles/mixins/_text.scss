@@ -1,0 +1,14 @@
+@import "colors";
+
+@mixin page-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: black;
+}
+
+@mixin small-notice {
+  font-size: 12px;
+  line-height: 1.5;
+  color: $darkgray;
+}

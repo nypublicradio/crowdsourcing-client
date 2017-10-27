@@ -1,0 +1,13 @@
+@import "mixins/text";
+
+.step-zero {
+  padding-top: 40px;
+}
+
+.step-zero__title {
+  @include page-title;
+}
+
+.step-zero__notice {
+  @include small-notice;
+}
