@@ -1,0 +1,8 @@
+@import "mixins/colors";
+
+.audio-survey__header {
+  text-align: right;
+  border-bottom: 1px solid $lightgray;
+  padding: 20px 0 10px;
+  margin-bottom: 20px;
+}
