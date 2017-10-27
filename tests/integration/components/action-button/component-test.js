@@ -22,3 +22,7 @@ test('it renders', function(assert) {
 
   assert.equal(this.$().text().trim(), 'template block text');
 });
+
+test('it binds the disabled attribute');
+
+test('it fires a click handler');

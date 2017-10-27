@@ -10,3 +10,7 @@ test('it renders', function(assert) {
 
   assert.equal(this.$('.playback-screen').length, 1);
 });
+
+test('playOrPause plays back and the progress meter moves');
+
+test('it looks up the audio status with the given call id');

@@ -13,3 +13,9 @@ test('it renders', function(assert) {
 
   assert.equal(this.$('.personal-info').length, 1);
 });
+
+test('renders expected questions');
+
+test('submitting executes the changeset and calls onSubmit');
+
+test('error messages');

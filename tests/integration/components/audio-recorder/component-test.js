@@ -11,4 +11,11 @@ test('it renders', function(assert) {
   this.render(hbs`{{audio-recorder twilio=twilio}}`);
 
   assert.equal(this.$('.audio-recorder').length, 1);
+  
+  // assert text updates based on twilio states
+  // assert correct values from question are rendered
 });
+
+test('toggleRecord calls the correct twilio service API');
+
+test('it passes the correct values to next');
