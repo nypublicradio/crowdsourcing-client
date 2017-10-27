@@ -6,3 +6,19 @@
   padding: 0;
   cursor: pointer;
 }
+
+@mixin neon-button {
+  @include button-base;
+  
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  
+  background-color: $neon-yellow;
+  
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  
+  text-transform: uppercase;
+}
