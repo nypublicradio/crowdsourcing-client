@@ -2,12 +2,12 @@ import { moduleFor } from 'ember-qunit';
 import test from 'ember-sinon-qunit/test-support/test';
 import { next } from '@ember/runloop';
 import { startMirage } from 'nypr-audio-crowdsourcing/initializers/ember-cli-mirage';
-import TwilioStub from '../../helpers/twilio-stub';
+import { stubTwilioGlobal } from '../../helpers/twilio-stub';
 
 moduleFor('service:twilio', 'Unit | Service | twilio', {
   beforeEach() {
     this.server = startMirage();
-    window.Twilio = TwilioStub();
+    window.Twilio = stubTwilioGlobal();
   },
   afterEach() {
     this.server.shutdown();

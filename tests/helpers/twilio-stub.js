@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 
-export default function() {
+export function stubTwilioGlobal() {
   const TwilioDevice = {
     offline() {},
     setup() {},
