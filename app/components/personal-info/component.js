@@ -3,13 +3,14 @@ import Changeset from 'ember-changeset';
 import { filter } from '@ember/object/computed';
 import makeSubmissionValidations from '../../validations/submission';
 import lookupValidator from 'ember-changeset-validations';
+import { get } from '@ember/object';
 
 export default Component.extend({
   tagName:    'form',
   classNames: ['personal-info'],
   
   personalQuestions: filter('questions', q => {
-    return ['first-name', 'last-name', 'email'].includes(q.get('shortName'));
+    return ['first-name', 'last-name', 'email'].includes(get(q, 'shortName'));
   }),
   
   init() {
