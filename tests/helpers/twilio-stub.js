@@ -10,3 +10,19 @@ export function stubTwilioGlobal() {
   const Device = sinon.stub(TwilioDevice)
   return { Device };
 }
+
+export function stubTwilioService() {
+  const TwilioService = {
+    record: {
+      isIdle: null,
+      perform() {},
+    },
+    connect: {
+      perform() {}
+    },
+    disconnect() {},
+    currentConnection: {parameters: {CallSid: 'foo'}}
+  }
+  
+  return TwilioService;
+}
