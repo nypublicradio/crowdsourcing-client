@@ -2,7 +2,7 @@
 
 {{#each personalQuestions as |question|}}
 
-  {{input class="personal-info__input" value=(get changeset question.shortName) placeholder=question.label}}
+  {{input class="personal-info__input" value=(get changeset question.shortName) placeholder=question.label name=question.shortName}}
   
   {{#if (get changeset.error question.shortName)}}
   <small>
