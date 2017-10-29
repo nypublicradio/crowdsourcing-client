@@ -1,6 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { fillIn, click } from 'ember-native-dom-helpers';
+import { fillIn, click, findAll } from 'ember-native-dom-helpers';
 
 moduleForComponent('personal-info', 'Integration | Component | personal info', {
   integration: true
@@ -67,4 +67,31 @@ test('submitting executes the changeset and calls onSubmit', function(assert) {
   });
 });
 
-test('error messages');
+test('error messages', function(assert) {
+  let done = assert.async();
+  let questions = [{
+    shortName: 'first-name',
+    required: true,
+  }, {
+    shortName: 'last-name'
+  }, {
+    shortName: 'email',
+    inputType: 'e'
+  }];
+  let submission = { answers: {} };
+
+  this.setProperties({ questions, submission });
+  this.render(hbs`{{personal-info questions=questions submission=submission}}`);
+
+  fillIn('[name=last-name]', 'bar').then(() => {
+    fillIn('[name=email]', 'woops').then(() => {
+      click('.personal-info__submit').then(() => {
+        let errors = findAll('.personal-info__errors li');
+        assert.equal(errors[0].textContent.trim(), 'First name can\'t be blank');
+        assert.equal(errors[1].textContent.trim(), 'Email must be a valid email address');
+        done();
+      })
+    });
+  });
+
+});
