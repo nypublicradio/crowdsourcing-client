@@ -30,7 +30,10 @@ export default Component.extend({
       .then(() => {
         if (changeset.get('isValid')) {
           changeset.execute();
-          this.get('onSubmit')();
+          let onSubmit = this.get('onSubmit');
+          if (onSubmit) {
+            onSubmit();
+          }
         }
       })
       .catch(() => {
