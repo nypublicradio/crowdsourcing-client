@@ -5,7 +5,7 @@
   {{input class="personal-info__input" value=(get changeset question.shortName) placeholder=question.label name=question.shortName}}
   
   {{#if (get changeset.error question.shortName)}}
-  <small>
+  <small class="personal-info__errors">
     <ul>
       {{#each (get (get changeset.error question.shortName) 'validation') as |message|}}
       <li>
