@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { get } from "@ember/object";
 
 export default Component.extend({
   classNames: ['audio-recorder'],
@@ -8,12 +9,15 @@ export default Component.extend({
   
   toggleRecord() {
     let twilio = this.get('twilio');
-    if (twilio.get('record.isIdle')) {
-      twilio.get('record').perform();
+    if (get(twilio, 'record.isIdle')) {
+      get(twilio, 'record').perform();
     } else {
       twilio.disconnect();
-      let connection = twilio.get('currentConnection');
-      this.get('next')({ key: 'connection', value: connection });
+      let connection = get(twilio, 'currentConnection');
+      let next = this.get('next');
+      if (next) {
+        next({ key: 'connection', value: connection });
+      }
     }
   }
 });
