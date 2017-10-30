@@ -21,7 +21,9 @@ export function stubTwilioService() {
       perform() {}
     },
     disconnect() {},
-    currentConnection: {parameters: {CallSid: 'foo'}}
+    currentConnection: {parameters: {CallSid: 'foo'}},
+    // Evented mixin
+    one() {},
   }
   
   return TwilioService;
