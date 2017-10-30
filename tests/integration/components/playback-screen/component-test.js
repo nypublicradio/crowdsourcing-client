@@ -34,6 +34,7 @@ test('playOrPause plays back and the progress meter moves', function(assert) {
     click('.playback-button');
     later(() => {
       assert.notEqual(find('.playback-screen__progress').style.width, '', 'width should be updated after playback has occurred');
+      assert.ok(find('.playback-pause'), 'pause button should be showing');
       asserted = true;
       server.shutdown();
       done();
