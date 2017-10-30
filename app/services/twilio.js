@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { bind } from '@ember/runloop';
 import { reads, union } from '@ember/object/computed';
+import Evented from '@ember/object/evented';
 import { task } from 'ember-concurrency';
 import fetch from 'fetch';
 import config from '../config/environment';
@@ -9,7 +10,7 @@ let isMobileDevice = 'ontouchstart' in window;
 let timesFocused = 0;
 let intentToRecord = false;
 
-export default Service.extend({
+export default Service.extend(Evented, {
   connections:  [],
   errors: {
     setup:      [],
@@ -58,6 +59,7 @@ export default Service.extend({
   
   record: task(function * () {
     let connection = yield this.get('connect').perform();
+    this.trigger('twilio-connected', connection);
     try {
       yield new Promise((resolve, reject) => {
         connection.disconnect(resolve);
