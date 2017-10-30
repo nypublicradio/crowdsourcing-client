@@ -2,6 +2,7 @@ import { moduleForComponent } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import test from 'ember-sinon-qunit/test-support/test';
 import { stubTwilioService } from '../../../helpers/twilio-stub';
+import { click, find } from 'ember-native-dom-helpers';
 
 moduleForComponent('audio-recorder', 'Integration | Component | audio recorder', {
   integration: true
@@ -11,7 +12,7 @@ test('it renders', function(assert) {
   this.set('twilio', this.spy());
   this.render(hbs`{{audio-recorder twilio=twilio}}`);
 
-  assert.equal(this.$('.audio-recorder').length, 1);
+  assert.ok(find('.audio-recorder'));
   
   // assert text updates based on twilio states
   // assert correct values from question are rendered
@@ -26,11 +27,11 @@ test('toggleRecord calls the correct twilio service API', function(assert) {
   this.set('twilio', twilio);
   this.render(hbs`{{audio-recorder twilio=twilio}}`);
   
-  this.$('.action-button').click();
+  click('.action-button');
   
   twilio.record.isIdle = false;
   
-  this.$('.action-button').click();
+  click('.action-button');
   
   assert.ok(twilio.record.perform.calledOnce, 'performs record if task is idle');
   assert.ok(twilio.disconnect.calledOnce, 'disconnects if record is running');
@@ -45,7 +46,7 @@ test('it passes the correct values to next', function(assert) {
   })
   this.render(hbs`{{audio-recorder twilio=twilio next=next}}`);
   
-  this.$('.action-button').click();
+  click('.action-button');
 });
 
 test('it renders the expected attrs of the passed in question', function(assert) {
@@ -56,11 +57,11 @@ test('it renders the expected attrs of the passed in question', function(assert)
   this.set('question', question);
   this.render(hbs`{{audio-recorder question=question}}`);
   
-  assert.equal(this.$('.audio-recorder__script').text().trim(), questionText);
+  assert.equal(find('.audio-recorder__script').textContent.trim(), questionText);
   
   this.set('question.questionText', null);
   
-  assert.ok(this.$().text().match('Press the record button and begin telling your story.'), 'the text changes when there is no questionText');
+  assert.ok(find('.audio-recorder').textContent.match('Press the record button and begin telling your story.'), 'the text changes when there is no questionText');
 });
 
 test('UI updates', function(assert) {
@@ -68,13 +69,13 @@ test('UI updates', function(assert) {
   this.set('twilio', twilio);
   this.render(hbs`{{audio-recorder twilio=twilio}}`);
   
-  assert.equal(this.$('.action-button').text().trim(), 'Start Recording');
+  assert.equal(find('.action-button').textContent.trim(), 'Start Recording');
   
   this.set('twilio.connect.isRunning', true);
-  assert.equal(this.$('.action-button').text().trim(), 'Connecting...');
+  assert.equal(find('.action-button').textContent.trim(), 'Connecting...');
   
   this.set('twilio.connect.isRunning', false);
   this.set('twilio.record.isRunning', true);
-  assert.equal(this.$('.action-button').text().trim(), 'Stop Recording');
-  assert.ok(this.$('.audio-recorder__button.is-recording'), 'class name is updated');
+  assert.equal(find('.action-button').textContent.trim(), 'Stop Recording');
+  assert.ok(find('.audio-recorder__button.is-recording'), 'class name is updated');
 })
