@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
+import { computed, get, set } from '@ember/object';
 import { reads } from '@ember/object/computed';
 
 export default Component.extend({
@@ -25,7 +25,8 @@ export default Component.extend({
   
   next({ key, value }) {
     let step = parseInt(this.get('step'), 10);
-    this.get('progress.cache').set(key, value);
+    let cache = get(this, 'progress.cache');
+    set(cache, key, value);
     this.get('router').transitionTo('survey.step', step + 1);
   },
   
@@ -39,7 +40,7 @@ export default Component.extend({
     let audioField = this.get('survey.audioQuestions.firstObject');
     let submission = this.get('submission');
 
-    submission.set(`answers.${audioField.get('shortName')}`, audioUrl);
+    set(submission, `answers.${get(audioField, 'shortName')}`, audioUrl);
 
     this.get('submission').save()
       .then(() => {
