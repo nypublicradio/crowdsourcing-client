@@ -52,3 +52,18 @@ test('it looks up the audio status with the given call id', function(assert) {
   
   this.render(hbs`{{playback-screen callId=callId}}`);
 });
+
+test('it displays an error message if the audio can\'t be found', function(assert) {
+  let done = assert.async();
+  let server = startMirage();
+  server.get(`${config.twilioService}/status`, {message: 'AUDIO_NOT_READY'});
+  
+  this.set('callId', 'foo');
+  this.render(hbs`{{playback-screen callId=callId timeout=1}}`);
+  later(() => {
+    assert.ok(find('.playback-screen__error'), 'no audio error message should display')
+    assert.equal(find('code').textContent.trim(), 'foo', 'should display call ID');
+    server.shutdown();
+    done();
+  }, 500);
+});
