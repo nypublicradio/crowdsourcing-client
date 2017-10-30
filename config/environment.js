@@ -33,6 +33,7 @@ module.exports = function(environment) {
           html5: false
         }
       }],
+      positionInterval: 100
     },
   };
 
