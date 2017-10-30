@@ -17,8 +17,11 @@ export default Component.extend({
   isPlaying: computed('hifi.isPlaying', 'hifi.currentSound', function() {
     return this.get('hifi.currentSound.url') === this.get('url') && this.get('hifi.isPlaying');
   }),
-  percentPlayed: computed('hifi.position', 'hifi.duration', function() {
-    return (this.get('hifi.position') / this.get('hifi.duration')) * 100;
+  percentPlayed: computed('hifi.position', 'hifi.duration', {
+    get() {
+      return (this.get('hifi.position') / this.get('hifi.duration')) * 100;
+    },
+    set: (k, v) => v
   }),
   progressWidth: computed('percentPlayed', function() {
     return htmlSafe(`width: ${this.get('percentPlayed')}%;`);
@@ -26,6 +29,7 @@ export default Component.extend({
   
   init() {
     this._super(...arguments);
+    this.set('percentPlayed', 0);
     let callId = this.get('callId');
     this.get('initAudio').perform(callId);
   },
