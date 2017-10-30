@@ -1,8 +1,8 @@
 import { moduleForComponent } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import test from 'ember-sinon-qunit/test-support/test';
-import { stubTwilioService } from '../../../helpers/twilio-stub';
 import { click, find } from 'ember-native-dom-helpers';
+import { stubTwilioService } from '../../../helpers/twilio-stub';
 
 moduleForComponent('audio-recorder', 'Integration | Component | audio recorder', {
   integration: true
@@ -25,11 +25,12 @@ test('toggleRecord calls the correct twilio service API', function(assert) {
   twilio.disconnect = this.spy();
   
   this.set('twilio', twilio);
-  this.render(hbs`{{audio-recorder twilio=twilio}}`);
+  this.render(hbs`{{audio-recorder twilio=twilio disableButton=disableButton}}`);
   
   click('.action-button');
   
   twilio.record.isIdle = false;
+  this.set('disableButton', false);
   
   click('.action-button');
   
