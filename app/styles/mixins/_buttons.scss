@@ -5,6 +5,10 @@
   border: none;
   padding: 0;
   cursor: pointer;
+  
+  &[disabled] {
+    cursor: not-allowed;
+  }
 }
 
 @mixin neon-button {
