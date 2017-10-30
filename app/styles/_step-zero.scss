@@ -10,4 +10,8 @@
 
 .step-zero__notice {
   @include small-notice;
+  
+  > ul {
+    margin-bottom: 18px;
+  }
 }
