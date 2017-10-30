@@ -16,7 +16,7 @@
 
 <div class="audio-recorder__footer{{if question.questionText ' l-fixed-to-bottom'}}">
   {{#action-button
-    disabled=twilio.connect.isRunning
+    disabled=(or twilio.connect.isRunning disableButton)
     click=(action toggleRecord)
     class=(concat 'audio-recorder__button' (if twilio.record.isRunning ' is-recording'))}}
     {{#if twilio.connect.isRunning}}
