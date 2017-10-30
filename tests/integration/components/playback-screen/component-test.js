@@ -1,11 +1,11 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Test from 'ember-test';
+import { later } from '@ember/runloop';
+import { find, click } from 'ember-native-dom-helpers';
 import { dummyHifi } from 'nypr-audio-crowdsourcing/tests/helpers/hifi-integration-helpers';
 import { startMirage } from 'nypr-audio-crowdsourcing/initializers/ember-cli-mirage';
 import config from '../../../../config/environment';
-import { later } from '@ember/runloop';
-import { find, click } from 'ember-native-dom-helpers';
-import Test from 'ember-test';
 
 moduleForComponent('playback-screen', 'Integration | Component | playback screen', {
   integration: true
