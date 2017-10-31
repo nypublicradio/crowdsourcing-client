@@ -3,7 +3,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'nypr-audio-crowdsourcing',
+    modulePrefix: 'crowdsourcing-client',
     environment,
     rootURL: '/',
     locationType: 'auto',

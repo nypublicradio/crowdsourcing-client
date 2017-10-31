@@ -3,8 +3,8 @@ import hbs from 'htmlbars-inline-precompile';
 import Test from 'ember-test';
 import { later } from '@ember/runloop';
 import { find, click } from 'ember-native-dom-helpers';
-import { dummyHifi } from 'nypr-audio-crowdsourcing/tests/helpers/hifi-integration-helpers';
-import { startMirage } from 'nypr-audio-crowdsourcing/initializers/ember-cli-mirage';
+import { dummyHifi } from 'crowdsourcing-client/tests/helpers/hifi-integration-helpers';
+import { startMirage } from 'crowdsourcing-client/initializers/ember-cli-mirage';
 import config from '../../../../config/environment';
 
 moduleForComponent('playback-screen', 'Integration | Component | playback screen', {

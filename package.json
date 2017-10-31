@@ -1,8 +1,8 @@
 {
-  "name": "nypr-audio-crowdsourcing",
+  "name": "crowdsourcing-client",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for nypr-audio-crowdsourcing goes here",
+  "description": "Small description for crowdsourcing-client goes here",
   "license": "MIT",
   "author": "",
   "directories": {

@@ -1,7 +1,7 @@
 import { moduleFor } from 'ember-qunit';
 import test from 'ember-sinon-qunit/test-support/test';
 import { next } from '@ember/runloop';
-import { startMirage } from 'nypr-audio-crowdsourcing/initializers/ember-cli-mirage';
+import { startMirage } from 'crowdsourcing-client/initializers/ember-cli-mirage';
 import { stubTwilioGlobal } from '../../helpers/twilio-stub';
 
 moduleFor('service:twilio', 'Unit | Service | twilio', {
