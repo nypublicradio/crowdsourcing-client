@@ -138,6 +138,16 @@ The ember app is built, tested, and deployed using CircleCI as configured in the
 
 Because this app is deployed using `ember-cli-deploy` and associated plugins, you can also deploy the app from your local machine if you have the correct AWS permissions and environment variables set.
 
+You can use the sample deploy env file to set deploy-time environment variables. The file is named according to the deploy target, so if you wanted to deploy to demo, you would do:
+```sh
+$ cp .env.deploy.sample .env.deploy.demo
+```
+
+And once you've filled in the values in `.env.deploy.demo`, you can run this to deploy to our demo infrastructure:
+```sh
+$ ember deploy demo
+```
+
 ## Further Reading / Useful Links
 
 * [ember.js](https://emberjs.com/)
