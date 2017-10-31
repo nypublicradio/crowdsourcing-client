@@ -41,8 +41,7 @@ test('toggleRecord calls the correct twilio service API', function(assert) {
 test('it passes the correct values to next', function(assert) {
   let twilio = stubTwilioService();
   this.set('twilio', twilio);
-  this.set('next', function({key, value}) {
-    assert.equal(key, 'connection');
+  this.set('next', function(value) {
     assert.deepEqual(value, twilio.currentConnection);
   })
   this.render(hbs`{{audio-recorder twilio=twilio next=next}}`);

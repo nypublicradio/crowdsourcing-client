@@ -23,7 +23,7 @@ export default Component.extend({
     }
   }),
   
-  next({ key, value }) {
+  next(key, value) {
     let step = parseInt(this.get('step'), 10);
     let cache = get(this, 'progress.cache');
     set(cache, key, value);

@@ -25,7 +25,7 @@ export default Component.extend({
       let connection = get(twilio, 'currentConnection');
       let next = this.get('next');
       if (next) {
-        next({ key: 'connection', value: connection });
+        next(connection);
       }
     }
   }
