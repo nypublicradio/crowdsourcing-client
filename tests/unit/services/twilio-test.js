@@ -44,9 +44,9 @@ test('record calls connect and sets up the proper handlers', function(assert) {
   Twilio.Device.connect.returns({
     accept: this.stub().callsArg(0),
     disconnect: this.stub().callsArg(0),
-    error: this.mock().atLeast(2),
+    error: this.mock().twice(),
     _monitor: {
-      on: this.mock().atLeast(1).withArgs('sample')
+      on: this.mock().once().withArgs('sample')
     }
   });
   service.get('record').perform();
