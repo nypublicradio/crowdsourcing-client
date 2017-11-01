@@ -14,7 +14,6 @@ export default Service.extend(Evented, {
   connections:  [],
   errors: {
     setup:      [],
-    record:     [],
     connect:    []
   },
   
@@ -60,14 +59,10 @@ export default Service.extend(Evented, {
   record: task(function * () {
     let connection = yield this.get('connect').perform();
     this.trigger('twilio-connected', connection);
-    try {
-      yield new Promise((resolve, reject) => {
-        connection.disconnect(resolve);
-        connection.error(reject);
-      });
-    } catch(e) {
-      this.get('errors.record').pushObject(e);
-    }
+    return new Promise((resolve, reject) => {
+      connection.disconnect(resolve);
+      connection.error(reject);
+    });
   }),
   
   connect: task(function * () {
