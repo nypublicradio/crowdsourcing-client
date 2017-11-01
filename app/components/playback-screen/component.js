@@ -59,9 +59,9 @@ export default Component.extend({
       }
     }
   }),
-  getAudio(callSid) {
-    return fetch(`${config.twilioService}/status?client=${callSid}`)
-      .then(r => r.json())
+  getAudio(callId) {
+    return fetch(`${config.twilioService}/status?client=${callId}`)
+      .then(r => r.json());
   },
   actions: {
     playOrPause() {
