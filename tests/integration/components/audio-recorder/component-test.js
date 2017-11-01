@@ -19,34 +19,30 @@ test('it renders', function(assert) {
 });
 
 test('toggleRecord calls the correct twilio service API', function(assert) {
+  assert.expect(3);
+  
   let twilio = stubTwilioService();
   twilio.record.isIdle = true;
-  twilio.record.perform = this.spy();
+  twilio.record.perform = this.stub().resolves({parameters: {CallSid: 'foo'}});
   twilio.disconnect = this.spy();
   
-  this.set('twilio', twilio);
-  this.render(hbs`{{audio-recorder twilio=twilio disableButton=disableButton}}`);
-  
-  click('.action-button');
-  
-  twilio.record.isIdle = false;
-  this.set('disableButton', false);
-  
-  click('.action-button');
-  
-  assert.ok(twilio.record.perform.calledOnce, 'performs record if task is idle');
-  assert.ok(twilio.disconnect.calledOnce, 'disconnects if record is running');
-});
-
-test('it passes the correct values to next', function(assert) {
-  let twilio = stubTwilioService();
-  this.set('twilio', twilio);
   this.set('next', function(value) {
     assert.deepEqual(value, twilio.currentConnection);
-  })
-  this.render(hbs`{{audio-recorder twilio=twilio next=next}}`);
+  });
   
-  click('.action-button');
+  this.set('twilio', twilio);
+  this.render(hbs`{{audio-recorder twilio=twilio disableButton=disableButton next=next}}`);
+  
+  click('.action-button')
+    .then(() => {
+      twilio.record.isIdle = false;
+      this.set('disableButton', false);
+      
+      click('.action-button');
+      
+      assert.ok(twilio.record.perform.calledOnce, 'performs record if task is idle');
+      assert.ok(twilio.disconnect.calledOnce, 'disconnects if record is running');
+    });
 });
 
 test('it renders the expected attrs of the passed in question', function(assert) {
