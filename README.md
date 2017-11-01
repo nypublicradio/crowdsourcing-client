@@ -99,6 +99,13 @@ Otherwise, when it receives an audio url it provides playback functionality via 
 ### `step-zero`
 Renders introductory UI for a given audio survey. Provides a button to route to first survey step.
 
+## Services
+
+### `twilio`
+The main service is the `twilio` service. It wraps the Twilio JS SDK and provides methods to initiate a connection via the twilio microservice, which will record audio from an input and save it to a remote server for processing and pick up from the twilio microservice.
+
+Much of these details are abstracted away from the point of view of this app, which only needs to call the `record` and `disconnect` methods to initiate and save a piece of audio out, respectively. The `record` method is an `ember-concurrency` task, which returns a promise that resolves with a Twilio connection object. The `parameters.CallSid` value can be passed to the `audio-playback` component as the `callId` parameter (note the slight difference in naming convention there), which will handle retrieving a playable audio URL.
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
