@@ -2,9 +2,10 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { get } from '@ember/object';
 import { later, bind } from '@ember/runloop';
+import config from '../../config/environment';
 
 export default Component.extend({
-  recordTimeout: 2000,
+  recordTimeout: config.recordingThreshold || 2000,
   classNames:    ['audio-recorder'],
   
   twilio:  service(),
