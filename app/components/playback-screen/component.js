@@ -34,8 +34,8 @@ export default Component.extend({
     this.get('initAudio').perform(callId);
   },
   
-  initAudio: task(function * (callSid) {
-    let url = yield this.get('pollForAudio').perform(callSid);
+  initAudio: task(function * (callId) {
+    let url = yield this.get('pollForAudio').perform(callId);
     if (url === NO_AUDIO) {
       this.set('noAudio', true);
     } else {
@@ -44,13 +44,13 @@ export default Component.extend({
       return true;
     }
   }),
-  pollForAudio: task(function * (callSid) {
+  pollForAudio: task(function * (callId) {
     let times = 0;
     while(true) {
       if (times >= 10) {
         return NO_AUDIO;
       }
-      let response = yield this.getAudio(callSid);
+      let response = yield this.getAudio(callId);
       if (response.path) {
         return response.path;
       } else if (response.message && response.message === NOT_READY) {
