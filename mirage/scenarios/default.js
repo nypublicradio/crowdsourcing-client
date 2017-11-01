@@ -1,10 +1,4 @@
-export default function(server) {
-
-  /*
-    Seed your development database using your factories.
-    This data will not be loaded in your tests.
-  */
-
+export function createAudioSurvey(server) {
   // required questions for dev testing
   let audio =     {shortName: 'audio', inputType: 'a'};
   let email =     {shortName: 'email', inputType: 'e', label: 'Email'};
@@ -19,4 +13,14 @@ export default function(server) {
       server.create('question', email),
     ]
   });
+}
+
+export default function(server) {
+
+  /*
+    Seed your development database using your factories.
+    This data will not be loaded in your tests.
+  */
+
+  createAudioSurvey(server);
 }
