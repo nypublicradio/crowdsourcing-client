@@ -97,7 +97,16 @@ test('Twilio disconnect calls disconnectAll', function(assert) {
 });
 
 test('It triggers the twilio-connected callback', function(assert) {
+  Twilio.Device.connect.returns({
+    accept: cb => cb(),
+    disconnect() {},
+    error() {},
+    _monitor: {
+      on() {}
+    }
+  })
   let service = this.subject();
   service.on('twilio-connected', () => assert.ok('twilio-connected event was triggered'));
   service.get('record').perform();
+  Twilio.Device.connect.reset();
 })
