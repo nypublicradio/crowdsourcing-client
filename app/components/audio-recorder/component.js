@@ -15,18 +15,17 @@ export default Component.extend({
   
   toggleRecord() {
     let twilio = this.get('twilio');
+    let next = this.get('next');
 
     if (get(twilio, 'record.isIdle')) {
       this.set('disableButton', true);
       twilio.one('twilio-connected', bind(this, 'connectCallback'));
-      get(twilio, 'record').perform();
+      
+      get(twilio, 'record').perform()
+        .then(connection => next && next(connection));
+
     } else {
       twilio.disconnect();
-      let connection = get(twilio, 'currentConnection');
-      let next = this.get('next');
-      if (next) {
-        next(connection);
-      }
     }
   }
 });
