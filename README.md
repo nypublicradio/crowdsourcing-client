@@ -72,7 +72,7 @@ The crowdsourcing microservice expects the `answers` attribute to be an array of
 The client relies heavily on components to manage the interface. The big idea is that the client can run different survey "types", each of which has a corresponding "manager". A survey manager expects a `step` value, a `survey` model and a `submission` model. The survey manager decides which UI component to render based on the value of the current step.
 
 ### `audio-survey-manager`
-The `audio-survey-manager` presents a single survey which expects an audio response. Its critical role, beyond showing the correct UI component based on the current step, is to add the URL of the user's processed audio response to the outgoing submission model when the user completes the survey.
+The `audio-survey-manager` presents a single survey which expects an audio response. Its critical role, beyond showing the correct UI component based on the current step, is to add the URL of the user's processed audio response to the outgoing submission model when the user completes the survey in its `finish` method. The handler will also execute a given `submission`'s save method.
 
 It also supplies a `next` action to child components, which call it when the user indicates they are ready to move on. The child components pass values that the survey manager caches at a key of its own determination; the child components have no direct knowledge of what the the parent component is doing with the provided value.
 
@@ -80,14 +80,24 @@ It also supplies a `next` action to child components, which call it when the use
 A basic UI component with no default behavior. Its `click` attribute is expected to be defined in its template context. Yields an unaltered block.
 
 ### `audio-recorder`
-The `audio-recorder` component presents a UI for a given audio question. It uses the `twilio` service to capture audio and passes up the completed connection to the provided `next` function.
+The `audio-recorder` component presents a UI for a given `question` model. It uses the `twilio` service to capture audio and passes up the completed connection to the provided `next` function.
+
+Uses the `twilio-connected` event to manage the `disabled` attribute of the record button. Twilio will not save a recording that is shorter than 1s; the event handler keeps the button disabled until a timer has elapsed.
 
 ### `personal-info`
+The `personal-info` component renders an input field for each question in a given set of `question` models, but only if the question's `shortName` attribute matches `first-name`, `last-name`, or `email`. Personal info only!
+
+The component will create a changeset to manage validations for user inputs. The validations are defined in `app/validations/submission` and applied against the `answers` attribute of a given `submission` model. A question may specify itself as required, which will be enforced by the validations. Other validations are also possible, such as pattern matching for email inputs.
+
+When the form is submitted, if the changeset is valid the changes are executed against the `submission.answers` attribute and an `onSubmit` attribute is invoked, if supplied.
 
 ### `playback-screen`
+Polls the crowdsourcing microservice's status endpoint for a given `callId`. If the audio is not available after 10 attempts, the component bails on the interval and shows an error message.
+
+Otherwise, when it receives an audio url it provides playback functionality via `ember-hifi`.
 
 ### `step-zero`
-
+Renders introductory UI for a given audio survey. Provides a button to route to first survey step.
 
 ## Prerequisites
 
