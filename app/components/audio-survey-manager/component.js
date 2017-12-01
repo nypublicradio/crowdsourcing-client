@@ -23,6 +23,14 @@ export default Component.extend({
     }
   }),
   
+  didReceiveAttrs() {
+    this._super(...arguments);
+    let { step, callId } = this.getProperties('step', 'callId');
+    if (step > 1 && !callId) {
+      this.abort();
+    }
+  },
+  
   next(key, value) {
     let step = parseInt(this.get('step'), 10);
     let cache = get(this, 'progress.cache');
@@ -51,4 +59,8 @@ export default Component.extend({
   cancel() {
     this.get('router').transitionTo('survey.cancel');
   },
+  
+  abort() {
+    this.get('router').transitionTo('survey.index');
+  }
 });
