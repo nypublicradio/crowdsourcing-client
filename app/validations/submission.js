@@ -11,7 +11,7 @@ export default function makeValidations(fields) {
     let key = get(field, 'shortName');
     validations[key] = [];
     if (get(field, 'inputType') === TYPES.EMAIL) {
-      validations[key].push(validateFormat({ type: 'email' }));
+      validations[key].push(validateFormat({ type: 'email', blank: true }));
     }
     if (get(field, 'required')) {
       validations[key].push(validatePresence(true));
