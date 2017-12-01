@@ -5,7 +5,11 @@ import { stubTwilioGlobal } from 'crowdsourcing-client/tests/helpers/twilio-stub
 import config from 'crowdsourcing-client/config/environment';
 import 'crowdsourcing-client/tests/helpers/hifi-acceptance-helper';
 
-moduleForAcceptance('Acceptance | audio survey');
+moduleForAcceptance('Acceptance | audio survey flow', {
+  afterEach() {
+    window.server.shutdown();
+  }
+});
 
 test('taking an audio survey', function(assert) {
   createAudioSurvey(server);
