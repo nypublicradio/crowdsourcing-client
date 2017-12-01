@@ -15,7 +15,7 @@ export default Component.extend({
 
   hifi:      service(),
   isPlaying: computed('hifi.isPlaying', 'hifi.currentSound', function() {
-    return this.get('hifi.currentSound.url') === this.get('url') && this.get('hifi.isPlaying');
+    return this.get('hifi.currentSound.url') === this.get('playbackURL') && this.get('hifi.isPlaying');
   }),
   percentPlayed: computed('hifi.position', 'hifi.duration', {
     get() {
@@ -35,12 +35,13 @@ export default Component.extend({
   },
   
   initAudio: task(function * (callId) {
-    let url = yield this.get('pollForAudio').perform(callId);
-    if (url === NO_AUDIO) {
+    let response = yield this.get('pollForAudio').perform(callId);
+    if (response === NO_AUDIO) {
       this.set('noAudio', true);
     } else {
-      this.set('url', url);
-      yield this.get('hifi').load(url);
+      this.set('submitURL', response.toSubmit);
+      this.set('playbackURL', response.toListen);
+      yield this.get('hifi').load(response.toListen);
       return true;
     }
   }),
@@ -51,8 +52,8 @@ export default Component.extend({
         return NO_AUDIO;
       }
       let response = yield this.getAudio(callId);
-      if (response.path) {
-        return response.path;
+      if (response.toListen && response.toSubmit) {
+        return response;
       } else if (response.message && response.message === NOT_READY) {
         times++;
         yield timeout(this.get('timeout'));
@@ -69,7 +70,7 @@ export default Component.extend({
       if (this.get('isPlaying')) {
         this.get('hifi').pause();
       } else {
-        this.get('hifi').play(this.get('url'));
+        this.get('hifi').play(this.get('playbackURL'));
       }
     }
   },
