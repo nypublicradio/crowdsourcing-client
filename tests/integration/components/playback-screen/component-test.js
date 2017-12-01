@@ -24,7 +24,7 @@ test('playOrPause plays back and the progress meter moves', function(assert) {
   });
   let done = assert.async();
   let server = startMirage();
-  server.get(`${config.twilioService}/status`, {path: '/good/5000/recording'});
+  server.get(`${config.twilioService}/status`, {toSubmit: '/good/5000/recording.wav', toListen: '/good/5000/recording.mp3'});
   
   this.register('service:hifi', dummyHifi);
   this.inject.service('hifi');

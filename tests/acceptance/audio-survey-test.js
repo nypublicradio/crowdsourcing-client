@@ -13,7 +13,7 @@ moduleForAcceptance('Acceptance | audio survey flow', {
 
 test('taking an audio survey', function(assert) {
   createAudioSurvey(server);
-  server.get(`${config.twilioService}/status`, {path: '/good/10000/audio.mp3'});
+  server.get(`${config.twilioService}/status`, {toSubmit: '/good/5000/recording.wav', toListen: '/good/5000/recording.mp3'});
   let [ survey ] = server.db.surveys;
   let [ audioQuestion ] = server.db.questions.update({inputType: 'a'}, {questionText: 'audio question text'});
   
@@ -97,7 +97,7 @@ test('taking an audio survey', function(assert) {
     'first-name': 'foo',
     'last-name': 'bar',
     'email': 'buz@baz.com',
-    'audio': '/good/10000/audio.mp3'
+    'audio': '/good/5000/recording.wav'
   };
   fillIn('[name=first-name]', answers['first-name']);
   fillIn('[name=last-name]', answers['last-name']);
