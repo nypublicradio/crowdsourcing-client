@@ -93,5 +93,4 @@ test('error messages', function(assert) {
       })
     });
   });
-
 });
