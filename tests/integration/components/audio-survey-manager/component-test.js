@@ -12,14 +12,16 @@ test('it renders', function(assert) {
     step: '1',
     survey: {questions: []},
     submission: {answers: {}},
+    callId: ''
   });
-  this.render(hbs`{{audio-survey-manager step=step survey=survey submission=submission}}`);
+  this.render(hbs`{{audio-survey-manager step=step survey=survey submission=submission callId=callId}}`);
 
   assert.ok(find('.audio-survey-manager'));
   assert.ok(find('.audio-survey__header.step-1'), 'renders a class based on the current step');
   
   assert.ok(find('.audio-recorder'), 'step 1 shows an audio recorder');
   
+  this.set('callId', 'required for later steps');
   this.set('step', '2');
   assert.ok(find('.playback-screen'), 'step 2 shows playback screen');
   
@@ -52,6 +54,7 @@ test('final step', function(assert) {
   this.setProperties({ progress, survey, submission, router });
   
   this.render(hbs`{{audio-survey-manager
+                    callId='foo'
                     step='3'
                     survey=survey
                     submission=submission
