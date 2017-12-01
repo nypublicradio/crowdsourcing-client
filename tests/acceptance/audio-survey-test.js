@@ -111,3 +111,27 @@ test('taking an audio survey', function(assert) {
     assert.equal(find('.thank-you__body').text().trim(), `Thanks! ${survey.thankYou}`);
   });
 });
+
+moduleForAcceptance('Acceptance | audio survey redirects', {
+  afterEach() {
+    window.server.shutdown();
+  }
+});
+
+
+test('a user should be redirected to step zero if they start on a later step', function(assert) {
+  createAudioSurvey(server);
+  let [ survey ] = server.db.surveys;
+  
+  visit(`/${survey.id}/2`);
+  
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}`, 'step 2 returns to step 1');
+  });
+  
+  visit(`/${survey.id}/3`);
+  
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}`, 'step 3 returns to step 1');
+  });
+});
