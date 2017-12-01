@@ -7,11 +7,16 @@
   margin-bottom: 25px;
 }
 
+.personal-info__body {
+  margin-bottom: 20px;
+}
+
 .personal-info__input {
   display: block;
   width: 100%;
   font-size: 16px;
   padding: 10px; 
+  border: 1px solid $lightgray;
   
   margin-bottom: 10px;
   font-family: "Open Sans", sans-serif;
@@ -20,6 +25,11 @@
     font-style: oblique;
     color: $gray;
     letter-spacing: 0.5px;
+  }
+  
+  &.is-error {
+    border-color: $red;
+    margin-bottom: 0;
   }
 }
 
@@ -34,3 +44,11 @@
   margin-bottom: 25px;
   font-size: 12px;
 }
+
+.personal-info__errors > ul {
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+  color: $red;
+}
+  
