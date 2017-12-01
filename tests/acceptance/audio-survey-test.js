@@ -80,6 +80,18 @@ test('taking an audio survey', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}/3`, 'should be on step 3: personal info');
   });
+  
+  andThen(function() {
+    click('.personal-info__submit');
+  });
+    
+  andThen(function() {
+    let errors = find('.personal-info__errors li');
+    assert.equal(errors[0].textContent.trim(), 'First name can\'t be blank');
+    assert.equal(errors[1].textContent.trim(), 'Last name can\'t be blank');
+    assert.equal(errors[2].textContent.trim(), 'Email must be a valid email address');
+    assert.equal(errors[3].textContent.trim(), 'Email can\'t be blank');
+  });
     
   let answers = {
     'first-name': 'foo',
