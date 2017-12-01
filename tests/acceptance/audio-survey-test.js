@@ -22,9 +22,8 @@ test('taking an audio survey', function(assert) {
     _monitor: {
       on: this.mock('_monitor.on').atLeast(1).withArgs('sample')
     },
-    parameters: {CallSid: 'call id'}
   });
-  window.Twilio.Device.disconnectAll.callsFake(() => resolveRecord());
+  window.Twilio.Device.disconnectAll.callsFake(() => resolveRecord({parameters: {CallSid: 'call id'}}));
   
   visit(`/${survey.id}`);
 
