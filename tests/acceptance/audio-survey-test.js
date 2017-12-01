@@ -32,17 +32,17 @@ test('taking an audio survey', function(assert) {
   visit(`/${survey.id}`);
 
   andThen(function() {
-    assert.equal(currentURL(), `/${survey.id}`);
-    assert.equal(find('.step-zero__title').text().trim(), survey.title);
-    assert.equal(find('.step-zero__summary').text().trim(), survey.summary);
+    assert.equal(currentURL(), `/${survey.id}`, 'should be on step 0: introduction');
+    assert.equal(find('.step-zero__title').text().trim(), survey.title, 'survey title should be visible');
+    assert.equal(find('.step-zero__summary').text().trim(), survey.summary, 'survey summary should be visible');
     
     click('.step-zero button');
   });
   
   andThen(function() {
-    assert.equal(currentURL(), `/${survey.id}/1`);
+    assert.equal(currentURL(), `/${survey.id}/1`, 'should be on step 1: record audio');
     
-    assert.equal(find('.audio-recorder__script').text().trim(), audioQuestion.questionText);
+    assert.equal(find('.audio-recorder__script').text().trim(), audioQuestion.questionText, 'audio question text should be visible');
     click('.audio-recorder__button');
   });
   
@@ -51,7 +51,7 @@ test('taking an audio survey', function(assert) {
   });
   
   andThen(function() {
-    assert.equal(currentURL(), `/${survey.id}/2`);
+    assert.equal(currentURL(), `/${survey.id}/2`, 'should be on step 2: review recording');
     
     click('.playback-button');
   });
@@ -63,7 +63,7 @@ test('taking an audio survey', function(assert) {
   });
   
   andThen(function() {
-    assert.equal(currentURL(), `/${survey.id}/1`);
+    assert.equal(currentURL(), `/${survey.id}/1`, 'should be on step 1 after clicking back');
     click('.audio-recorder__button');
   });
   
@@ -72,13 +72,13 @@ test('taking an audio survey', function(assert) {
   });
   
   andThen(function() {
-    assert.equal(currentURL(), `/${survey.id}/2`);
+    assert.equal(currentURL(), `/${survey.id}/2`, 'should be on step 2 after re-recording');
     
     click('.action-button');
   });
   
   andThen(function() {
-    assert.equal(currentURL(), `/${survey.id}/3`);
+    assert.equal(currentURL(), `/${survey.id}/3`, 'should be on step 3: personal info');
   });
     
   let answers = {
@@ -97,7 +97,7 @@ test('taking an audio survey', function(assert) {
     server.db.questions.forEach(question => {
       let expectedAnswer = answers[question.shortName];
       let answer = submittedAnswers.findBy('question', Number(question.id));
-      assert.equal(expectedAnswer, answer.response);
+      assert.equal(expectedAnswer, answer.response, 'submitted answers should be grouped by question id under a `response` key');
     });
     return submissions.create(this.normalizedRequestAttrs());
   });
@@ -107,8 +107,8 @@ test('taking an audio survey', function(assert) {
   });
   
   andThen(function() {
-    assert.equal(currentURL(), `/${survey.id}/thank-you`);
-    assert.equal(find('.thank-you__body').text().trim(), `Thanks! ${survey.thankYou}`);
+    assert.equal(currentURL(), `/${survey.id}/thank-you`, 'should be on thank you step after successful submission');
+    assert.equal(find('.thank-you__body').text().trim(), `Thanks! ${survey.thankYou}`, 'thank you message should be visible');
   });
 });
 
