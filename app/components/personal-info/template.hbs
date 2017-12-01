@@ -1,21 +1,25 @@
 <h2 class="personal-info__title">Enter your info</h2>
 
-{{#each personalQuestions as |question|}}
-
-  {{input class="personal-info__input" value=(get changeset question.shortName) placeholder=question.label name=question.shortName}}
-  
-  {{#if (get changeset.error question.shortName)}}
-  <small class="personal-info__errors">
-    <ul>
-      {{#each (get (get changeset.error question.shortName) 'validation') as |message|}}
-      <li>
-        {{message}}
-      </li>
-      {{/each}}
-    </ul>
-  </small>
-  {{/if}}
-{{/each}}
+<div class="personal-info__body">
+  {{#each personalQuestions as |question|}}
+    {{input
+      class=(concat 'personal-info__input' (if (get changeset.error question.shortName) ' is-error'))
+      value=(get changeset question.shortName)
+      placeholder=question.label name=question.shortName}}
+    
+    {{#if (get changeset.error question.shortName)}}
+    <small class="personal-info__errors">
+      <ul>
+        {{#each (get (get changeset.error question.shortName) 'validation') as |message|}}
+        <li>
+          {{message}}
+        </li>
+        {{/each}}
+      </ul>
+    </small>
+    {{/if}}
+  {{/each}}
+</div>
 
 <a href="http://www.wnyc.org/privacy/" class="personal-privacy" target="_blank" rel="help">Privacy Policy</a>
 
