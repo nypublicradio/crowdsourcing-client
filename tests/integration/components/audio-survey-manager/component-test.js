@@ -1,4 +1,5 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { moduleForComponent } from 'ember-qunit';
+import test from 'ember-sinon-qunit/test-support/test';
 import hbs from 'htmlbars-inline-precompile';
 import { find, fillIn, click } from 'ember-native-dom-helpers';
 
@@ -63,4 +64,25 @@ test('final step', function(assert) {
       done();
     });
   });
+});
+
+test('it aborts and redirects if there is no callId on steps later than 1', function(assert) {
+  this.setProperties({
+    router: {
+      transitionTo: this.mock().twice().withArgs('survey.index')
+    },
+    step: '1',
+    submission: {answers: {}},
+    callId: ''
+  });
+  this.render(hbs`{{audio-survey-manager
+                    step=step
+                    submission=submission
+                    callId=callId
+                    router=router}}`);
+
+  assert.ok(find('.audio-survey-manager'));
+  
+  this.set('step', '2');
+  this.set('step', '3');
 });
