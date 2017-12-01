@@ -1,9 +1,9 @@
 export function createAudioSurvey(server) {
   // required questions for dev testing
   let audio =     {shortName: 'audio', inputType: 'a'};
-  let email =     {shortName: 'email', inputType: 'e', label: 'Email'};
-  let lastName =  {shortName: 'last-name', inputType: 't', label: 'Last name'};
-  let firstName = {shortName: 'first-name', inputType: 't', label: 'First name'};
+  let email =     {shortName: 'email', inputType: 'e', label: 'Email', required: true};
+  let lastName =  {shortName: 'last-name', inputType: 't', label: 'Last name', required: true};
+  let firstName = {shortName: 'first-name', inputType: 't', label: 'First name', required: true};
   
   server.createList('survey', 10, {
     questions: [
