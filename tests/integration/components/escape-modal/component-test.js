@@ -3,7 +3,6 @@ import test from 'ember-sinon-qunit/test-support/test';
 import hbs from 'htmlbars-inline-precompile';
 import { find, click } from 'ember-native-dom-helpers';
 import {
-  // triggerError,
   triggerSuccess
 } from '../../../helpers/ember-cli-clipboard';
 
