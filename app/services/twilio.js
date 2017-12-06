@@ -66,8 +66,9 @@ export default Service.extend(Evented, {
   }),
   
   connect: task(function * () {
+    let connection;
     try {
-      let connection = Twilio.Device.connect({ To: config.twilioNumber });
+      connection = Twilio.Device.connect({ To: config.twilioNumber });
       this.get('connections').pushObject(connection);
       connection._monitor.on('sample', this.get('sampler'));
       yield new Promise((resolve, reject) => {
@@ -77,6 +78,7 @@ export default Service.extend(Evented, {
       return connection;
     } catch(e) {
       this.get('errors.connect').pushObject(e);
+      return connection;
     }
   }),
   
@@ -87,13 +89,9 @@ export default Service.extend(Evented, {
   sampleAnalyser(sample) {
     let conn = this.get('currentConnection');
     if (sample.packetsSent === 0) {
-      // BAD STATE; bail out
-      console.warn('bad state!'); // eslint-disable-line
-      this.set('unrecoverable', true);
-      conn.bad = true;
+      this.trigger('twilio-unrecoverable');
       Twilio.Device.disconnectAll();
     } else {
-      this.set('unrecoverable', false);
       conn._monitor.removeListener('sample', this.get('sampler'));
     }
   },
