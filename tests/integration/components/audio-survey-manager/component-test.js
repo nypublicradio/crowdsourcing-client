@@ -2,6 +2,7 @@ import { moduleForComponent } from 'ember-qunit';
 import test from 'ember-sinon-qunit/test-support/test';
 import hbs from 'htmlbars-inline-precompile';
 import { find, fillIn, click } from 'ember-native-dom-helpers';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('audio-survey-manager', 'Integration | Component | audio survey manager', {
   integration: true
@@ -88,4 +89,24 @@ test('it aborts and redirects if there is no callId on steps later than 1', func
   
   this.set('step', '2');
   this.set('step', '3');
+});
+
+test('it shows an escape modal if the twilio service enters the bad state', function(assert) {
+  let twilioStub = {on: this.mock().callsArgAsync(1).once()};
+  this.setProperties({
+    step: '1',
+    survey: {questions: []},
+    submission: {answers: {}},
+    callId: '',
+    twilio: twilioStub
+  });
+  this.render(hbs`{{audio-survey-manager
+                    step=step
+                    survey=survey
+                    submission=submission
+                    callId=callId
+                    twilio=twilio
+                  }}`);
+
+  return wait().then(() => assert.ok(find('.escape-modal')));
 });

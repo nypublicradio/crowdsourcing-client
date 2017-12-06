@@ -6,6 +6,7 @@ import { reads } from '@ember/object/computed';
 export default Component.extend({
   router:   service(),
   progress: service(),
+  twilio:   service(),
   
   classNames: ['audio-survey-manager'],
 
@@ -23,6 +24,11 @@ export default Component.extend({
     }
   }),
   
+  init() {
+    this._super(...arguments);
+    this.get('twilio').on('twilio-unrecoverable', () => this.set('openEscapeHatch', true));
+  },
+
   didReceiveAttrs() {
     this._super(...arguments);
     let { step, callId } = this.getProperties('step', 'callId');
