@@ -130,7 +130,6 @@ moduleForAcceptance('Acceptance | audio survey redirects', {
   }
 });
 
-
 test('a user should be redirected to step zero if they start on a later step', function(assert) {
   createAudioSurvey(server);
   let [ survey ] = server.db.surveys;
@@ -145,5 +144,47 @@ test('a user should be redirected to step zero if they start on a later step', f
   
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}`, 'step 3 returns to step 1');
+  });
+});
+
+moduleForAcceptance('Acceptance | the bad state', {
+  afterEach() {
+    window.server.shutdown();
+  }
+});
+
+test('bad state shows a modal', function(assert) {
+  createAudioSurvey(server);
+  let [ survey ] = server.db.surveys;
+  
+  window.Twilio = stubTwilioGlobal();
+  window.Twilio.Device.connect.returns({
+    accept: this.spy(),
+    disconnect: this.spy(),
+    error: this.stub().callsArg(0),
+    _monitor: {
+      on: this.stub().callsArgWithAsync(1, {packetsSent: 0})
+    },
+  });
+  
+  visit(`/${survey.id}`);
+  
+  andThen(() => {
+    assert.equal(currentURL(), `/${survey.id}`, 'should be on step 0: introduction');
+    click('.step-zero button');
+  });
+  
+  andThen(() => {
+    assert.equal(currentURL(), `/${survey.id}/1`, 'should be on step 1: record audio');
+    click('.audio-recorder__button');
+  });
+  
+  andThen(() => {
+    assert.ok(find('.escape-modal'));
+    triggerCopySuccess();
+  });
+  
+  andThen(() => {
+    assert.equal(find('.escape-modal__copy-button').text().trim(), 'Copied!');
   });
 });
