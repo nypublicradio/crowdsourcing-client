@@ -66,11 +66,11 @@ test('sampleAnalyser responds to empty packets', function(assert) {
   let service = this.subject({
     currentConnection: {}
   });
+  let unrecoverableMock = this.mock().once();
+  service.on('twilio-unrecoverable', unrecoverableMock);
   service.sampleAnalyser({ packetsSent: 0 });
 
   assert.ok(Twilio.Device.disconnectAll.calledOnce, 'disconnectAll called');
-  assert.ok(service.get('unrecoverable'), 'service marked as unrecoverable')
-  assert.ok(service.get('currentConnection.bad'), 'connection marked as bad');
 });
 
 test('sampleAnalyser calls off sampling if it detects packets', function(assert) {
@@ -82,11 +82,11 @@ test('sampleAnalyser calls off sampling if it detects packets', function(assert)
   let service = this.subject({
     currentConnection: connectionMock
   });
+  let unrecoverableMock = this.mock().never();
+  service.on('twilio-unrecoverable', unrecoverableMock)
   service.sampleAnalyser({ packetsSent: 1 });
   
   assert.ok(Twilio.Device.disconnectAll.notCalled, 'disconnectAll NOT called');
-  assert.notOk(service.get('unrecoverable'), 'service is still OK');
-  assert.ok(connectionMock._monitor.removeListener.calledOnce);
 })
 
 
