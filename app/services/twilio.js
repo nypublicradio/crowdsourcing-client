@@ -91,6 +91,7 @@ export default Service.extend(Evented, {
     if (sample.packetsSent === 0) {
       this.trigger('twilio-unrecoverable');
       Twilio.Device.disconnectAll();
+      this.get('record').cancelAll();
     } else {
       conn._monitor.removeListener('sample', this.get('sampler'));
     }
