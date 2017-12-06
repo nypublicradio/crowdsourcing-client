@@ -1,0 +1,30 @@
+{{#modal-dialog
+  overlayClass="escape-modal__overlay"
+  containerClass="escape-modal__container"
+  renderInPlace=renderInPlace}}
+  <h3 class="escape-modal__title">This session has timed out.</h3>
+  <div class="escape-modal__body">
+    <p>
+      Please leave your phone screen unlocked to avoid the session timing out again.
+    </p>
+    
+    {{#action-button click=startOver class="escape-modal__window-button"}}
+      Start Over
+    {{/action-button}}
+  </div>
+  
+  <div class="escape-modal__footer">
+    <p>
+      If that still does not work, you will need to open this url in a new window. Click the button below to copy.
+    </p>
+  </div>
+  
+  {{#copy-button
+    class="escape-modal__copy-button"
+    clipboardText=location
+    disabled=isCopied
+    success=(action (mut isCopied) true)}}
+    {{unless isCopied 'Click to Copy' 'Copied!'}}
+  {{/copy-button}}
+  
+{{/modal-dialog}}
