@@ -16,12 +16,12 @@
 
 <div class="audio-recorder__footer{{if question.questionText ' l-fixed-to-bottom'}}">
   {{#action-button
-    disabled=(or twilio.connect.isRunning disableButton)
+    disabled=connect.isRunning
     click=(action toggleRecord)
-    class=(concat 'audio-recorder__button' (if twilio.record.isRunning ' is-recording'))}}
+    class=(concat 'audio-recorder__button' (if record.isRunning ' is-recording'))}}
     {{#if twilio.connect.isRunning}}
       Connecting...
-    {{else if twilio.record.isRunning}}
+    {{else if record.isRunning}}
       <span class="stop-icon"></span> Stop Recording
     {{else}}
       <span class="record-icon"></span> Start Recording
