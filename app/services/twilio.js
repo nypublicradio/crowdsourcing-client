@@ -79,12 +79,13 @@ export default Service.extend(Evented, {
   },
 
   sampleAnalyser(sample) {
+    let conn = this.get('currentConnection');
+    conn._monitor.removeListener('sample', this.get('sampler'));
+
     if (sample.packetsSent === 0) {
       this.trigger('twilio-unrecoverable');
       this.get('record').cancelAll();
     } else {
-      let conn = this.get('currentConnection');
-      conn._monitor.removeListener('sample', this.get('sampler'));
     }
   },
 });
