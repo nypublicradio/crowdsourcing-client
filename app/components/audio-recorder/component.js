@@ -12,7 +12,7 @@ export default Component.extend({
   twilio:  service(),
   
   connectCallback() {
-    later(this, () => this.set('disableButton', false), get(this, 'recordTimeout'));  
+    later(this, () => this.set('disableButton', false), get(this, 'recordTimeout'));
   },
   
   toggleRecord() {
