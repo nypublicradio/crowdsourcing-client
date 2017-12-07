@@ -37,26 +37,27 @@ test('it does the expected setup', function(assert) {
   runAssertions();
 });
 
-test('record calls connect and sets up the proper handlers', function(assert) {
+test('connect sets up the proper handlers', function(assert) {
   let service = this.subject();
   let done = assert.async();
   
   Twilio.Device.connect.returns({
-    accept: this.stub().callsArg(0),
-    disconnect: this.stub().callsArg(0),
-    error: this.mock().twice(),
+    accept: this.stub().callsArgAsync(0),
+    error: this.mock('connection.error').once(),
     _monitor: {
-      on: this.mock().once().withArgs('sample')
+      on: this.mock('connection._monitor.on').once().withArgs('sample')
     }
   });
-  service.get('record').perform();
+  let connection;
+  service.get('connect').perform().then(c => connection = c);
   
   function runAssertions() {
-    if (service.get('record.isRunning')) {
+    if (service.get('connect.isRunning')) {
       return next(runAssertions);
     }
     
-    assert.ok(Twilio.Device.connect.calledOnce);
+    assert.ok(Twilio.Device.connect.calledOnce, 'Twilio.Device.connect is called');
+    assert.ok(connection.accept.calledOnce, 'accept handler is called')
     done();
   }
   runAssertions();
@@ -64,13 +65,15 @@ test('record calls connect and sets up the proper handlers', function(assert) {
 
 test('sampleAnalyser responds to empty packets', function(assert) {
   let service = this.subject({
-    currentConnection: {}
+    currentConnection: {
+      _monitor: { removeListener: this.mock('removeListener').once() }
+    }
   });
   let unrecoverableMock = this.mock().once();
   service.on('twilio-unrecoverable', unrecoverableMock);
   service.sampleAnalyser({ packetsSent: 0 });
 
-  assert.ok(Twilio.Device.disconnectAll.calledOnce, 'disconnectAll called');
+  assert.ok(Twilio.Device.destroy.calledOnce, 'destroy called');
 });
 
 test('sampleAnalyser calls off sampling if it detects packets', function(assert) {
@@ -90,23 +93,9 @@ test('sampleAnalyser calls off sampling if it detects packets', function(assert)
 })
 
 
-test('Twilio disconnect calls disconnectAll', function(assert) {
+test('Twilio disconnect retrieves the active connection and calls disconnect', function(assert) {
   let service = this.subject();
   service.disconnect();
-  assert.ok(Twilio.Device.disconnectAll.calledOnce, 'called it');
+  assert.ok(Twilio.Device.activeConnection.calledOnce, 'retrieves active connection');
+  assert.ok(Twilio.Device.activeConnection.returnValues[0].disconnect.calledOnce, 'calls disconnect on returned connection');
 });
-
-test('It triggers the twilio-connected callback', function(assert) {
-  Twilio.Device.connect.returns({
-    accept: cb => cb(),
-    disconnect() {},
-    error() {},
-    _monitor: {
-      on() {}
-    }
-  })
-  let service = this.subject();
-  service.on('twilio-connected', () => assert.ok('twilio-connected event was triggered'));
-  service.get('record').perform();
-  Twilio.Device.connect.reset();
-})

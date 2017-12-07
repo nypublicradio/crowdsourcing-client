@@ -17,17 +17,15 @@ test('taking an audio survey', function(assert) {
   let [ survey ] = server.db.surveys;
   let [ audioQuestion ] = server.db.questions.update({inputType: 'a'}, {questionText: 'audio question text'});
   
-  let resolveRecord;
   window.Twilio = stubTwilioGlobal();
   window.Twilio.Device.connect.returns({
-    accept: this.stub().callsArg(0),
-    disconnect: resolve => resolveRecord = resolve,
-    error: this.mock('error').atLeast(2),
+    accept: this.stub().callsArgAsync(0),
+    disconnect: this.mock('disconnect').twice(),
+    error: this.mock('error').atLeast(4),
     _monitor: {
-      on: this.mock('_monitor.on').atLeast(1).withArgs('sample')
+      on: this.mock('_monitor.on').twice().withArgs('sample')
     },
   });
-  window.Twilio.Device.disconnectAll.callsFake(() => resolveRecord({parameters: {CallSid: 'call id'}}));
   
   visit(`/${survey.id}`);
 
@@ -159,11 +157,12 @@ test('bad state shows a modal', function(assert) {
   
   window.Twilio = stubTwilioGlobal();
   window.Twilio.Device.connect.returns({
-    accept: this.spy(),
+    accept: this.stub().callsArgAsync(0),
     disconnect: this.spy(),
-    error: this.stub().callsArg(0),
+    error: this.mock('error').twice(),
     _monitor: {
-      on: this.stub().callsArgWithAsync(1, {packetsSent: 0})
+      on: this.stub().callsArgWithAsync(1, {packetsSent: 0}),
+      removeListener: this.mock().once().withArgs('sample'),
     },
   });
   

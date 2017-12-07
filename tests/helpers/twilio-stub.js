@@ -6,24 +6,27 @@ export function stubTwilioGlobal() {
     setup() {},
     disconnectAll() {},
     connect() {},
+    destroy() {},
+    activeConnection() {},
   };
   const Device = sinon.stub(TwilioDevice)
+  Device.activeConnection.returns({
+    disconnect: sinon.stub(),
+    parameters: {CallSid: 'foo'}
+  });
   return { Device };
 }
 
 export function stubTwilioService() {
   const TwilioService = {
-    record: {
-      isIdle: null,
-      perform() {},
-    },
     connect: {
+      isIdle: null,
       perform() {}
     },
     disconnect() {},
     currentConnection: {parameters: {CallSid: 'foo'}},
     // Evented mixin
-    one() {},
+    one: sinon.spy(),
   }
   
   return TwilioService;
