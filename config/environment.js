@@ -35,6 +35,7 @@ module.exports = function(environment) {
       }],
       positionInterval: 100
     },
+    goToBadState: process.env.DEPLOY_TARGET === 'demo'
   };
 
   if (environment === 'development') {

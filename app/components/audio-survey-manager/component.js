@@ -2,8 +2,10 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { computed, get, set } from '@ember/object';
 import { reads } from '@ember/object/computed';
+import config from '../../config/environment';
 
 export default Component.extend({
+  config,
   router:   service(),
   progress: service(),
   twilio:   service(),
@@ -22,6 +24,9 @@ export default Component.extend({
       default:
       return null;
     }
+  }),
+  showBadState: computed('config.goToBadState', function() {
+    return this.get('config.goToBadState') && location.search.includes('bad')
   }),
   
   init() {
