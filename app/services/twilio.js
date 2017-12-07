@@ -84,8 +84,7 @@ export default Service.extend(Evented, {
 
     if (sample.packetsSent === 0) {
       this.trigger('twilio-unrecoverable');
-      this.get('record').cancelAll();
-    } else {
+      Twilio.Device.destroy();
     }
   },
 });
