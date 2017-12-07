@@ -14,7 +14,8 @@ export default Service.extend(Evented, {
   connections:  [],
   errors: {
     setup:      [],
-    connect:    []
+    connect:    [],
+    record:     [],
   },
   
   allErrors:         union('errors.setup', 'errors.record', 'errors.connect'),
@@ -59,10 +60,16 @@ export default Service.extend(Evented, {
   record: task(function * () {
     let connection = yield this.get('connect').perform();
     this.trigger('twilio-connected', connection);
-    return new Promise((resolve, reject) => {
-      connection.disconnect(resolve);
-      connection.error(reject);
-    });
+    try {
+      yield new Promise((resolve, reject) => {
+        connection.disconnect(resolve);
+        connection.error(reject);
+      });
+    } catch(e) {
+      this.get('errors.record').pushObject(e);
+    } finally {
+      Twilio.Device.destroy();
+    }
   }),
   
   connect: task(function * () {
@@ -90,7 +97,6 @@ export default Service.extend(Evented, {
     if (sample.packetsSent === 0) {
       this.trigger('twilio-unrecoverable');
       this.get('record').cancelAll();
-      this.disconnect();
     } else {
       let conn = this.get('currentConnection');
       conn._monitor.removeListener('sample', this.get('sampler'));

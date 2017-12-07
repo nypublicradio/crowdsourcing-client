@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { get } from '@ember/object';
 import { later, bind } from '@ember/runloop';
-import { didCancel }  from 'ember-concurrency';
 import config from '../../config/environment';
 
 export default Component.extend({
@@ -25,11 +24,6 @@ export default Component.extend({
       
       get(twilio, 'record').perform()
         .then(connection => next && next(connection))
-        .catch(e => {
-          if (!didCancel(e)) {
-            throw e;
-          }
-        });
 
     } else {
       twilio.disconnect();
