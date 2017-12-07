@@ -17,8 +17,9 @@ export default Component.extend({
     this._super(...arguments);
     let validations = makeSubmissionValidations(this.get('personalQuestions'));
     let answers = this.get('submission.answers');
-    let changeset = new Changeset(answers, lookupValidator(validations), validations);
+    let changeset = new Changeset(answers, lookupValidator(validations), validations, { skipValidate: true });
     this.set('changeset', changeset);
+    this.set('validationErrors', {});
   },
   
   
@@ -40,4 +41,13 @@ export default Component.extend({
         console.log('errored in validate'); // eslint-disable-line
       });
   },
+  
+  actions: {
+    validate(name) {
+      let changeset = this.get('changeset');
+      changeset.validate(name).then(() => {
+        this.set(`validationErrors.${name}`, changeset.get(`error.${name}`));
+      });
+    }
+  }
 });
