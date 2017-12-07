@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { get } from '@ember/object';
-import { later, bind } from '@ember/runloop';
+import { task, timeout } from 'ember-concurrency';
 import config from '../../config/environment';
 
 export default Component.extend({
@@ -10,23 +10,31 @@ export default Component.extend({
   
   twilio:  service(),
   
-  connectCallback() {
-    later(this, () => this.set('disableButton', false), get(this, 'recordTimeout'));
-  },
+  connect: task(function * () {
+    let connection = yield get(this, 'twilio.connect').perform();
+    yield timeout(this.get('recordTimeout'));
+    return connection;
+  }),
+  
+  record: task(function * () {
+    let connection = yield this.get('connect').perform();
+    yield new Promise((resolve, reject) => {
+      connection.disconnect(resolve);
+      connection.error(reject);
+    });
+  }),
   
   toggleRecord() {
     let twilio = this.get('twilio');
-    let next = this.get('next');
-
-    if (get(twilio, 'record.isIdle')) {
-      this.set('disableButton', true);
-      twilio.one('twilio-connected', bind(this, 'connectCallback'));
-      
-      get(twilio, 'record').perform()
-        .then(connection => next && next(connection))
-
+    
+    if (get(this, 'record.isIdle')) {
+      get(this, 'record').perform();
     } else {
-      twilio.disconnect();
+      let connection = twilio.disconnect();
+      let next = this.get('next');
+      if (next) {
+        next(connection.parameters.CallSid);
+      }
     }
   }
 });

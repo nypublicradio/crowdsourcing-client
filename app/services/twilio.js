@@ -57,25 +57,9 @@ export default Service.extend(Evented, {
     }
   }),
   
-  record: task(function * () {
-    let connection = yield this.get('connect').perform();
-    this.trigger('twilio-connected', connection);
-    try {
-      yield new Promise((resolve, reject) => {
-        connection.disconnect(resolve);
-        connection.error(reject);
-      });
-    } catch(e) {
-      this.get('errors.record').pushObject(e);
-    } finally {
-      Twilio.Device.destroy();
-    }
-  }),
-  
   connect: task(function * () {
-    let connection;
     try {
-      connection = Twilio.Device.connect({ To: config.twilioNumber });
+      let connection = Twilio.Device.connect({ To: config.twilioNumber });
       this.get('connections').pushObject(connection);
       connection._monitor.on('sample', this.get('sampler'));
       yield new Promise((resolve, reject) => {
@@ -85,12 +69,13 @@ export default Service.extend(Evented, {
       return connection;
     } catch(e) {
       this.get('errors.connect').pushObject(e);
-      return connection;
     }
   }),
   
   disconnect() {
-    Twilio.Device.disconnectAll();
+    let connection = Twilio.Device.activeConnection();
+    connection.disconnect();
+    return connection;
   },
 
   sampleAnalyser(sample) {
