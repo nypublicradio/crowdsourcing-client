@@ -1,19 +1,10 @@
 /* eslint-env node */
 'use strict';
-const Funnel = require('broccoli-funnel');
-const mergeTrees = require('broccoli-merge-trees');
-const path = require('path');
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  let normalizeTree = new Funnel(path.dirname(require.resolve('normalize.css')), {
-    files: ['normalize.css']
-  });
-
   let app = new EmberApp(defaults, {
-    trees: {
-      vendor: mergeTrees(['vendor', normalizeTree])
     }
   });
 
@@ -30,6 +21,6 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  app.import('vendor/normalize.css');
+  app.import('node_modules/normalize.css/normalize.css');
   return app.toTree();
 };
