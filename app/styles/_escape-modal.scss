@@ -1,18 +1,23 @@
 @import "mixins/text";
 @import "mixins/buttons";
+@import "mixins/colors";
 
 .escape-modal__overlay {
-  background-color: rgba(black, 0.8);
+  background-color: black;
 }
 
 .escape-modal__container {
   height: 100%;
+  width: 100%;
   background: transparent;
   box-shadow: none;
-  padding: 50px;
+  padding: 55px 20px;
   
   color: white;
-  text-align: center;
+  
+  @include media(">=tablet") {
+    width: auto;
+  }
 }
 
 .escape-modal__title {
@@ -20,6 +25,31 @@
   color: white;
 }
 
+.escape-modal__body {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 600;
+  margin-bottom: 20px;
+
+  > p {
+    margin-bottom: 20px;
+  }
+}
+
+.escape-modal__footer {
+  font-size: 12px;
+  line-height: 1.5;
+
+  > p {
+    margin-bottom: 5px;
+  }
+}
+
 .escape-modal__copy-button {
-  @include neon-button;
+  @include button-base;
+  display: block;
+  color: white;
+  text-transform: uppercase;
+  color: $blue;
+  font-size: 12px;
 }
