@@ -9,13 +9,13 @@
     </p>
     
     {{#action-button click=startOver class="escape-modal__window-button"}}
-      Start Over
+      Start Again
     {{/action-button}}
   </div>
   
   <div class="escape-modal__footer">
     <p>
-      If that still does not work, you will need to open this url in a new window. Click the button below to copy.
+      If that still does not work, copy this url and paste it in a new browser window: 
     </p>
   </div>
   
@@ -24,7 +24,7 @@
     clipboardText=location
     disabled=isCopied
     success=(action (mut isCopied) true)}}
-    {{unless isCopied 'Click to Copy' 'Copied!'}}
+    {{unless isCopied 'Copy the URL' 'Copied!'}}
   {{/copy-button}}
   
 {{/modal-dialog}}
