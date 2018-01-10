@@ -33,7 +33,7 @@ test('it serializes answers into the correct format', function(assert) {
   });
   
   let serializedRecord = record.serialize();
-  assert.deepEqual(serializedRecord.data.attributes.answers, [{
+  assert.deepEqual(serializedRecord.answers, [{
     question: 1,
     response: 'foo-answer'
   }, {

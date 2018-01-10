@@ -9,12 +9,12 @@ export default DRFSerializer.extend({
     if (!questions) {
       return payload;
     }
-    let { answers } = payload.data.attributes;
-    payload.data.attributes.answers = [];
+    let { answers } = payload;
+    payload.answers = [];
 
     questions.forEach(question => {
       let { shortName, id } = question.getProperties('shortName', 'id');
-      payload.data.attributes.answers.push({
+      payload.answers.push({
         question: Number(id),
         response: answers[shortName]
       });

@@ -103,7 +103,7 @@ test('taking an audio survey', function(assert) {
   
   server.post(`${config.crowdsourcingService}/submission`, function({ submissions }, request) {
     let payload = JSON.parse(request.requestBody);
-    let submittedAnswers = payload.data.attributes.answers;
+    let submittedAnswers = payload.answers;
     server.db.questions.forEach(question => {
       let expectedAnswer = answers[question.shortName];
       let answer = submittedAnswers.findBy('question', Number(question.id));
