@@ -1,8 +1,8 @@
-import DS from 'ember-data';
+import DRFAdapter from './drf';
 import { singularize } from 'ember-inflector';
 import config from '../config/environment';
 
-export default DS.JSONAPIAdapter.extend({
+export default DRFAdapter.extend({
   host: config.crowdsourcingService,
   pathForType: modelName => singularize(modelName),
   buildURL() {

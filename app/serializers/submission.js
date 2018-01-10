@@ -1,7 +1,7 @@
-import DS from 'ember-data';
+import DRFSerializer from './drf';
 import { singularize } from 'ember-inflector';
 
-export default DS.JSONAPISerializer.extend({
+export default DRFSerializer.extend({
   payloadKeyFromModelName: modelName => singularize(modelName),
   serialize(snapshot/*, options*/) {
     let payload = this._super(...arguments);
