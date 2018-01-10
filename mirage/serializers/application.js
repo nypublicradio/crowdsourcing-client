@@ -1,6 +1,8 @@
-import { JSONAPISerializer } from 'ember-cli-mirage';
-import { singularize } from 'ember-inflector';
+import { RestSerializer } from 'ember-cli-mirage';
+import { underscore } from '@ember/string';
 
-export default JSONAPISerializer.extend({
-  typeKeyForModel: model => singularize(model.modelName)
+export default RestSerializer.extend({
+  root: false,
+  embed: true,
+  keyForAttribute: attr => underscore(attr)
 });
