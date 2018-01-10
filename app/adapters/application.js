@@ -4,8 +4,6 @@ import config from '../config/environment';
 
 export default DRFAdapter.extend({
   host: config.crowdsourcingService,
+  namespace: '',
   pathForType: modelName => singularize(modelName),
-  buildURL() {
-    return this._super(...arguments) + '/';
-  }
 });
