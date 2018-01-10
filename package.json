@@ -41,6 +41,7 @@
     "ember-cli-uglify": "^2.0.0",
     "ember-concurrency": "^0.8.10",
     "ember-data": "~2.16.2",
+    "ember-django-adapter": "^2.0.0",
     "ember-export-application-global": "^2.0.0",
     "ember-fetch": "^3.4.3",
     "ember-hifi": "^1.13.0",
