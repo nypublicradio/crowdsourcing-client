@@ -44,7 +44,7 @@ export default function() {
   
   this.urlPrefix = config.twilioService;
   // in development just point to a local static asset
-  this.get('/status', {toListen: '/static/silence.mp3'});
+  this.get('/status', {toListen: '/static/silence.mp3', toSubmit: '/static/silence.wav'});
 }
 
 export function testConfig() {
