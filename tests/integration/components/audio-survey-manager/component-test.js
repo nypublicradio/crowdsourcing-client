@@ -18,7 +18,6 @@ test('it renders', function(assert) {
   this.render(hbs`{{audio-survey-manager step=step survey=survey submission=submission callId=callId}}`);
 
   assert.ok(find('.audio-survey-manager'));
-  assert.ok(find('.audio-survey__header.step-1'), 'renders a class based on the current step');
   
   assert.ok(find('.audio-recorder'), 'step 1 shows an audio recorder');
   

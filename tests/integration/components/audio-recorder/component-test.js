@@ -56,7 +56,7 @@ test('it renders the expected attrs of the passed in question', function(assert)
   
   this.set('question.questionText', null);
   
-  assert.ok(find('.audio-recorder').textContent.match('Press the record button and begin telling your story.'), 'the text changes when there is no questionText');
+  assert.notOk(find('.audio-recorder__script'), 'the script element is not rendered when there is no script');
 });
 
 test('UI updates', function(assert) {

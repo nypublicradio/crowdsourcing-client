@@ -57,7 +57,7 @@ test('taking an audio survey', function(assert) {
   andThen(function() {
     assert.ok(find('.playback-pause').length, 'button should be a pause');
     
-    click('.audio-survey-header-button');
+    click('.playback-screen__cancel');
   });
   
   andThen(function() {
@@ -72,7 +72,7 @@ test('taking an audio survey', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}/2`, 'should be on step 2 after re-recording');
     
-    click('.action-button');
+    click('.playback-screen__approve');
   });
   
   andThen(function() {
