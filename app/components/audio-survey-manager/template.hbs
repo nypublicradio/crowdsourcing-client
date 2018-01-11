@@ -1,7 +1,13 @@
-<div class="audio-survey__header step-{{step}}">
-  {{#if backText}}
-    <button class="audio-survey-header-button" {{action (if (eq step '2') back cancel)}}>{{backText}}</button>
+<div class="audio-survey__header">
+  <div class="audio-survey__header-title">
+  {{#if (eq step '1')}}
+    Record yourself
+  {{else if (eq step '2')}}
+    Approve recording
+  {{else if (eq step '3')}}
+    Enter your info
   {{/if}}
+  </div>
   
   <span>
     Step {{step}} of 3
