@@ -4,3 +4,8 @@
 .action-button {
   @include neon-button;
 }
+
+.action-button--hollow {
+  @include neon-button;
+  background-color: white;
+}
