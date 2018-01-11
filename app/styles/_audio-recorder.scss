@@ -3,36 +3,36 @@
 
 $audio-recorder__footer-height: 63px;
 
-.audio-recorder {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding-bottom: $audio-recorder__footer-height;
-}
-
-.audio-recorder__title {
-  @include page-title;
+.audio-recorder__header > p {
+  margin: 0;
 }
 
 .audio-recorder__script {
-  flex: 1;
-  margin: 0;
   font-style: oblique;
   letter-spacing: 0.25px;
-  overflow-y: scroll;
+  margin-top: 0;
+  
+  @include media(">=tablet")  {
+    padding: 0 60px;
+  }
 }
 
-.audio-recorder__footer {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background: white;
-  height: $audio-recorder__footer-height;
+.audio-recorder__sticky {
+  position: sticky;
+  top: 0;
+  padding: 20px 0;
+  background-color: white;
   
-  &.l-fixed-to-bottom {
-    padding: 0 15px;
-    margin: auto;
-    max-width: 800px;
+  @include media(">=tablet") {
+    margin-bottom: 15px;
+  }
+}
+
+.audio-recorder__button {
+  padding: 10px 15px;
+  
+  @include media(">=tablet") {
+    width: auto;
   }
 }
 

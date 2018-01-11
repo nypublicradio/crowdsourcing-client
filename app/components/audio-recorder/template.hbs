@@ -1,18 +1,10 @@
-{{#if question.questionText}}
-  <p>
-    Press the record button and begin reading the script:
-  </p>
-
-  <p class="audio-recorder__script">
-    {{{question.questionText}}}
-  </p>
-{{else}}
+<div class="audio-recorder__header">
   <p>
     {{{title}}}. Press the record button and begin reading the script:
   </p>
-{{/if}}
-
-<div class="audio-recorder__footer{{if question.questionText ' l-fixed-to-bottom'}}">
+</div>
+  
+<div class="audio-recorder__sticky">
   {{#action-button
     disabled=connect.isRunning
     click=(action toggleRecord)
@@ -26,3 +18,10 @@
     {{/if}}
   {{/action-button}}
 </div>
+  
+
+{{#if question.questionText}}
+  <p class="audio-recorder__script">
+    {{{question.questionText}}}
+  </p>
+{{/if}}
