@@ -5,4 +5,11 @@ export default Factory.extend({
   summary:  () => `Summary: ${faker.lorem.paragraph()}`,
   thankYou: () => faker.lorem.sentence(),
   startsAt: faker.date.recent,
+  brandLogo: () => ({
+    url: 'https://lorempixel.com/40/40/',
+    height: 40,
+    width: 40
+  }),
+  brandLink: faker.internet.url,
+  brandLinkLabel: () => faker.lorem.word(1)
 });
