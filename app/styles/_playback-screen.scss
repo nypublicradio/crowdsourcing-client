@@ -51,3 +51,37 @@
   
   transition: width 150ms ease;
 }
+
+.playback-screen__footer {
+  display: flex;
+  flex-direction: column;
+  
+  @include media(">=tablet") {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}
+
+.playback-screen__approve {
+  margin-bottom: 18px;
+  
+  @include media(">=tablet") {
+    order: 2;
+    margin-bottom: 0;
+  }
+}
+
+.playback-screen__cancel {
+  @include media(">=tablet") {
+    margin-right: 15px;
+    order: 1;
+  }
+}
+
+.playback-screen__approve,
+.playback-screen__cancel {
+  @include media(">=tablet") {
+    flex-basis: 155px;
+    font-size: 14px;
+  }
+}
