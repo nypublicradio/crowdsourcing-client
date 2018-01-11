@@ -3,7 +3,7 @@
 $font-oswald: 'Oswald', sans-serif;
 
 @mixin page-title {
-  font-family: 'Oswald', sans-serif;
+  font-family: $font-oswald;
   font-size: 22px;
   font-weight: 700;
   color: black;
