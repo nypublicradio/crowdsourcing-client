@@ -1,10 +1,15 @@
-{{#with model.survey as |survey|}}
-  {{survey-header
-    image=survey.brandLogo.url
-    height=survey.brandLogo.height
-    width=survey.brandLogo.width
-    title=survey.brandLinkLabel
-    url=survey.brandLink
-  }}
-{{/with}}
-{{outlet}}
+<div class="l-maxwidth">
+  {{#with model.survey as |survey|}}
+    {{survey-header
+      image=survey.brandLogo.url
+      height=survey.brandLogo.height
+      width=survey.brandLogo.width
+      title=survey.brandLinkLabel
+      url=survey.brandLink
+    }}
+  {{/with}}
+</div>
+
+<div class="l-page">
+  {{outlet}}
+</div>

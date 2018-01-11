@@ -1,7 +1,21 @@
 .l-page {
-  max-width: 800px;
+  max-width: 830px;
   margin: 0 auto;
   padding: 15px 15px 0;
+  
+  @include media(">=tablet")  {
+    padding-top: 0;
+  }
+}
+
+.l-maxwidth {
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 15px 15px 0;
+  
+  @include media(">=tablet") {
+    padding: 30px 30px 0;
+  }
 }
 
 .l-fixed-to-bottom {
