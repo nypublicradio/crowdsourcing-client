@@ -1,6 +1,8 @@
+import { faker } from 'ember-cli-mirage';
+
 export function createAudioSurvey(server) {
   // required questions for dev testing
-  let audio =     {shortName: 'audio', inputType: 'a'};
+  let audio =     {shortName: 'audio', inputType: 'a', questionText: faker.lorem.paragraphs(5)};
   let email =     {shortName: 'email', inputType: 'e', label: 'Email', required: true};
   let lastName =  {shortName: 'last-name', inputType: 't', label: 'Last name', required: true};
   let firstName = {shortName: 'first-name', inputType: 't', label: 'First name', required: true};
