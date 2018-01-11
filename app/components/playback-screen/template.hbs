@@ -6,16 +6,12 @@
       {{#if isPlaying}}
       <span class="playback-pause"></span> Pause
       {{else}}
-      <span class="playback-play"></span> Listen
+      <span class="playback-play"></span> Listen to your recording
       {{/if}}
     {{else}}
       Processing Audio...
     {{/if}}
   </button>
-  
-  <span>
-    Your Recording
-  </span>
   {{else}}
   <p class="playback-screen__error">
     There seems to be a problem loading the audio for call id: <code>{{callId}}</code>. Please tell digital ops.

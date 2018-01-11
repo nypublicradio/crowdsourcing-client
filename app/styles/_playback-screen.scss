@@ -6,10 +6,6 @@
   margin-bottom: 15px;
   border-top: 1px solid $nearwhite;
   border-bottom: 1px solid $nearwhite;
-  padding: 10px;
-  
-  display: flex;
-  align-items: center;
   
   text-transform: uppercase;
   font-family: "Oswald", sans-serif;
@@ -17,15 +13,16 @@
 
 .playback-button {
   @include button-base;
-  display: inline-flex;
-  align-items: center;
+  display: block;
+  width: 100%;
+  padding: 10px;
   
   color: $teal;
   text-transform: uppercase;
   font-family: "Oswald", sans-serif;
   font-weight: 700;
   letter-spacing: 0.5px;
-  margin-right: 15px;
+  text-align: left;
   
   &:focus {
     outline: none;
@@ -40,7 +37,6 @@
   border-left: 10px solid $teal;
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
-  margin-right: 8px;
 }
 
 .playback-screen__progress {
