@@ -1,5 +1,6 @@
+{{#with model.survey as |survey|}}
 <div class="l-maxwidth">
-  {{#with model.survey as |survey|}}
+  {{#if survey.brandLinkLabel}}
     {{survey-header
       image=survey.brandLogo.url
       height=survey.brandLogo.height
@@ -7,8 +8,9 @@
       title=survey.brandLinkLabel
       url=survey.brandLink
     }}
-  {{/with}}
+  {{/if}}
 </div>
+{{/with}}
 
 <div class="l-page">
   {{outlet}}

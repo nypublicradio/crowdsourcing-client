@@ -3,15 +3,23 @@
 {{else}}
   {{#if url}}
     <a href={{url}} class="survey-header__link">
-      <img src={{image}} height={{height}} width={{width}} class="survey-header__logo" />
+      {{#if image}}
+        <img src={{image}} height={{height}} width={{width}} class="survey-header__logo" />
+      {{/if}}
       
+      {{#if title}}
       <h2 class="survey-header__title">{{title}}</h2>
+      {{/if}}
     </a>
   {{else}}
     <div class="survey-header__wrapper">
+      {{#if image}}
       <img src={{image}} height={{height}} width={{width}} class="survey-header__logo" />
+      {{/if}}
       
+      {{#if title}}
       <h2 class="survey-header__title">{{title}}</h2>
+      {{/if}}
     </div>
   {{/if}}
 {{/if}}
