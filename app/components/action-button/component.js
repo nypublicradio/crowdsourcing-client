@@ -2,6 +2,6 @@ import Component from '@ember/component';
 
 export default Component.extend({
   tagName:           'button',
-  classNames:        ['action-button'],
-  attributeBindings: ['disabled', 'data-action', 'data-label']
+  classNameBindings: ['hollow:action-button--hollow:action-button'],
+  attributeBindings: ['disabled', 'data-action', 'data-label'],
 });
