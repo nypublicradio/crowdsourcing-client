@@ -1,0 +1,25 @@
+@import "mixins/text";
+
+.survey-header {
+  margin-bottom: 20px;
+}
+
+.survey-header__link,
+.survey-header__wrapper {
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.survey-header__link {
+  text-decoration: none;
+}
+
+.survey-header__logo {
+  margin-right: 10px;
+}
+
+.survey-header__title {
+  font-size: 18px;
+  font-family: $font-oswald;
+}

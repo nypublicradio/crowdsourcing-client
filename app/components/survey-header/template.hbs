@@ -1,0 +1,17 @@
+{{#if hasBlock}}
+  {{log 'Block usage is undefined'}}
+{{else}}
+  {{#if url}}
+    <a href={{url}} class="survey-header__link">
+      <img src={{image}} height={{height}} width={{width}} class="survey-header__logo" />
+      
+      <h2 class="survey-header__title">{{title}}</h2>
+    </a>
+  {{else}}
+    <div class="survey-header__wrapper">
+      <img src={{image}} height={{height}} width={{width}} class="survey-header__logo" />
+      
+      <h2 class="survey-header__title">{{title}}</h2>
+    </div>
+  {{/if}}
+{{/if}}
