@@ -1,7 +1,11 @@
 @import "mixins/text";
 
 .survey-header {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  
+  @include media(">=tablet")  {
+    margin-bottom: 30px;
+  }
 }
 
 .survey-header__link,
