@@ -33,10 +33,16 @@
   
   {{/playback-screen}}
 {{else if (eq step '3')}}
-  {{personal-info
+  {{#personal-info
     onSubmit=(action finish)
     questions=survey.questions
     submission=submission}}
+    
+    {{#action-button class="personal-info__cancel" hollow=true click=(action cancel)}}
+      Cancel
+    {{/action-button}}
+    
+  {{/personal-info}}
 {{/if}}
 
 {{#if openEscapeHatch}}

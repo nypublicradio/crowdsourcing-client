@@ -2,13 +2,21 @@
 @import "mixins/text";
 @import "mixins/buttons";
 
-.personal-info__title {
-  @include page-title;
-  margin-bottom: 25px;
+.personal-info__body {
+  @include media(">=tablet") {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
 }
 
-.personal-info__body {
-  margin-bottom: 20px;
+.personal-info__input-wrapper {
+  flex: 0 1 49%;
+  margin-bottom: 14px;
+  
+  @include media(">=tablet") {
+    margin-bottom: 20px;
+  }
 }
 
 .personal-info__input {
@@ -18,7 +26,6 @@
   padding: 10px; 
   border: 1px solid $lightgray;
   
-  margin-bottom: 10px;
   font-family: "Open Sans", sans-serif;
   
   &::placeholder {
@@ -33,8 +40,40 @@
   }
 }
 
+.personal-info__footer {
+  display: flex;
+  flex-direction: column;
+  
+  @include media(">=tablet") {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}
+
 .personal-info__submit {
   @include neon-button;
+  margin-bottom: 18px;
+  
+  @include media(">=tablet") {
+    flex-basis: 185px;
+    order: 2;
+    margin-bottom: 0;
+  }
+}
+
+.personal-info__cancel {
+  @include media(">=tablet") {
+    flex-basis: 155px;
+    margin-right: 15px;
+    order: 1;
+  }
+}
+
+.personal-info__submit,
+.personal-info__cancel {
+  @include media(">=tablet") {
+    font-size: 14px;
+  }
 }
 
 .personal-privacy {
@@ -47,7 +86,7 @@
 
 .personal-info__errors > ul {
   margin: 0;
-  padding: 10px;
+  padding: 0 10px 0;
   list-style: none;
   color: $red;
 }

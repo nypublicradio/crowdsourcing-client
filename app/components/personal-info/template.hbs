@@ -1,5 +1,7 @@
 <div class="personal-info__body">
   {{#each personalQuestions as |question|}}
+  
+  <div class="personal-info__input-wrapper">
     {{input
       class=(concat 'personal-info__input' (if (get changeset.error question.shortName) ' is-error'))
       value=(get changeset question.shortName)
@@ -7,20 +9,25 @@
       placeholder=question.label
       name=question.shortName}}
     
-    {{#if (or (get validationErrors question.shortName) (get changeset.error question.shortName))}}
-    <small class="personal-info__errors">
-      <ul>
-        {{#each (get (get changeset.error question.shortName) 'validation') as |message|}}
-        <li>
-          {{message}}
-        </li>
-        {{/each}}
-      </ul>
-    </small>
-    {{/if}}
+      {{#if (or (get validationErrors question.shortName) (get changeset.error question.shortName))}}
+      <small class="personal-info__errors">
+        <ul>
+          {{#each (get (get changeset.error question.shortName) 'validation') as |message|}}
+          <li>
+            {{message}}
+          </li>
+          {{/each}}
+        </ul>
+      </small>
+      {{/if}}
+  </div>
   {{/each}}
 </div>
 
 <a href="http://www.wnyc.org/privacy/" class="personal-privacy" target="_blank" rel="help">Privacy Policy</a>
 
-{{input class="personal-info__submit" type='submit' value='Submit Your Recording'}}
+<div class="personal-info__footer">
+  {{input class="personal-info__submit" type='submit' value='Submit Your Recording'}}
+
+  {{yield}}
+</div>
