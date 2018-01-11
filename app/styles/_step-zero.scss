@@ -1,8 +1,5 @@
 @import "mixins/text";
 
-.step-zero {
-}
-
 .step-zero__title {
   @include page-title;
 }

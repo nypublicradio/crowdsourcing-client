@@ -19,18 +19,3 @@
 .audio-survey__header-title  {
   @include page-title;
 }
-
-.audio-survey-header-button {
-  @include button-base;
-  font-family: "Oswald", sans-serif;
-  text-transform: uppercase;
-  
-  .step-2 > &:before {
-    content: "\2039";
-    font-size: 22px;
-    font-family: "Open Sans";
-    font-weight: 100;
-    display: inline-block;
-    margin-right: 5px;
-  }
-}
