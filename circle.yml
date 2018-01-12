@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Deploy to S3
           command: |
-            if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
+            if [[ "${CIRCLE_BRANCH}" == "demo" ]]; then
               env | sed -n 's/^DEMO_//p' > .env
               ./node_modules/ember-cli/bin/ember deploy demo --verbose --activate
             elif grep -q "v[0-9]\+\.[0-9]\+\.[0-9]\+" <<< "$CIRCLE_TAG"; then
@@ -73,4 +73,4 @@ workflows:
             tags:
               only: /^v[0-9]\.[0-9]\.[0-9]+/
             branches:
-              only: master
+              only: demo
