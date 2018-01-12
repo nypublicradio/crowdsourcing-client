@@ -8,7 +8,7 @@
       Please leave your phone screen unlocked to avoid the session timing out again.
     </p>
     
-    {{#action-button click=startOver class="escape-modal__window-button"}}
+    {{#action-button click=startOver class="escape-modal__window-button gtm__click-tracking-w-text" data-action="Error"}}
       Start Again
     {{/action-button}}
   </div>
@@ -20,7 +20,9 @@
   </div>
   
   {{#copy-button
-    class="escape-modal__copy-button"
+    data-action="Error"
+    data-label="Copy URL"
+    class="escape-modal__copy-button gtm__click-tracking"
     clipboardText=location
     disabled=isCopied
     success=(action (mut isCopied) true)}}
