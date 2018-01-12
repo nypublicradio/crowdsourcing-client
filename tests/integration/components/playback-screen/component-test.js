@@ -1,4 +1,5 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { moduleForComponent } from 'ember-qunit';
+import test from 'ember-sinon-qunit/test-support/test';
 import hbs from 'htmlbars-inline-precompile';
 import Test from 'ember-test';
 import { later } from '@ember/runloop';
@@ -54,6 +55,9 @@ test('it looks up the audio status with the given call id', function(assert) {
 });
 
 test('it displays an error message if the audio can\'t be found', function(assert) {
+  window.dataLayer = {push() {}};
+  this.mock(window.dataLayer).expects('push').once().withArgs({ event: 'no audio' });
+  
   let done = assert.async();
   let server = startMirage();
   server.get(`${config.twilioService}/status`, {message: 'AUDIO_NOT_READY'});
@@ -64,6 +68,7 @@ test('it displays an error message if the audio can\'t be found', function(asser
     assert.ok(find('.playback-screen__error'), 'no audio error message should display')
     assert.equal(find('code').textContent.trim(), 'foo', 'should display call ID');
     server.shutdown();
+    delete window.dataLayer;
     done();
   }, 500);
 });
