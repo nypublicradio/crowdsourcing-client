@@ -2,6 +2,12 @@ import Route from '@ember/routing/route';
 import { get } from '@ember/object';
 
 export default Route.extend({
+  beforeModel() {
+    if (window.dataLayer) {
+      window.dataLayer.push({ gaCategory: 'Crowdsourcing Widget' });
+    }
+  },
+
   model({ id }) {
     return this.store.findRecord('survey', id)
       .then(survey => {
