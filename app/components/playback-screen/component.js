@@ -37,6 +37,9 @@ export default Component.extend({
   initAudio: task(function * (callId) {
     let response = yield this.get('pollForAudio').perform(callId);
     if (response === NO_AUDIO) {
+      if (window.dataLayer) {
+        window.dataLayer.push({ event: 'no audio' });
+      }
       this.set('noAudio', true);
     } else {
       this.set('submitURL', response.toSubmit);
