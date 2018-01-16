@@ -122,6 +122,17 @@ test('taking an audio survey', function(assert) {
   });
 });
 
+test('expired survey', function(assert) {
+  let survey = server.create('survey', {expired: true, expirationMessage: 'Sorry!'});
+  
+  visit(`/${survey.id}`);
+  
+  andThen(() => {
+    assert.equal(find('.expiration-modal').length, 1, 'expiration modal should render');
+    assert.equal(find('.expiration-modal__body').text().trim(), 'Sorry!');
+  });
+});
+
 moduleForAcceptance('Acceptance | audio survey redirects', {
   afterEach() {
     window.server.shutdown();
