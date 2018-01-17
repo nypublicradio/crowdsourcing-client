@@ -118,7 +118,7 @@ test('taking an audio survey', function(assert) {
   
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}/thank-you`, 'should be on thank you step after successful submission');
-    assert.equal(find('.thank-you__body').text().trim(), `Thanks! ${survey.thankYou}`, 'thank you message should be visible');
+    assert.equal(find('.thank-you__body').text().trim(), survey.thankYou, 'thank you message should be visible');
   });
 });
 
