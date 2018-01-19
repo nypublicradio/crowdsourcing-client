@@ -8,7 +8,7 @@
     Enter your info
   {{/if}}
   </div>
-  
+
   <span>
     Step {{step}} of 3
   </span>
@@ -22,26 +22,26 @@
   {{audio-recorder question=audioQuestion title=survey.title next=(action next 'callId')}}
 {{else if (eq step '2')}}
   {{#playback-screen callId=callId as |url isReady|}}
-    
+
     {{#action-button class="playback-screen__approve" click=(action next 'url' url) disabled=(not isReady)}}
       Use This Recording
     {{/action-button}}
-    
+
     {{#action-button class="playback-screen__cancel" hollow=true click=(action back)}}
       Cancel
     {{/action-button}}
-  
+
   {{/playback-screen}}
 {{else if (eq step '3')}}
   {{#personal-info
     onSubmit=(action finish)
     questions=survey.questions
     submission=submission}}
-    
+
     {{#action-button class="personal-info__cancel" hollow=true click=(action cancel)}}
       Cancel
     {{/action-button}}
-    
+
   {{/personal-info}}
 {{/if}}
 

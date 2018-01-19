@@ -9,7 +9,7 @@ export default Component.extend({
   router:   service(),
   progress: service(),
   twilio:   service(),
-  
+
   classNames: ['audio-survey-manager'],
 
   callId:        reads('progress.cache.callId'),
@@ -28,7 +28,7 @@ export default Component.extend({
   showBadState: computed('config.goToBadState', function() {
     return this.get('config.goToBadState') && location.search.includes('bad')
   }),
-  
+
   init() {
     this._super(...arguments);
     this.get('twilio').on('twilio-unrecoverable', () => this.set('openEscapeHatch', true));
@@ -41,19 +41,19 @@ export default Component.extend({
       this.abort();
     }
   },
-  
+
   next(key, value) {
     let step = parseInt(this.get('step'), 10);
     let cache = get(this, 'progress.cache');
     set(cache, key, value);
     this.get('router').transitionTo('survey.step', step + 1);
   },
-  
+
   back() {
     let step = parseInt(this.get('step'), 10);
     this.get('router').transitionTo('survey.step', step - 1);
   },
-  
+
   finish() {
     let audioUrl = this.get('audioUrl');
     let audioField = this.get('survey.audioQuestions.firstObject');
@@ -66,11 +66,11 @@ export default Component.extend({
         this.get('router').transitionTo('survey.thank-you');
       })
   },
-  
+
   cancel() {
     this.get('router').transitionTo('survey.cancel');
   },
-  
+
   abort() {
     this.get('router').transitionTo('survey.index');
   }
