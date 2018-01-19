@@ -11,7 +11,7 @@ export default DS.Model.extend({
   brandLink:          DS.attr('string'),
   brandLinkLabel:     DS.attr('string'),
   expired:            DS.attr('boolean'),
-  expirationMessage:  DS.attr('string'),
+  expiredMessage:     DS.attr('string'),
 
   audioQuestions:     filterBy('questions', 'inputType', 'a'),
   hasAudioQuestion:   bool('audioQuestions.length')
