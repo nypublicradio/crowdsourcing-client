@@ -16,7 +16,7 @@ test('taking an audio survey', function(assert) {
   server.get(`${config.twilioService}/status`, {toSubmit: '/good/5000/recording.wav', toListen: '/good/5000/recording.mp3'});
   let [ survey ] = server.db.surveys;
   let [ audioQuestion ] = server.db.questions.update({inputType: 'a'}, {questionText: 'audio question text'});
-  
+
   window.Twilio = stubTwilioGlobal();
   window.Twilio.Device.connect.returns({
     accept: this.stub().callsArgAsync(0),
@@ -26,63 +26,63 @@ test('taking an audio survey', function(assert) {
       on: this.mock('_monitor.on').twice().withArgs('sample')
     },
   });
-  
+
   visit(`/${survey.id}`);
 
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}`, 'should be on step 0: introduction');
     assert.equal(find('.step-zero__title').text().trim(), survey.title, 'survey title should be visible');
     assert.equal(find('.step-zero__summary').text().trim(), survey.summary, 'survey summary should be visible');
-    
+
     click('.step-zero button');
   });
-  
+
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}/1`, 'should be on step 1: record audio');
-    
+
     assert.equal(find('.audio-recorder__script').text().trim(), audioQuestion.questionText, 'audio question text should be visible');
     click('.audio-recorder__button');
   });
-  
+
   andThen(function() {
     click('.audio-recorder__button');
   });
-  
+
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}/2`, 'should be on step 2: review recording');
-    
+
     click('.playback-button');
   });
-  
+
   andThen(function() {
     assert.ok(find('.playback-pause').length, 'button should be a pause');
-    
+
     click('.playback-screen__cancel');
   });
-  
+
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}/1`, 'should be on step 1 after clicking back');
     click('.audio-recorder__button');
   });
-  
+
   andThen(function() {
     click('.audio-recorder__button');
   });
-  
+
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}/2`, 'should be on step 2 after re-recording');
-    
+
     click('.playback-screen__approve');
   });
-  
+
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}/3`, 'should be on step 3: personal info');
   });
-  
+
   andThen(function() {
     click('.personal-info__submit');
   });
-    
+
   andThen(function() {
     let errors = find('.personal-info__errors li');
     assert.equal(errors[0].textContent.trim(), 'First name can\'t be blank');
@@ -90,7 +90,7 @@ test('taking an audio survey', function(assert) {
     assert.equal(errors[2].textContent.trim(), 'Email must be a valid email address');
     assert.equal(errors[3].textContent.trim(), 'Email can\'t be blank');
   });
-    
+
   let answers = {
     'first-name': 'foo',
     'last-name': 'bar',
@@ -100,7 +100,7 @@ test('taking an audio survey', function(assert) {
   fillIn('[name=first-name]', answers['first-name']);
   fillIn('[name=last-name]', answers['last-name']);
   fillIn('[name=email]', answers['email']);
-  
+
   server.post(`${config.crowdsourcingService}/submission`, function({ submissions }, request) {
     let payload = JSON.parse(request.requestBody);
     let submittedAnswers = payload.answers;
@@ -111,11 +111,11 @@ test('taking an audio survey', function(assert) {
     });
     return submissions.create(this.normalizedRequestAttrs());
   });
-  
+
   andThen(function() {
     click('.personal-info__submit');
   });
-  
+
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}/thank-you`, 'should be on thank you step after successful submission');
     assert.equal(find('.thank-you__body').text().trim(), survey.thankYou, 'thank you message should be visible');
@@ -142,15 +142,15 @@ moduleForAcceptance('Acceptance | audio survey redirects', {
 test('a user should be redirected to step zero if they start on a later step', function(assert) {
   createAudioSurvey(server);
   let [ survey ] = server.db.surveys;
-  
+
   visit(`/${survey.id}/2`);
-  
+
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}`, 'step 2 returns to step 1');
   });
-  
+
   visit(`/${survey.id}/3`);
-  
+
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}`, 'step 3 returns to step 1');
   });
@@ -165,7 +165,7 @@ moduleForAcceptance('Acceptance | the bad state', {
 test('bad state shows a modal', function(assert) {
   createAudioSurvey(server);
   let [ survey ] = server.db.surveys;
-  
+
   window.Twilio = stubTwilioGlobal();
   window.Twilio.Device.connect.returns({
     accept: this.stub().callsArgAsync(0),
@@ -176,24 +176,24 @@ test('bad state shows a modal', function(assert) {
       removeListener: this.mock().once().withArgs('sample'),
     },
   });
-  
+
   visit(`/${survey.id}`);
-  
+
   andThen(() => {
     assert.equal(currentURL(), `/${survey.id}`, 'should be on step 0: introduction');
     click('.step-zero button');
   });
-  
+
   andThen(() => {
     assert.equal(currentURL(), `/${survey.id}/1`, 'should be on step 1: record audio');
     click('.audio-recorder__button');
   });
-  
+
   andThen(() => {
     assert.ok(find('.escape-modal'));
     triggerCopySuccess();
   });
-  
+
   andThen(() => {
     assert.equal(find('.escape-modal__copy-button').text().trim(), 'Copied!');
   });
