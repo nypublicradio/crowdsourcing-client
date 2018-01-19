@@ -15,9 +15,3 @@
 <div class="l-page">
   {{outlet}}
 </div>
-
-{{#if model.survey.expired}}
-  {{#expiration-modal}}
-    {{model.survey.expirationMessage}}
-  {{/expiration-modal}}
-{{/if}}
