@@ -15,17 +15,7 @@ export default Component.extend({
   callId:        reads('progress.cache.callId'),
   audioUrl:      reads('progress.cache.url'),
   audioQuestion: reads('survey.audioQuestions.firstObject'),
-  backText:      computed('step', function() {
-    switch(this.get('step')) {
-      case '2':
-      return 'Re-Record';
-      case '3':
-      return 'Cancel';
-      default:
-      return null;
-    }
-  }),
-  showBadState: computed('config.goToBadState', function() {
+  showBadState:  computed('config.goToBadState', function() {
     return this.get('config.goToBadState') && location.search.includes('bad')
   }),
 
