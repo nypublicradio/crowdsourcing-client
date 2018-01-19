@@ -123,13 +123,14 @@ test('taking an audio survey', function(assert) {
 });
 
 test('expired survey', function(assert) {
-  let survey = server.create('survey', {expired: true, expirationMessage: 'Sorry!'});
-  
+  let survey = server.create('survey', {expired: true, expiredMessage: 'Sorry!'});
+
   visit(`/${survey.id}`);
-  
+
   andThen(() => {
-    assert.equal(find('.expiration-modal').length, 1, 'expiration modal should render');
-    assert.equal(find('.expiration-modal__body').text().trim(), 'Sorry!');
+    assert.equal(currentURL(), `/${survey.id}/expired`);
+    assert.equal(find('.expired-header').length, 1, 'expired header should render');
+    assert.equal(find('.expired-message').text().trim(), 'Sorry!');
   });
 });
 
