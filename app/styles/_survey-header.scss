@@ -2,7 +2,7 @@
 
 .survey-header {
   margin-bottom: 20px;
-  
+
   @include media(">=tablet")  {
     margin-bottom: 30px;
   }
@@ -27,4 +27,8 @@
 .survey-header__title {
   font-size: 18px;
   font-family: $font-oswald;
+
+  @include media(">=tablet") {
+    font-size: 28px;
+  }
 }
