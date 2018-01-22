@@ -1,12 +1,16 @@
 @import "mixins/text";
 
+.step-zero {
+  margin-bottom: 15px;
+}
+
 .step-zero__title {
   @include page-title;
 }
 
 .step-zero__notice {
   @include small-notice;
-  
+
   > ul {
     margin-bottom: 18px;
   }
