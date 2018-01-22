@@ -11,6 +11,7 @@ Router.map(function() {
     this.route('step', {path: ':step'});
     this.route('thank-you');
     this.route('cancel');
+    this.route('expired');
   });
 });
 

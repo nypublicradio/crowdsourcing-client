@@ -1,0 +1,17 @@
+@import "mixins/text";
+
+.expired-header {
+  @include page-title;
+
+  @include media(">=tablet") {
+    font-size: 28px;
+  }
+}
+
+.expired-message {
+  font-size: 14px;
+
+  @include media(">=tablet") {
+    font-size: 18px;
+  }
+}

@@ -11,5 +11,7 @@ export default Factory.extend({
     width: 40
   }),
   brandLink: faker.internet.url,
-  brandLinkLabel: () => faker.lorem.word(1)
+  brandLinkLabel: () => faker.lorem.word(1),
+  expired: false,
+  expiredMessage: () => faker.lorem.sentence(),
 });
