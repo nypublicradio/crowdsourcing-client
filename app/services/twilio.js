@@ -31,18 +31,18 @@ export default Service.extend(Evented, {
 
     this.get('setup').perform();
   },
-  
+
   willDestroy() {
     window.removeEventListener('focus', this.get('focusHandler'));
   },
-  
+
   focusHandler() {
     timesFocused++;
     if (isMobileDevice && timesFocused > 1 && intentToRecord) {
       navigator.mediaDevices.getUserMedia({audio: true, video: false});
     }
   },
-  
+
   setup: task(function * () {
     try {
       Twilio.Device.offline(function(device) { console.log(device); }); // eslint-disable-line
@@ -56,7 +56,7 @@ export default Service.extend(Evented, {
       this.get('errors.setup').pushObject(e);
     }
   }),
-  
+
   connect: task(function * () {
     try {
       let connection = Twilio.Device.connect({ To: config.twilioNumber });
@@ -71,7 +71,7 @@ export default Service.extend(Evented, {
       this.get('errors.connect').pushObject(e);
     }
   }),
-  
+
   disconnect() {
     let connection = Twilio.Device.activeConnection();
     connection.disconnect();

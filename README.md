@@ -6,7 +6,7 @@ This app is designed to work with NYPR's [crowdsourcing microservice](https://gi
 This client manages a small set of models to represent the data provided by the crowdsourcing microservice.
 
 ### `survey`
-The `survey` model represents some metadata (provided as primitive values) about a collection of `question` models (represented as a `hasMany` relationship on the client). The crowdsourcing microservice provides surveys via `id` lookup, which the client manages via `ember-data` using the application adapter and ember conventions. 
+The `survey` model represents some metadata (provided as primitive values) about a collection of `question` models (represented as a `hasMany` relationship on the client). The crowdsourcing microservice provides surveys via `id` lookup, which the client manages via `ember-data` using the application adapter and ember conventions.
 
 ```js
 title:            DS.attr('string')
