@@ -23,12 +23,12 @@
 {{else if (eq step '2')}}
   {{#playback-screen callId=callId as |url isReady|}}
 
-    {{#action-button class="playback-screen__approve" click=(action next 'url' url) disabled=(not isReady)}}
+    {{#action-button class="playback-screen__approve gtm__click-tracking-w-text" data-action="Step 2" click=(action next 'url' url) disabled=(not isReady)}}
       Use This Recording
     {{/action-button}}
 
-    {{#action-button class="playback-screen__cancel" hollow=true click=(action back)}}
-      Re-record
+    {{#action-button class="playback-screen__cancel gtm__click-tracking-w-text" data-action="Step 2" hollow=true click=(action back)}}
+      Re-Record
     {{/action-button}}
 
   {{/playback-screen}}
@@ -38,7 +38,7 @@
     questions=survey.questions
     submission=submission}}
 
-    {{#action-button class="personal-info__cancel" hollow=true click=(action cancel)}}
+    {{#action-button class="personal-info__cancel gtm__click-tracking-w-text" data-action="Submission" hollow=true click=(action cancel)}}
       Cancel
     {{/action-button}}
 

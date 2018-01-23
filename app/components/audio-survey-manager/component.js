@@ -21,7 +21,12 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this.get('twilio').on('twilio-unrecoverable', () => this.set('openEscapeHatch', true));
+    this.get('twilio').on('twilio-unrecoverable', () => {
+      if (window.dataLayer) {
+        window.dataLayer.push({ event: 'bad state' });
+      }
+      this.set('openEscapeHatch', true)
+    });
   },
 
   didReceiveAttrs() {
@@ -53,6 +58,9 @@ export default Component.extend({
 
     this.get('submission').save()
       .then(() => {
+        if (window.dataLayer) {
+          window.dataLayer.push({ event: 'crowdsourcing submit' });
+        }
         this.get('router').transitionTo('survey.thank-you');
       })
   },

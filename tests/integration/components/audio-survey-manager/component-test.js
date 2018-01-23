@@ -30,7 +30,11 @@ test('it renders', function(assert) {
 });
 
 test('final step', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
+  
+  window.dataLayer = {push() {}};
+  this.mock(window.dataLayer).expects('push').once().withArgs({ event: 'crowdsourcing submit' });
+  
   let done = assert.async();
   let progress = {
     cache: {
@@ -64,6 +68,7 @@ test('final step', function(assert) {
   fillIn('input[name=first-name]', 'foo').then(() => {
     click('.personal-info__submit').then(() => {
       assert.equal(submission.answers['audio-question'], 'audio-url.wav', 'audio question is saved to submission when the personal info form is submitted through the audio survey manager');
+      delete window.dataLayer;
       done();
     });
   });
@@ -91,6 +96,9 @@ test('it aborts and redirects if there is no callId on steps later than 1', func
 });
 
 test('it shows an escape modal if the twilio service enters the bad state', function(assert) {
+  window.dataLayer = {push() {}};
+  this.mock(window.dataLayer).expects('push').once().withArgs({ event: 'bad state' });
+  
   let twilioStub = {on: this.mock().callsArgAsync(1).once()};
   this.setProperties({
     step: '1',
@@ -107,5 +115,8 @@ test('it shows an escape modal if the twilio service enters the bad state', func
                     twilio=twilio
                   }}`);
 
-  return wait().then(() => assert.ok(find('.escape-modal')));
+  return wait().then(() => {
+    assert.ok(find('.escape-modal'))
+    delete window.dataLayer;
+  });
 });
