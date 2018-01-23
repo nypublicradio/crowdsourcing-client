@@ -134,6 +134,7 @@ And then fill in values for the following keys, as defined in the resulting `.en
 - `CROWDSOURCING_SERVICE`: full address to the crowdsourcing microservice backend
 - `TWILIO_SERVICE`: full addresss to the NYPR twilio microservice backend, used to retrieve a signed auth token as required by the Twilio SDK.
 - `TWLIO_NUMBER`: phone number of the crowdsourcing microservice's Twilio app
+- `HOST_WHITELIST`: the host and port where the app will run. Required for fastboot to serve responses.
 
 ### run the app
 * `ember serve`

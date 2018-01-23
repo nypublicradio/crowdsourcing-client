@@ -35,7 +35,10 @@ module.exports = function(environment) {
       }],
       positionInterval: 100
     },
-    goToBadState: process.env.DEPLOY_TARGET === 'demo'
+    goToBadState: process.env.DEPLOY_TARGET === 'demo',
+    fastboot: {
+      hostWhitelist: [process.env.HOST_WHITELIST]
+    }
   };
 
   if (environment === 'development') {
