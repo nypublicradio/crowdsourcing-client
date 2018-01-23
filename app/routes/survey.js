@@ -7,7 +7,7 @@ export default Route.extend({
   headData: service(),
 
   titleToken: model => get(model, 'survey.title'),
-  
+
   beforeModel() {
     if (window.dataLayer) {
       window.dataLayer.push({ gaCategory: 'Crowdsourcing Widget' });
