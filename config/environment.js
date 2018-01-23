@@ -63,6 +63,7 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
 
     ENV.recordingThreshold = 1;
+    ENV.fastboot.hostWhitelist = ['*'];
   }
 
   if (environment === 'production') {
