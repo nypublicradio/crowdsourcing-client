@@ -22,6 +22,11 @@ export default Route.extend({
           survey,
           submission
         };
+      })
+      .catch(e => {
+        if (e.errors && e.errors.status === 404) {
+          this.transitionTo('not-found', id);
+        }
       });
   },
   afterModel({survey}) {
