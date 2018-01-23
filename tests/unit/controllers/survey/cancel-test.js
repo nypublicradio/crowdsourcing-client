@@ -4,7 +4,7 @@ import test from 'ember-sinon-qunit/test-support/test';
 
 moduleFor('controller:survey/cancel', 'Unit | Controller | survey/cancel', {
   // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
+  needs: ['service:headData']
 });
 
 // Replace this with your real tests.
