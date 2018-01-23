@@ -33,3 +33,19 @@ test('it looks up the given survey and creates a fresh submission', function(ass
       assert.equal(submission, 'submission', 'model hook resolves with expected submission');
     });
 });
+
+test('it transitions to not-found if the survey rejects as a 404', function() {
+  let route = this.subject();
+  let error = {errors: {status: 404}};
+  let id = 'foo';
+
+  this.mock(route.store)
+    .expects('findRecord')
+    .rejects(error);
+
+  this.mock(route)
+    .expects('transitionTo')
+    .withArgs('not-found', id);
+
+  route.model({ id });
+});
