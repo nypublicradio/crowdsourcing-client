@@ -1,7 +1,9 @@
 import { moduleFor } from 'ember-qunit';
 import test from 'ember-sinon-qunit/test-support/test';
 
-moduleFor('route:survey', 'Unit | Route | survey');
+moduleFor('route:survey', 'Unit | Route | survey', {
+  needs: ['service:headData']
+});
 
 test('it exists', function(assert) {
   let route = this.subject();
