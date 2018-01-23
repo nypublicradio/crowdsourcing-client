@@ -5,6 +5,7 @@ import { startMirage } from 'crowdsourcing-client/initializers/ember-cli-mirage'
 import { stubTwilioGlobal } from '../../helpers/twilio-stub';
 
 moduleFor('service:twilio', 'Unit | Service | twilio', {
+  needs: ['service:fastboot'],
   beforeEach() {
     this.server = startMirage();
     window.Twilio = stubTwilioGlobal();
