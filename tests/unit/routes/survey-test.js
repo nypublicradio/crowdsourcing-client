@@ -20,13 +20,13 @@ test('it looks up the given survey and creates a fresh submission', function(ass
     .once()
     .withArgs('survey', id)
     .resolves(survey);
-  
+
   this.mock(route.store)
     .expects('createRecord')
     .once()
     .withArgs('submission', { survey })
     .returns(submission);
-  
+
   route.model({ id })
     .then(({ survey, submission }) => {
       assert.equal(survey, 'survey', 'model hook resolves with expected survey');
