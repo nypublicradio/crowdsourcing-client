@@ -2,6 +2,8 @@ import Route from '@ember/routing/route';
 import { get } from '@ember/object';
 
 export default Route.extend({
+  titleToken: model => get(model, 'survey.title'),
+  
   beforeModel() {
     if (window.dataLayer) {
       window.dataLayer.push({ gaCategory: 'Crowdsourcing Widget' });
