@@ -19,6 +19,7 @@ Router.map(function() {
     this.route('cancel');
     this.route('expired');
   });
+  this.route('not-found', {path: '*path'});
 });
 
 export default Router;
