@@ -1,4 +1,4 @@
-import Service from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 import { bind } from '@ember/runloop';
 import { reads, union } from '@ember/object/computed';
 import Evented from '@ember/object/evented';
@@ -17,12 +17,17 @@ export default Service.extend(Evented, {
     connect:    [],
     record:     [],
   },
-  
+
+  fastboot:          service(),
+  isFastBoot:        reads('fastboot.isFastBoot'),
   allErrors:         union('errors.setup', 'errors.record', 'errors.connect'),
   currentConnection: reads('connections.lastObject'),
 
   init() {
     this._super(...arguments);
+    if (this.get('isFastBoot')) {
+      return;
+    }
     if (typeof window.Twilio === 'undefined') {
       console.warn('Twilio SDK is not loaded.'); // eslint-disable-line
     }
@@ -33,7 +38,9 @@ export default Service.extend(Evented, {
   },
 
   willDestroy() {
-    window.removeEventListener('focus', this.get('focusHandler'));
+    if (!this.get('isFastBoot')) {
+      window.removeEventListener('focus', this.get('focusHandler'));
+    }
   },
 
   focusHandler() {
