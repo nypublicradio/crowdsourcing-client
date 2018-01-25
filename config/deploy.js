@@ -30,7 +30,13 @@ module.exports = function(deployTarget) {
       region: process.env.AWS_REGION,
       prefix: process.env.AWS_PREFIX,
       allowOverwrite: true,
-    }
+    },
+    'fastboot-app-server-aws': {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      bucket: process.env.AWS_BUCKET,
+      region: process.env.AWS_REGION,
+    },
   };
 
   /* eslint-disable */
