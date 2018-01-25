@@ -29,3 +29,6 @@ package.json.ember-try
 !.env.sample
 .env.deploy*
 !.env.deploy.sample
+
+# fastboot cruft
+*.zip
