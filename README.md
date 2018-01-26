@@ -136,6 +136,12 @@ And then fill in values for the following keys, as defined in the resulting `.en
 - `TWLIO_NUMBER`: phone number of the crowdsourcing microservice's Twilio app
 - `HOST_WHITELIST`: the host and port where the app will run. Required for fastboot to serve responses.
 
+#### Running the fastboot app server
+In production, the app requires a couple environment variables at run time:
+
+- `AWS_BUCKET`: the running node process downloads a zipped app bundle from this bucket on S3
+- `FASTBOOT_MANIFEST`: a static filepath containing values that point to the latest asset bundle
+
 ### Deployment envvars
 To deploy and run in fastboot mode, the app needs some additional envvars set. For remote deploys these can be set in circle or else in a local shell.
 
