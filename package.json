@@ -75,6 +75,7 @@
     ]
   },
   "dependencies": {
+    "dotenv": "^4.0.0",
     "fastboot-app-server": "^1.1.0",
     "fastboot-s3-downloader": "^0.2.2",
     "fastboot-s3-notifier": "^0.1.2"
