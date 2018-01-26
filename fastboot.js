@@ -3,6 +3,9 @@ const FastBootAppServer = require('fastboot-app-server');
 const S3Downloader = require('fastboot-s3-downloader');
 const S3Notifier = require('fastboot-s3-notifier');
 
+require('dotenv').config();
+
+
 let downloader = new S3Downloader({
   bucket: process.env.AWS_BUCKET,
   key: process.env.FASTBOOT_MANIFEST,
