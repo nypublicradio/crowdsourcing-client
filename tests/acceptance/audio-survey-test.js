@@ -140,20 +140,27 @@ moduleForAcceptance('Acceptance | audio survey redirects', {
   }
 });
 
-test('a user should be redirected to step zero if they start on a later step', function(assert) {
+test('a user should be redirected to step zero if they start on step 2', function(assert) {
   createAudioSurvey(server);
   let [ survey ] = server.db.surveys;
 
   visit(`/${survey.id}/2`);
 
   andThen(function() {
-    assert.equal(currentURL(), `/${survey.id}`, 'step 2 returns to step 1');
+    assert.equal(currentURL(), `/${survey.id}`);
   });
+});
+
+test('a user should be redirected to step zero if they start on step 3', function(assert) {
+  createAudioSurvey(server);
+  let [ survey ] = server.db.surveys;
 
   visit(`/${survey.id}/3`);
 
   andThen(function() {
-    assert.equal(currentURL(), `/${survey.id}`, 'step 3 returns to step 1');
+    assert.equal(currentURL(), `/${survey.id}`, 'step 3 returns to step 0');
+  });
+});
   });
 });
 
