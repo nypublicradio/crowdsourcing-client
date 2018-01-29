@@ -122,6 +122,57 @@ test('taking an audio survey', function(assert) {
   });
 });
 
+test('user can cancel and start over', function(assert) {
+  createAudioSurvey(server);
+  server.get(`${config.twilioService}/status`, {toSubmit: '/good/5000/recording.wav', toListen: '/good/5000/recording.mp3'});
+  let [ survey ] = server.db.surveys;
+
+  window.Twilio = stubTwilioGlobal();
+  window.Twilio.Device.connect.returns({
+    accept: this.stub().callsArgAsync(0),
+    disconnect: this.mock('disconnect').once(),
+    error: this.mock('error').twice(),
+    _monitor: {
+      on: this.mock('_monitor.on').once().withArgs('sample')
+    },
+  });
+
+  visit(`/${survey.id}`);
+
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}`, 'should be on step 0: introduction');
+    click('.step-zero button');
+  });
+
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}/1`, 'should be on step 1: record audio');
+    click('.audio-recorder__button');
+  });
+
+  andThen(function() {
+    click('.audio-recorder__button');
+  });
+
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}/2`, 'should be on step 2: review recording');
+    click('.playback-screen__approve');
+  });
+
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}/3`, 'should be on step 3: personal info');
+    click('.personal-info__cancel');
+  });
+
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}/cancel`, 'should be on cancel screen');
+    click('.cancel__button');
+  })
+
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}/1`, 'should be on step 1');
+  })
+});
+
 test('expired survey', function(assert) {
   let survey = server.create('survey', {expired: true, expiredMessage: 'Sorry!'});
 
