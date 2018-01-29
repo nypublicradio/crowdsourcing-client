@@ -12,16 +12,15 @@ test('it renders', function(assert) {
   this.setProperties({
     step: '1',
     survey: {questions: []},
-    submission: {answers: {}},
-    callId: ''
+    submission: {answers: {}, callId: ''},
   });
-  this.render(hbs`{{audio-survey-manager step=step survey=survey submission=submission callId=callId}}`);
+  this.render(hbs`{{audio-survey-manager step=step survey=survey submission=submission}}`);
 
   assert.ok(find('.audio-survey-manager'));
   
   assert.ok(find('.audio-recorder'), 'step 1 shows an audio recorder');
   
-  this.set('callId', 'required for later steps');
+  this.set('submission.callId', 'required for later steps');
   this.set('step', '2');
   assert.ok(find('.playback-screen'), 'step 2 shows playback screen');
   
@@ -36,33 +35,28 @@ test('final step', function(assert) {
   this.mock(window.dataLayer).expects('push').once().withArgs({ event: 'crowdsourcing submit' });
   
   let done = assert.async();
-  let progress = {
-    cache: {
-      url: 'audio-url.wav'
-    }
-  };
   let survey = {
     questions: [{shortName: 'first-name'}],
     audioQuestions: [{shortName: 'audio-question'}]
   };
   let submission = {
     answers: {},
-    save() { 
+    callId: 'foo',
+    url: 'audio-url.wav',
+    save() {
       assert.ok('save called');
       return Promise.resolve();
     }
   };
   let router = {
-    transitionTo() { assert.ok('transitionTo called') } 
+    transitionTo() { assert.ok('transitionTo called') }
   };
-  this.setProperties({ progress, survey, submission, router });
   
+  this.setProperties({ survey, submission, router });
   this.render(hbs`{{audio-survey-manager
-                    callId='foo'
                     step='3'
                     survey=survey
                     submission=submission
-                    progress=progress
                     router=router}}`);
                     
   fillIn('input[name=first-name]', 'foo').then(() => {
