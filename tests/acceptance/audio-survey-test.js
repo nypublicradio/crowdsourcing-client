@@ -161,6 +161,37 @@ test('a user should be redirected to step zero if they start on step 3', functio
     assert.equal(currentURL(), `/${survey.id}`, 'step 3 returns to step 0');
   });
 });
+
+test('a user should be redirected to step zero if they start on thank you', function(assert) {
+  createAudioSurvey(server);
+  let [ survey ] = server.db.surveys;
+
+  visit(`/${survey.id}/thank-you`);
+
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}`, 'thank you returns to step 0');
+  });
+});
+
+test('a user should be redirected to step zero if they start on expired', function(assert) {
+  createAudioSurvey(server);
+  let [ survey ] = server.db.surveys;
+
+  visit(`/${survey.id}/expired`);
+
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}`, 'expired returns to step 0');
+  });
+});
+
+test('a user should be redirected to step zero if they start on cancel', function(assert) {
+  createAudioSurvey(server);
+  let [ survey ] = server.db.surveys;
+
+  visit(`/${survey.id}/cancel`);
+
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}`, 'cancel returns to step 0');
   });
 });
 
