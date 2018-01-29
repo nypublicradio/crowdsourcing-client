@@ -18,7 +18,7 @@ export default Component.extend({
     if (this.get('isFastBoot')) {
       return allowBadState && this.get('fastboot.request.queryParams.bad');
     } else {
-      return allowBadState && location.serach.includes('bad');
+      return allowBadState && location.search.includes('bad');
     }
   }),
 
