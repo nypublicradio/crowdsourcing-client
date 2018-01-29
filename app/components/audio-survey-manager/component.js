@@ -7,13 +7,10 @@ import config from '../../config/environment';
 export default Component.extend({
   config,
   router:   service(),
-  progress: service(),
   twilio:   service(),
 
   classNames: ['audio-survey-manager'],
 
-  callId:        reads('progress.cache.callId'),
-  audioUrl:      reads('progress.cache.url'),
   audioQuestion: reads('survey.audioQuestions.firstObject'),
   showBadState:  computed('config.goToBadState', function() {
     return this.get('config.goToBadState') && location.search.includes('bad')
