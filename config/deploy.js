@@ -38,6 +38,12 @@ module.exports = function(deployTarget) {
       region: process.env.AWS_REGION,
       awsPrefix: process.env.AWS_PREFIX,
     },
+    cloudfront: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      distribution: process.env.AWS_CLOUDFRONT_DISTRIBUTION,
+      objectPaths: ['/*'], // invalidate all cached fastboot responses
+    }
   };
 
   /* eslint-disable */
