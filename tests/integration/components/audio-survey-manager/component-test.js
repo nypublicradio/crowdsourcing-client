@@ -17,23 +17,23 @@ test('it renders', function(assert) {
   this.render(hbs`{{audio-survey-manager step=step survey=survey submission=submission}}`);
 
   assert.ok(find('.audio-survey-manager'));
-  
+
   assert.ok(find('.audio-recorder'), 'step 1 shows an audio recorder');
-  
+
   this.set('submission.callId', 'required for later steps');
   this.set('step', '2');
   assert.ok(find('.playback-screen'), 'step 2 shows playback screen');
-  
+
   this.set('step', '3');
   assert.ok(find('.personal-info'), 'step 3 shows personal info form');
 });
 
 test('final step', function(assert) {
   assert.expect(4);
-  
+
   window.dataLayer = {push() {}};
   this.mock(window.dataLayer).expects('push').once().withArgs({ event: 'crowdsourcing submit' });
-  
+
   let done = assert.async();
   let survey = {
     questions: [{shortName: 'first-name'}],
@@ -51,14 +51,14 @@ test('final step', function(assert) {
   let router = {
     transitionTo() { assert.ok('transitionTo called') }
   };
-  
   this.setProperties({ survey, submission, router });
+
   this.render(hbs`{{audio-survey-manager
                     step='3'
                     survey=survey
                     submission=submission
                     router=router}}`);
-                    
+
   fillIn('input[name=first-name]', 'foo').then(() => {
     click('.personal-info__submit').then(() => {
       assert.equal(submission.answers['audio-question'], 'audio-url.wav', 'audio question is saved to submission when the personal info form is submitted through the audio survey manager');
@@ -84,7 +84,7 @@ test('it aborts and redirects if there is no callId on steps later than 1', func
                     router=router}}`);
 
   assert.ok(find('.audio-survey-manager'));
-  
+
   this.set('step', '2');
   this.set('step', '3');
 });
@@ -92,7 +92,7 @@ test('it aborts and redirects if there is no callId on steps later than 1', func
 test('it shows an escape modal if the twilio service enters the bad state', function(assert) {
   window.dataLayer = {push() {}};
   this.mock(window.dataLayer).expects('push').once().withArgs({ event: 'bad state' });
-  
+
   let twilioStub = {on: this.mock().callsArgAsync(1).once()};
   this.setProperties({
     step: '1',
