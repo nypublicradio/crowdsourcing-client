@@ -147,6 +147,7 @@ To deploy and run in fastboot mode, the app needs some additional envvars set. F
 
 - `AWS_SECRET_ACCESS_KEY`
 - `AWS_ACCESS_KEY_ID`
+- `AWS_CLOUDFRONT_DISTRIBUTION`: the cloudfront distribution assigned to fastboot envvars. we must invalidate cloudfront on deploy so users get updated assets.
 - `AWS_REGION`
 - `AWS_BUCKET`: destination bucket for the built assets
 - `AWS_PREFIX`: a value to prepend before any assets paths, e.g. `'crowdsourcing'`
