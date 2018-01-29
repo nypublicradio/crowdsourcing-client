@@ -152,7 +152,6 @@ To deploy and run in fastboot mode, the app needs some additional envvars set. F
 - `AWS_PREFIX`: a value to prepend before any assets paths, e.g. `'crowdsourcing'`
 - `FASTBOOT_MANIFEST`: filepath to the JSON manifest used by the FastBoot app server to download the current app build into a node context, e.g. `crowdsourcing/fastboot-deploy-info.json`
 - `NEW_RELIC_APP_ID`
-- `GOOGLE_TAG_MANAGER_ID`
 
 ### run the app
 * `ember serve`
