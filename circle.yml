@@ -18,12 +18,11 @@ jobs:
           paths:
             - ./node_modules
 
-  test:
+  test-static:
     docker:
       - image: circleci/node:8.7-browsers
         environment:
           JOBS: 2
-
     steps:
       - checkout
       - restore_cache:
@@ -32,7 +31,7 @@ jobs:
           name: Test
           command: ./node_modules/ember-cli/bin/ember test
 
-  deploy:
+  deploy-static:
     docker:
       - image: circleci/node:8.7
         environment:
@@ -52,6 +51,45 @@ jobs:
               ./node_modules/ember-cli/bin/ember deploy production --verbose --activate
             fi
 
+  deploy:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          key: deploy-{{ checksum "circle.yml" }}
+    - run:
+          name: Install Requirements
+          command: |
+            if [[ ! -d ~/.venv ]]; then
+              python3 -m venv ~/.venv
+              source ~/.venv/bin/activate
+              pip3 install -U git+https://github.com/nypublicradio/nyprsetuptools.git
+            fi
+      - deploy:
+          command: |
+            source ~/.venv/bin/activate
+            if [[ "${CIRCLE_BRANCH}" == "demo" ]]; then
+              nyprsetuptools DockerDeploy --environment=demo \
+                                          --ecs-cluster=microservices \
+                                          --ecr-repository=crowdsourcing-client \
+                                          --test='npm test' \
+                                          --tag=demo \
+                                          --wait=300
+            elif echo "$CIRCLE_TAG" | grep -q "v[0-9]\+\.[0-9]\+\.[0-9]\+"; then
+              nyprsetuptools DockerDeploy --environment=prod \
+                                          --ecs-cluster=microservices \
+                                          --ecr-repository=crowdsourcing-client \
+                                          --test='npm test' \
+                                          --tag="$CIRCLE_TAG" \
+                                          --wait=300
+            fi
+      - save_cache:
+          key: deploy-{{ checksum "circle.yml" }}
+          paths:
+            - ~/.venv
+
 workflows:
   version: 2
   buld-test-deploy:
@@ -67,8 +105,14 @@ workflows:
           requires:
             - build
       - deploy:
+          filters:
+            tags:
+              only: /^v[0-9]\.[0-9]\.[0-9]+/
+            branches:
+              only: demo
+      - deploy-static:
           requires:
-            - test
+            - test-static
           filters:
             tags:
               only: /^v[0-9]\.[0-9]\.[0-9]+/
