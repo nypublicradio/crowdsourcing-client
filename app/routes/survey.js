@@ -27,5 +27,11 @@ export default Route.extend({
 
   error() {
     console.log(arguments); // eslint-disable-line
+  },
+
+  actions: {
+    stepZero() {
+      this.controller.set('model.canProceed', true);
+    }
   }
 });

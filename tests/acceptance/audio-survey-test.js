@@ -191,6 +191,17 @@ moduleForAcceptance('Acceptance | audio survey redirects', {
   }
 });
 
+test('a user should be redirected to step zero if they start on step 1', function(assert) {
+  createAudioSurvey(server);
+  let [ survey ] = server.db.surveys;
+
+  visit(`/${survey.id}/1`);
+
+  andThen(function() {
+    assert.equal(currentURL(), `/${survey.id}`);
+  });
+});
+
 test('a user should be redirected to step zero if they start on step 2', function(assert) {
   createAudioSurvey(server);
   let [ survey ] = server.db.surveys;

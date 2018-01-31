@@ -1,6 +1,12 @@
 import Route from '@ember/routing/route';
 
 export default Route.extend({
+  redirect() {
+    let { canProceed } = this.modelFor('survey');
+    if (!canProceed) {
+      this.transitionTo('survey.index');
+    }
+  },
   model({ step }) {
     let { survey, submission } = this.modelFor('survey');
     return {
