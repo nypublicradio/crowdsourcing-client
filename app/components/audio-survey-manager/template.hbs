@@ -21,7 +21,7 @@
 {{#if (eq step '1')}}
   {{audio-recorder question=audioQuestion title=survey.title next=(action next 'callId')}}
 {{else if (eq step '2')}}
-  {{#playback-screen callId=callId as |url isReady|}}
+  {{#playback-screen callId=submission.callId as |url isReady|}}
 
     {{#action-button class="playback-screen__approve gtm__click-tracking-w-text" data-action="Step 2" click=(action next 'url' url) disabled=(not isReady)}}
       Use This Recording
