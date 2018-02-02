@@ -98,7 +98,7 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - test:
+      - test-static:
           filters:
             tags:
               only: /.*/
