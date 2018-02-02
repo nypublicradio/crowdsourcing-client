@@ -16,10 +16,12 @@ test('it serializes records', function(assert) {
 });
 
 test('it serializes answers into the correct format', function(assert) {
+  assert.expect(1);
   let record = this.subject();
   let { store } = record;
+  let survey;
   run(() => {
-    let survey = store.createRecord('survey', {
+    survey = store.createRecord('survey', {
       questions: [
         store.createRecord('question', {id: 1, shortName: 'foo' }),
         store.createRecord('question', {id: 2, shortName: 'bar' }),
@@ -31,13 +33,18 @@ test('it serializes answers into the correct format', function(assert) {
       'bar': 'bar-answer'
     });
   });
-  
-  let serializedRecord = record.serialize();
-  assert.deepEqual(serializedRecord.answers, [{
-    question: 1,
-    response: 'foo-answer'
-  }, {
-    question: 2,
-    response: 'bar-answer'
-  }], 'outgoing answers match format expected by server');
+
+  run(() => {
+    let serializedRecord = record.serialize();
+    assert.deepEqual(serializedRecord, {
+      survey: survey.id,
+      answers: [{
+        question: 1,
+        response: 'foo-answer'
+      }, {
+        question: 2,
+        response: 'bar-answer'
+      }]
+    }, 'outgoing answers match format expected by server');
+  });
 });

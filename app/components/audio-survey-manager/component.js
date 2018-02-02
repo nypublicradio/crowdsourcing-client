@@ -7,13 +7,10 @@ import config from '../../config/environment';
 export default Component.extend({
   config,
   router:   service(),
-  progress: service(),
   twilio:   service(),
 
   classNames: ['audio-survey-manager'],
 
-  callId:        reads('progress.cache.callId'),
-  audioUrl:      reads('progress.cache.url'),
   audioQuestion: reads('survey.audioQuestions.firstObject'),
   showBadState:  computed('config.goToBadState', function() {
     return this.get('config.goToBadState') && location.search.includes('bad')
@@ -31,16 +28,17 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    let { step, callId } = this.getProperties('step', 'callId');
-    if (step > 1 && !callId) {
+    let submission = get(this, 'submission');
+    let { step } = this.getProperties('step');
+    if (step > 1 && !get(submission, 'callId')) {
       this.abort();
     }
   },
 
   next(key, value) {
     let step = parseInt(this.get('step'), 10);
-    let cache = get(this, 'progress.cache');
-    set(cache, key, value);
+    let submission = get(this, 'submission');
+    set(submission, key, value);
     this.get('router').transitionTo('survey.step', step + 1);
   },
 
@@ -50,9 +48,9 @@ export default Component.extend({
   },
 
   finish() {
-    let audioUrl = this.get('audioUrl');
     let audioField = this.get('survey.audioQuestions.firstObject');
     let submission = this.get('submission');
+    let audioUrl   = get(submission, 'url');
 
     set(submission, `answers.${get(audioField, 'shortName')}`, audioUrl);
 
