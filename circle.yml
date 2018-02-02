@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  build:
+  build-static:
     docker:
       - image: circleci/node:8.7
 
@@ -94,7 +94,7 @@ workflows:
   version: 2
   buld-test-deploy:
     jobs:
-      - build:
+      - build-static:
           filters:
             tags:
               only: /.*/
@@ -103,7 +103,7 @@ workflows:
             tags:
               only: /.*/
           requires:
-            - build
+            - build-static
       - deploy:
           filters:
             tags:
