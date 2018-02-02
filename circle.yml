@@ -72,15 +72,15 @@ jobs:
             source ~/.venv/bin/activate
             if [[ "${CIRCLE_BRANCH}" == "demo" ]]; then
               nyprsetuptools DockerDeploy --environment=demo \
-                                          --ecs-cluster=microservices \
-                                          --ecr-repository=crowdsourcing-client \
+                                          --ecs-cluster=fastboot \
+                                          --ecr-repository=crowdsourcing-fastboot \
                                           --test='npm test' \
                                           --tag=demo \
                                           --wait=300
             elif echo "$CIRCLE_TAG" | grep -q "v[0-9]\+\.[0-9]\+\.[0-9]\+"; then
               nyprsetuptools DockerDeploy --environment=prod \
-                                          --ecs-cluster=microservices \
-                                          --ecr-repository=crowdsourcing-client \
+                                          --ecs-cluster=fastboot \
+                                          --ecr-repository=crowdsourcing-fastboot \
                                           --test='npm test' \
                                           --tag="$CIRCLE_TAG" \
                                           --wait=300

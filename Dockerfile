@@ -8,4 +8,4 @@ COPY package-lock.json ./
 RUN npm install
 
 COPY . ./
-CMD npm fastboot
+CMD node fastboot
