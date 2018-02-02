@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  twilio:
+  crowdsourcing-client:
     build: .
     command: npm fastboot
     environment:
