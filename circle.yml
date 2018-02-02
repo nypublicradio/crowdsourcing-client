@@ -59,7 +59,7 @@ jobs:
       - setup_remote_docker
       - restore_cache:
           key: deploy-{{ checksum "circle.yml" }}
-    - run:
+      - run:
           name: Install Requirements
           command: |
             if [[ ! -d ~/.venv ]]; then
