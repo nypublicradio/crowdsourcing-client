@@ -74,14 +74,14 @@ jobs:
               nyprsetuptools DockerDeploy --environment=demo \
                                           --ecs-cluster=fastboot \
                                           --ecr-repository=crowdsourcing-fastboot \
-                                          --test='npm test' \
+                                          --test='./node_modules/ember-cli/bin/ember test' \
                                           --tag=demo \
                                           --wait=300
             elif echo "$CIRCLE_TAG" | grep -q "v[0-9]\+\.[0-9]\+\.[0-9]\+"; then
               nyprsetuptools DockerDeploy --environment=prod \
                                           --ecs-cluster=fastboot \
                                           --ecr-repository=crowdsourcing-fastboot \
-                                          --test='npm test' \
+                                          --test='./node_modules/ember-cli/bin/ember test' \
                                           --tag="$CIRCLE_TAG" \
                                           --wait=300
             fi
