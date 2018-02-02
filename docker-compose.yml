@@ -3,7 +3,7 @@ version: '3'
 services:
   crowdsourcing-client:
     build: .
-    command: npm fastboot
+    command: node fastboot
     environment:
       NODE_ENV: development
     ports:
