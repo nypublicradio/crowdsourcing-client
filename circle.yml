@@ -75,13 +75,19 @@ jobs:
                                           --ecs-cluster=fastboot \
                                           --ecr-repository=crowdsourcing-fastboot \
                                           --tag=demo \
-                                          --wait=300
+                                          --wait=300 \
+                                          --fargate \
+                                          --execution-role=crowdsourcing-fastboot-demo \
+                                          --ports=3000
             elif echo "$CIRCLE_TAG" | grep -q "v[0-9]\+\.[0-9]\+\.[0-9]\+"; then
               nyprsetuptools DockerDeploy --environment=prod \
                                           --ecs-cluster=fastboot \
                                           --ecr-repository=crowdsourcing-fastboot \
                                           --tag="$CIRCLE_TAG" \
-                                          --wait=300
+                                          --wait=300 \
+                                          --fargate \
+                                          --execution-role=crowdsourcing-fastboot-prod \
+                                          --ports=3000
             fi
       - save_cache:
           key: deploy-{{ checksum "circle.yml" }}
