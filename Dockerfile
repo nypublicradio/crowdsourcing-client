@@ -8,4 +8,7 @@ COPY package-lock.json ./
 RUN npm install --production
 
 COPY . ./
+
+RUN apt-get update && apt-get install -y unzip
+
 CMD node fastboot
