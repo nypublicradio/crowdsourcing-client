@@ -5,15 +5,21 @@ import { reads } from '@ember/object/computed';
 import config from '../../config/environment';
 
 export default Component.extend({
-  config,
   router:   service(),
   twilio:   service(),
+  fastboot: service(),
 
   classNames: ['audio-survey-manager'],
 
+  isFastBoot:    reads('fastboot.isFastBoot'),
   audioQuestion: reads('survey.audioQuestions.firstObject'),
   showBadState:  computed('config.goToBadState', function() {
-    return this.get('config.goToBadState') && location.search.includes('bad')
+    let allowBadState = config.goToBadState;
+    if (this.get('isFastBoot')) {
+      return allowBadState && this.get('fastboot.request.queryParams.bad');
+    } else {
+      return allowBadState && location.search.includes('bad');
+    }
   }),
 
   init() {

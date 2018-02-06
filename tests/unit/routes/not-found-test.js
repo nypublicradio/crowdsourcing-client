@@ -1,8 +1,8 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('route:survey/step', 'Unit | Route | survey/step', {
+moduleFor('route:not-found', 'Unit | Route | not found', {
   // Specify the other units that are required for this test.
-  needs: ['service:headData']
+  needs: ['service:headData', 'service:fastboot']
 });
 
 test('it exists', function(assert) {

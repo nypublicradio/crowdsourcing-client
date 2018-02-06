@@ -20,16 +20,29 @@ module.exports = function(deployTarget) {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       bucket: process.env.AWS_BUCKET,
-      region: process.env.AWS_REGION,
+      region: process.env.AWS_DEFAULT_REGION,
       prefix: process.env.AWS_PREFIX,
     },
     's3-index': {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       bucket: process.env.AWS_BUCKET,
-      region: process.env.AWS_REGION,
+      region: process.env.AWS_DEFAULT_REGION,
       prefix: process.env.AWS_PREFIX,
       allowOverwrite: true,
+    },
+    'fastboot-app-server-aws': {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      bucket: process.env.AWS_BUCKET,
+      region: process.env.AWS_DEFAULT_REGION,
+      awsPrefix: process.env.AWS_PREFIX,
+    },
+    cloudfront: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      distribution: process.env.AWS_CLOUDFRONT_DISTRIBUTION,
+      objectPaths: ['/*'], // invalidate all cached fastboot responses
     }
   };
 

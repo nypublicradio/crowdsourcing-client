@@ -5,6 +5,7 @@ import { startMirage } from 'crowdsourcing-client/initializers/ember-cli-mirage'
 import { stubTwilioGlobal } from '../../helpers/twilio-stub';
 
 moduleFor('service:twilio', 'Unit | Service | twilio', {
+  needs: ['service:fastboot'],
   beforeEach() {
     this.server = startMirage();
     window.Twilio = stubTwilioGlobal();
@@ -26,12 +27,12 @@ test('it does the expected setup', function(assert) {
     }
     assert.ok(window.addEventListener.calledOnce);
     assert.deepEqual(['focus', service.get('focusHandler'), false], window.addEventListener.getCall(0).args);
-    
+
     assert.ok(service.get('sampler'));
-    
+
     assert.ok(Twilio.Device.offline.calledOnce, 'setup offline handler');
     assert.ok(Twilio.Device.setup.calledOnce, 'twilio setup was called');
-    
+
     done();
   }
   runAssertions();
@@ -40,7 +41,7 @@ test('it does the expected setup', function(assert) {
 test('connect sets up the proper handlers', function(assert) {
   let service = this.subject();
   let done = assert.async();
-  
+
   Twilio.Device.connect.returns({
     accept: this.stub().callsArgAsync(0),
     error: this.mock('connection.error').once(),
@@ -50,12 +51,12 @@ test('connect sets up the proper handlers', function(assert) {
   });
   let connection;
   service.get('connect').perform().then(c => connection = c);
-  
+
   function runAssertions() {
     if (service.get('connect.isRunning')) {
       return next(runAssertions);
     }
-    
+
     assert.ok(Twilio.Device.connect.calledOnce, 'Twilio.Device.connect is called');
     assert.ok(connection.accept.calledOnce, 'accept handler is called')
     done();
@@ -88,10 +89,9 @@ test('sampleAnalyser calls off sampling if it detects packets', function(assert)
   let unrecoverableMock = this.mock().never();
   service.on('twilio-unrecoverable', unrecoverableMock)
   service.sampleAnalyser({ packetsSent: 1 });
-  
+
   assert.ok(Twilio.Device.disconnectAll.notCalled, 'disconnectAll NOT called');
 })
-
 
 test('Twilio disconnect retrieves the active connection and calls disconnect', function(assert) {
   let service = this.subject();

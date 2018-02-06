@@ -123,7 +123,7 @@ You will need the following things properly installed on your computer.
 
 ## Running / Development
 
-#### environment variables
+### Runtime envvars
 This app uses `ember-cli-dotenv` to manage environment variables. To get started do:
 ```sh
 $ cp .env.sample .env
@@ -134,6 +134,25 @@ And then fill in values for the following keys, as defined in the resulting `.en
 - `CROWDSOURCING_SERVICE`: full address to the crowdsourcing microservice backend
 - `TWILIO_SERVICE`: full addresss to the NYPR twilio microservice backend, used to retrieve a signed auth token as required by the Twilio SDK.
 - `TWLIO_NUMBER`: phone number of the crowdsourcing microservice's Twilio app
+- `HOST_WHITELIST`: the host and port where the app will run. Required for fastboot to serve responses.
+
+#### Running the fastboot app server
+In production, the app requires a couple environment variables at run time:
+
+- `AWS_BUCKET`: the running node process downloads a zipped app bundle from this bucket on S3
+- `FASTBOOT_MANIFEST`: a static filepath containing values that point to the latest asset bundle
+
+### Deployment envvars
+To deploy and run in fastboot mode, the app needs some additional envvars set. For remote deploys these can be set in circle or else in a local shell.
+
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_ACCESS_KEY_ID`
+- `AWS_CLOUDFRONT_DISTRIBUTION`: the cloudfront distribution assigned to fastboot envvars. we must invalidate cloudfront on deploy so users get updated assets.
+- `AWS_DEFAULT_REGION`
+- `AWS_BUCKET`: destination bucket for the built assets
+- `AWS_PREFIX`: a value to prepend before any assets paths, e.g. `'crowdsourcing'`
+- `FASTBOOT_MANIFEST`: filepath to the JSON manifest used by the FastBoot app server to download the current app build into a node context, e.g. `crowdsourcing/fastboot-deploy-info.json`
+- `NEW_RELIC_APP_ID`
 
 ### run the app
 * `ember serve`

@@ -35,7 +35,10 @@ module.exports = function(environment) {
       }],
       positionInterval: 100
     },
-    goToBadState: process.env.DEPLOY_TARGET === 'demo'
+    goToBadState: process.env.DEPLOY_TARGET === 'demo',
+    fastboot: {
+      hostWhitelist: [process.env.HOST_WHITELIST]
+    }
   };
 
   if (environment === 'development') {
@@ -60,6 +63,7 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
 
     ENV.recordingThreshold = 1;
+    ENV.fastboot.hostWhitelist = ['*'];
   }
 
   if (environment === 'production') {
