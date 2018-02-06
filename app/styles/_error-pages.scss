@@ -1,11 +1,16 @@
 @import "mixins/text";
 
+.not-found-header,
 .expired-header {
   @include page-title;
 
   @include media(">=tablet") {
     font-size: 28px;
   }
+}
+
+.not-found-header {
+  padding-top: 25px;
 }
 
 .expired-message {

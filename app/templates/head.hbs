@@ -2,20 +2,23 @@
   Add content you wish automatically added to the documents head
   here. The 'model' available in this template can be populated by
   setting values on the 'head-data' service.
+
+  everything is indented twice to match the source indentation in index.html
 --}}
-<title>{{model.title}}</title>
-<meta name="description" content={{model.desc}}>
 
-<meta property="og:url" content={{model.url}} />
-<meta property="og:type" content="website" />
-<meta property="og:title" content={{model.title}} />
-<meta property="og:description" content={{model.desc}} />
-<meta property="og:image" content={{model.image.url}} />
-<meta property="og:image:type" content="image/jpg" />
-<meta property="og:image:width" content={{model.image.width}} />
-<meta property="og:image:height" content={{model.image.height}} />
+    <title>{{model.title}}</title>
+    <meta name="description" content={{model.desc}}>
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content={{model.title}}>
-<meta name="twitter:description" content={{model.desc}}>
-<meta name="twitter:image" content={{model.image.url}}>
+    <meta property="og:url" content={{model.url}} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={{model.title}} />
+    <meta property="og:description" content={{model.desc}} />
+    <meta property="og:image" content={{model.image.url}} />
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:width" content={{model.image.width}} />
+    <meta property="og:image:height" content={{model.image.height}} />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={{model.title}}>
+    <meta name="twitter:description" content={{model.desc}}>
+    <meta name="twitter:image" content={{model.image.url}}>
