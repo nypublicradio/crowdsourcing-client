@@ -31,6 +31,7 @@ export default Route.extend({
         }
       });
   },
+
   afterModel({survey}) {
     this.get('headData').setProperties({
       url: `${config.fastboot.hostWhitelist[0]}/survey/${get(survey, 'id')}`,
