@@ -8,11 +8,11 @@ import { get } from '@ember/object';
 export default Component.extend({
   tagName:    'form',
   classNames: ['personal-info'],
-  
+
   personalQuestions: filter('questions', q => {
     return ['first-name', 'last-name', 'email'].includes(get(q, 'shortName'));
   }),
-  
+
   init() {
     this._super(...arguments);
     let validations = makeSubmissionValidations(this.get('personalQuestions'));
@@ -21,8 +21,8 @@ export default Component.extend({
     this.set('changeset', changeset);
     this.set('validationErrors', {});
   },
-  
-  
+
+
   submit(e) {
     e.preventDefault();
     let changeset = this.get('changeset');
@@ -37,11 +37,8 @@ export default Component.extend({
           }
         }
       })
-      .catch(() => {
-        console.log('errored in validate'); // eslint-disable-line
-      });
   },
-  
+
   actions: {
     validate(name) {
       let changeset = this.get('changeset');
