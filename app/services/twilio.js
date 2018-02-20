@@ -51,32 +51,24 @@ export default Service.extend(Evented, {
   },
 
   setup: task(function * () {
-    try {
-      Twilio.Device.offline(function(device) { console.log(device); }); // eslint-disable-line
-      let response = yield fetch(`${config.twilioService}/token`);
-      let { token } = yield response.json();
-      Twilio.Device.setup(token, {
-        debug: config.environment === 'development',
-        warnings: config.environment === 'development',
-      });
-    } catch(e) {
-      this.get('errors.setup').pushObject(e);
-    }
+    Twilio.Device.offline(function(device) { console.log(device); }); // eslint-disable-line
+    let response = yield fetch(`${config.twilioService}/token`);
+    let { token } = yield response.json();
+    Twilio.Device.setup(token, {
+      debug: config.environment === 'development',
+      warnings: config.environment === 'development',
+    });
   }),
 
   connect: task(function * () {
-    try {
-      let connection = Twilio.Device.connect({ To: config.twilioNumber });
-      this.get('connections').pushObject(connection);
-      connection._monitor.on('sample', this.get('sampler'));
-      yield new Promise((resolve, reject) => {
-        connection.accept(resolve);
-        connection.error(reject);
-      });
-      return connection;
-    } catch(e) {
-      this.get('errors.connect').pushObject(e);
-    }
+    let connection = Twilio.Device.connect({ To: config.twilioNumber });
+    this.get('connections').pushObject(connection);
+    connection._monitor.on('sample', this.get('sampler'));
+    yield new Promise((resolve, reject) => {
+      connection.accept(resolve);
+      connection.error(reject);
+    });
+    return connection;
   }),
 
   disconnect() {

@@ -26,9 +26,12 @@ export default Route.extend({
       .catch(e => {
         if (e.errors && e.errors.status === 404) {
           this.transitionTo('not-found', id);
+        } else {
+          throw e;
         }
       });
   },
+
   afterModel({survey}) {
     this.get('headData').setProperties({
       url: `${config.fastboot.hostWhitelist[0]}/survey/${get(survey, 'id')}`,
@@ -45,10 +48,6 @@ export default Route.extend({
     if (get(model, 'survey.expired')) {
       this.transitionTo('survey.expired', model);
     }
-  },
-
-  error() {
-    console.log(arguments); // eslint-disable-line
   },
 
   actions: {
