@@ -93,6 +93,7 @@ test('taking an audio survey', function(assert) {
     assert.equal(errors[1].textContent.trim(), 'Last name can\'t be blank');
     assert.equal(errors[2].textContent.trim(), 'Email must be a valid email address');
     assert.equal(errors[3].textContent.trim(), 'Email can\'t be blank');
+    assert.equal(errors[4].textContent.trim(), 'please accept the Terms of Use');
   });
 
   let answers = {
@@ -104,6 +105,7 @@ test('taking an audio survey', function(assert) {
   fillIn('[name=first-name]', answers['first-name']);
   fillIn('[name=last-name]', answers['last-name']);
   fillIn('[name=email]', answers['email']);
+  click('[name=hasAgreed]');
 
   server.post(`${config.crowdsourcingService}/submission`, function({ submissions }, request) {
     let payload = JSON.parse(request.requestBody);
