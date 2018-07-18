@@ -24,7 +24,12 @@
   {{/each}}
 </div>
 
-<a href="http://www.wnyc.org/privacy/" class="personal-privacy" target="_blank" rel="help">Privacy Policy</a>
+<div class="personal-info__privacy-agreement">
+{{input
+  type='checkbox'
+  name='hasAgreed'
+  checked=hasAgreed}} I acknowledge and agree to New York Public Radio’s <a href="" target="_blank">Terms of Use</a> and to the submission terms below.*
+</div>
 
 <div class="personal-info__footer">
   <input type="submit" value="Submit Your Recording" class="personal-info__submit gtm__click-tracking" data-label="Submit Your Recording" data-action="Submission" />
