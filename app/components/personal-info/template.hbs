@@ -1,6 +1,6 @@
 <div class="personal-info__body">
   {{#each personalQuestions as |question|}}
-  
+
   <div class="personal-info__input-wrapper">
     {{input
       class=(concat 'personal-info__input' (if (get changeset.error question.shortName) ' is-error'))
@@ -8,7 +8,7 @@
       change=(action 'validate' question.shortName)
       placeholder=question.label
       name=question.shortName}}
-    
+
       {{#if (or (get validationErrors question.shortName) (get changeset.error question.shortName))}}
       <small class="personal-info__errors">
         <ul>
@@ -25,11 +25,28 @@
 </div>
 
 <div class="personal-info__privacy-agreement">
-{{input
+<input
   type='checkbox'
+  id='hasAgreed'
   name='hasAgreed'
-  checked=hasAgreed}} I acknowledge and agree to New York Public Radio’s <a href="" target="_blank">Terms of Use</a> and to the submission terms below.*
+  class={{concat 'personal-info__privacy-checkbox' (if agreementError ' is-error')}}
+  checked={{hasAgreed}}
+  onclick={{action (mut hasAgreed) value="target.checked"}}
+  onchange={{action 'validateAgreement'}}>
+  <label for='hasAgreed' class='personal-info__privacy-label'>
+  I acknowledge and agree to New York Public Radio’s <a href="https://www.wnyc.org/terms/" target="_blank">Terms of Use</a> and to the submission terms below.*</label>
+
+  {{#if agreementError}}
+  <small class="personal-info__errors">
+    <ul>
+      <li>
+        {{agreementError.message}}
+      </li>
+    </ul>
+  </small>
+  {{/if}}
 </div>
+
 
 <div class="personal-info__footer">
   <input type="submit" value="Submit Your Recording" class="personal-info__submit gtm__click-tracking" data-label="Submit Your Recording" data-action="Submission" />

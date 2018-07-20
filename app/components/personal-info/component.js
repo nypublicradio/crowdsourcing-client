@@ -8,6 +8,8 @@ import { get } from '@ember/object';
 export default Component.extend({
   tagName:    'form',
   classNames: ['personal-info'],
+  hasAgreed: false,
+  agreementError: null,
 
   personalQuestions: filter('questions', q => {
     return ['first-name', 'last-name', 'email'].includes(get(q, 'shortName'));
@@ -22,14 +24,15 @@ export default Component.extend({
     this.set('validationErrors', {});
   },
 
-
   submit(e) {
     e.preventDefault();
     let changeset = this.get('changeset');
+    let hasAgreed = this.get('hasAgreed');
+    this.send('validateAgreement');
     changeset
       .validate()
       .then(() => {
-        if (changeset.get('isValid')) {
+        if (changeset.get('isValid') && hasAgreed) {
           changeset.execute();
           let onSubmit = this.get('onSubmit');
           if (onSubmit) {
@@ -45,6 +48,14 @@ export default Component.extend({
       changeset.validate(name).then(() => {
         this.set(`validationErrors.${name}`, changeset.get(`error.${name}`));
       });
+    },
+    validateAgreement() {
+      let hasAgreed = get(this, 'hasAgreed');
+      if (hasAgreed) {
+        this.set('agreementError', null);
+      } else {
+        this.set('agreementError', {message: 'please accept the Terms of Use'})
+      }
     }
   }
 });

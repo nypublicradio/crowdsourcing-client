@@ -24,13 +24,13 @@ test('renders expected questions', function(assert) {
   let submission = { answers: {} };
   this.setProperties({ questions, submission });
   this.render(hbs`{{personal-info questions=questions submission=submission}}`);
-  
+
   assert.equal(this.$('input.personal-info__input').length, 1, 'should only render the first-name input');
 });
 
 test('submitting executes the changeset and calls onSubmit', function(assert) {
   assert.expect(2);
-  
+
   let done = assert.async();
   let questions = [{
     shortName: 'first-name',
@@ -54,14 +54,16 @@ test('submitting executes the changeset and calls onSubmit', function(assert) {
   fillIn('[name=first-name]', 'foo').then(() => {
     fillIn('[name=last-name]', 'bar').then(() => {
       fillIn('[name=email]', 'buz@baz.com').then(() => {
-        click('.personal-info__submit').then(() => {
-          assert.deepEqual(submission.answers, {
-            'first-name': 'foo',
-            'last-name': 'bar',
-            'email': 'buz@baz.com'
-          });
-          done();
-        })
+        click('[name=hasAgreed]').then(() => {
+          click('.personal-info__submit').then(() => {
+            assert.deepEqual(submission.answers, {
+              'first-name': 'foo',
+              'last-name': 'bar',
+              'email': 'buz@baz.com'
+            });
+            done();
+          })
+        });
       });
     });
   });

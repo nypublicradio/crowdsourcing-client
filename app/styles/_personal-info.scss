@@ -13,7 +13,7 @@
 .personal-info__input-wrapper {
   flex: 0 1 49%;
   margin-bottom: 14px;
-  
+
   @include media(">=tablet") {
     margin-bottom: 20px;
   }
@@ -23,17 +23,17 @@
   display: block;
   width: 100%;
   font-size: 16px;
-  padding: 10px; 
+  padding: 10px;
   border: 1px solid $lightgray;
-  
+
   font-family: "Open Sans", sans-serif;
-  
+
   &::placeholder {
     font-style: oblique;
     color: $gray;
     letter-spacing: 0.5px;
   }
-  
+
   &.is-error {
     border-color: $red;
     margin-bottom: 0;
@@ -43,7 +43,7 @@
 .personal-info__footer {
   display: flex;
   flex-direction: column;
-  
+
   @include media(">=tablet") {
     flex-direction: row;
     justify-content: flex-start;
@@ -53,7 +53,7 @@
 .personal-info__submit {
   @include neon-button;
   margin-bottom: 18px;
-  
+
   @include media(">=tablet") {
     flex-basis: 185px;
     order: 2;
@@ -76,12 +76,25 @@
   }
 }
 
+.personal-info__privacy-agreement {
+  margin-bottom: 19px;
+}
+
+.personal-info__privacy-label {
+  color: #595959;
+  a {
+    color: #000000;
+  }
+}
+
 .personal-privacy {
   display: block;
-  color: $gray;
-  text-decoration: none;
-  margin-bottom: 25px;
-  font-size: 14px;
+  margin-top: 32px;
+  padding: 32px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-style: italic;
+  background-color: $nearwhite;
 }
 
 .personal-info__errors > ul {
@@ -90,4 +103,4 @@
   list-style: none;
   color: $red;
 }
-  
+
