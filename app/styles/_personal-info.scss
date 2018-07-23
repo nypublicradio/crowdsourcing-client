@@ -84,17 +84,16 @@
     margin: 5px 7px 0 0;
   }
 
+  .personal-info__privacy-label {
+    font-size: 12px;
+    color: #595959;
+    a {
+      color: #000000;
+    }
+  }
+
   .personal-info__errors > ul {
     padding: 0;
-  }
-}
-
-
-
-.personal-info__privacy-label {
-  color: #595959;
-  a {
-    color: #000000;
   }
 }
 
@@ -104,6 +103,7 @@
   padding: 32px;
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
+  line-height: 22px;
   font-style: italic;
   background-color: $nearwhite;
 }
