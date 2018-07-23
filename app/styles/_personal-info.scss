@@ -78,7 +78,18 @@
 
 .personal-info__privacy-agreement {
   margin-bottom: 19px;
+  display: flex;
+
+  .personal-info__privacy-checkbox {
+    margin: 0 7px 0 0;
+  }
+
+  .personal-info__errors > ul {
+    padding: 0;
+  }
 }
+
+
 
 .personal-info__privacy-label {
   color: #595959;

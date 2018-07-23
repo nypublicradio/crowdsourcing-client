@@ -25,7 +25,7 @@
 </div>
 
 <div class="personal-info__privacy-agreement">
-<input
+  <input
   type='checkbox'
   id='hasAgreed'
   name='hasAgreed'
@@ -33,18 +33,20 @@
   checked={{hasAgreed}}
   onclick={{action (mut hasAgreed) value="target.checked"}}
   onchange={{action 'validateAgreement'}}>
-  <label for='hasAgreed' class='personal-info__privacy-label'>
-  I acknowledge and agree to New York Public Radio’s <a href="https://www.wnyc.org/terms/" target="_blank">Terms of Use</a> and to the submission terms below.*</label>
+  <div class='personal-info__agreement-text'>
+    <label for='hasAgreed' class='personal-info__privacy-label'>
+    I acknowledge and agree to New York Public Radio’s <a href="https://www.wnyc.org/terms/" target="_blank">Terms of Use</a> and to the submission terms below.*</label>
 
-  {{#if agreementError}}
-  <small class="personal-info__errors">
-    <ul>
-      <li>
-        {{agreementError.message}}
-      </li>
-    </ul>
-  </small>
-  {{/if}}
+    {{#if agreementError}}
+    <small class="personal-info__errors">
+      <ul>
+        <li>
+          {{agreementError.message}}
+        </li>
+      </ul>
+    </small>
+    {{/if}}
+  </div>
 </div>
 
 
