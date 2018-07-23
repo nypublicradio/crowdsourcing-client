@@ -94,6 +94,11 @@
 
   .personal-info__errors > ul {
     padding: 0;
+
+    li {
+      font-size: 12px;
+      line-height: 22px;
+    }
   }
 }
 
