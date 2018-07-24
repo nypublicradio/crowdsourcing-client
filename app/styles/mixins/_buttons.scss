@@ -11,7 +11,7 @@
     cursor: not-allowed;
   }
 
-  .disabled {
+  &.disabled {
     cursor: not-allowed;
   }
 }
@@ -32,7 +32,7 @@
 
   text-transform: uppercase;
 
-  .disabled {
+  &.disabled {
     background-color: rbga($neon-yellow, 0.2);
     border: 1px solid rbga($neon-yellow, 0.2);
     color: #737373;
