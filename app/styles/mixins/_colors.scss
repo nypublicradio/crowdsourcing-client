@@ -3,6 +3,10 @@ $nearwhite: #f1f1f1;
 $lightgray: #ddd;
 $gray: #999;
 $darkgray: #777;
+$readable-gray: #595959; // meets WCAG AAA contrast requirements for small text on a white background.
 $neon-yellow: #dcf42c;
+$neon-yellow-disabled: #f9fcd9;
+$neon-yellow-readable-gray: #737373;  // meets WCAG AAA contrast requirements for large text on a $neon-yellow-disabled background.
+
 $teal: #4db7be;
 $blue:  #4a90e2

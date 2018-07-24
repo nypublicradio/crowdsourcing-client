@@ -33,9 +33,9 @@
   text-transform: uppercase;
 
   &.disabled {
-    background-color: rbga($neon-yellow, 0.2);
-    border: 1px solid rbga($neon-yellow, 0.2);
-    color: #737373;
+    background-color: $neon-yellow-disabled;
+    border: 1px solid $neon-yellow-disabled;
+    color: $neon-yellow-readable-gray;
   }
 }
 
