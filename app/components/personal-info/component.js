@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import Changeset from 'ember-changeset';
-import { computed } from '@ember/object';
-import { filter } from '@ember/object/computed';
+import { filter, not, and } from '@ember/object/computed';
 import makeSubmissionValidations from '../../validations/submission';
 import lookupValidator from 'ember-changeset-validations';
 import { get } from '@ember/object';
@@ -16,12 +15,8 @@ export default Component.extend({
     return ['first-name', 'last-name', 'email'].includes(get(q, 'shortName'));
   }),
 
-  isReady: computed('hasAgreed', 'changeset', function() {
-    let changeset = get(this, 'changeset');
-    let hasAgreed = get(this, 'hasAgreed');
-    let ready = !changeset.get('isPristine') && changeset.get('isValid');
-    return ready && hasAgreed;
-  }),
+  notPristine: not('changeset.isPristine'),
+  isReady: and('changeset.isValid','notPristine','hasAgreed'),
 
   init() {
     this._super(...arguments);
