@@ -84,6 +84,7 @@ test('taking an audio survey', function(assert) {
   });
 
   andThen(function() {
+    assert.equal(find('.personal-info__submit.disabled').length, 1, 'submit button should have disabled style before filling out form');
     click('.personal-info__submit');
   });
 
@@ -94,6 +95,7 @@ test('taking an audio survey', function(assert) {
     assert.equal(errors[2].textContent.trim(), 'Email must be a valid email address');
     assert.equal(errors[3].textContent.trim(), 'Email can\'t be blank');
     assert.equal(errors[4].textContent.trim(), 'please accept the Terms of Use');
+    assert.equal(find('.personal-info__submit.disabled').length, 1, 'submit button should have disabled style after attempting submit with errors');
   });
 
   let answers = {
@@ -116,9 +118,11 @@ test('taking an audio survey', function(assert) {
       assert.equal(expectedAnswer, answer.response, 'submitted answers should be grouped by question id under a `response` key');
     });
     return submissions.create(this.normalizedRequestAttrs());
+
   });
 
   andThen(function() {
+    assert.equal(find('.personal-info__submit.disabled').length, 0, 'submit button should not have disabled style after filling form');
     click('.personal-info__submit');
   });
 
