@@ -60,10 +60,12 @@ test('final step', function(assert) {
                     router=router}}`);
 
   fillIn('input[name=first-name]', 'foo').then(() => {
-    click('.personal-info__submit').then(() => {
-      assert.equal(submission.answers['audio-question'], 'audio-url.wav', 'audio question is saved to submission when the personal info form is submitted through the audio survey manager');
-      delete window.dataLayer;
-      done();
+    click('input[name=hasAgreed]').then(() => {
+      click('.personal-info__submit').then(() => {
+        assert.equal(submission.answers['audio-question'], 'audio-url.wav', 'audio question is saved to submission when the personal info form is submitted through the audio survey manager');
+        delete window.dataLayer;
+        done();
+      });
     });
   });
 });
