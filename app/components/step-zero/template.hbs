@@ -9,6 +9,10 @@
   </p>
 </div>
 
-{{#action-button click=(action goTo 1) class="gtm__click-tracking-w-text" data-action="Intro screen"}}
+{{#action-button
+  click=(action goTo 1)
+  class="gtm__click-tracking"
+  data-action="Click on Get Started"
+  data-label=(concat survey.id '|' survey.title)}}
 Get Started
 {{/action-button}}

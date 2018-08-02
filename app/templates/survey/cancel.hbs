@@ -4,6 +4,10 @@
   You cancelled the submission of your recording. If you'd like, you can start over.
 </p>
 
-{{#action-button click=(action 'cancel') class="cancel__button gtm__click-tracking-w-text" data-action="Submission"}}
+{{#action-button
+  click=(action 'cancel')
+  class="cancel__button gtm__click-tracking"
+  data-action="Start Over"
+  data-label=(concat model.survey.id '|' model.survey.title)}}
   Start Over
 {{/action-button}}

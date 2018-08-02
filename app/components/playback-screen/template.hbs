@@ -1,7 +1,12 @@
 <div class="playback-screen__header">
   <div class="playback-screen__progress" style={{progressWidth}}></div>
   {{#unless noAudio}}
-  <button class="playback-button gtm__click-tracking-w-text" data-action="Step 2" disabled={{initAudio.isRunning}} {{action 'playOrPause'}}>
+  <button
+    class="playback-button gtm__click-tracking"
+    data-action="Listen to Recording"
+    data-label={{concat id '|' title}}
+    disabled={{initAudio.isRunning}}
+    {{action 'playOrPause'}}>
     {{#if initAudio.isIdle}}
       {{#if isPlaying}}
       <span class="playback-pause"></span> Pause

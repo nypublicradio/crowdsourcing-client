@@ -32,10 +32,16 @@ test('final step', function(assert) {
   assert.expect(4);
 
   window.dataLayer = {push() {}};
-  this.mock(window.dataLayer).expects('push').once().withArgs({ event: 'crowdsourcing submit' });
+  this.mock(window.dataLayer).expects('push').once().withArgs({
+    event: 'Submission Succsessful',
+    "Crowdsourcing Survey ID": 1,
+    "Crowdsourcing Survey Title": 'Test Survey',
+  });
 
   let done = assert.async();
   let survey = {
+    id: 1,
+    title: 'Test Survey',
     questions: [{shortName: 'first-name'}],
     audioQuestions: [{shortName: 'audio-question'}]
   };

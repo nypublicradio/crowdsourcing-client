@@ -19,15 +19,33 @@
 </div>
 
 {{#if (eq step '1')}}
-  {{audio-recorder question=audioQuestion title=survey.title next=(action next 'callId')}}
+  {{audio-recorder
+    question=audioQuestion
+    id=survey.id
+    title=survey.title
+    next=(action next 'callId')}}
 {{else if (eq step '2')}}
-  {{#playback-screen callId=submission.callId as |url isReady|}}
+  {{#playback-screen
+    callId=submission.callId
+    id=survey.id
+    title=survey.title
+    as |url isReady|}}
 
-    {{#action-button class="playback-screen__approve gtm__click-tracking-w-text" data-action="Step 2" click=(action next 'url' url) disabled=(not isReady)}}
+    {{#action-button
+      class="playback-screen__approve gtm__click-tracking"
+      data-action="Use Recording"
+      data-label=(concat survey.id '|' survey.title)
+      data-click=(action next 'url' url)
+      disabled=(not isReady)}}
       Use This Recording
     {{/action-button}}
 
-    {{#action-button class="playback-screen__cancel gtm__click-tracking-w-text" data-action="Step 2" hollow=true click=(action back)}}
+    {{#action-button
+      class="playback-screen__cancel gtm__click-tracking"
+      data-action="Re-Record"
+      data-label=(concat survey.id '|' survey.title)
+      hollow=true
+      click=(action back)}}
       Re-Record
     {{/action-button}}
 
@@ -36,9 +54,16 @@
   {{#personal-info
     onSubmit=(action finish)
     questions=survey.questions
-    submission=submission}}
+    submission=submission
+    id=survey.id
+    title=survey.title}}
 
-    {{#action-button class="personal-info__cancel gtm__click-tracking-w-text" data-action="Submission" hollow=true click=(action cancel)}}
+    {{#action-button
+      class="personal-info__cancel gtm__click-tracking"
+      data-action="Cancel Submission"
+      data-label=(concat survey.id '|' survey.title)
+      hollow=true
+      click=(action cancel)}}
       Cancel
     {{/action-button}}
 

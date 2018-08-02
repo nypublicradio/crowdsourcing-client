@@ -51,7 +51,12 @@
 
 
 <div class="personal-info__footer">
-  <input type="submit" value="Submit Your Recording" class="personal-info__submit gtm__click-tracking {{unless isReady 'disabled'}}" data-label="Submit Your Recording" data-action="Submission" />
+  <input
+    type="submit"
+    value="Submit Your Recording"
+    class="personal-info__submit gtm__click-tracking {{unless isReady 'disabled'}}"
+    data-action="Submit Recording"
+    data-label={{concat id '|' title}}/>
 
   {{yield}}
 </div>

@@ -6,10 +6,11 @@
 
 <div class="audio-recorder__sticky">
   {{#action-button
-    data-action="Step 1"
     disabled=connect.isRunning
     click=(action toggleRecord)
-    class=(concat 'gtm__click-tracking-w-text audio-recorder__button' (if record.isRunning ' is-recording'))}}
+    class=(concat 'gtm__click-tracking audio-recorder__button' (if record.isRunning ' is-recording'))
+    data-action=(if record.isRunning 'Stop Record' 'Start Record')
+    data-label=(concat id '|' title)}}
     {{#if twilio.connect.isRunning}}
       Connecting...
     {{else if record.isRunning}}
