@@ -10,7 +10,7 @@
     click=(action toggleRecord)
     class=(concat 'gtm__click-tracking audio-recorder__button' (if record.isRunning ' is-recording'))
     data-action=(if record.isRunning 'Stop Record' 'Start Record')
-    data-label=(concat id '|' title)}}
+    data-label=(concat title '|' id)}}
     {{#if twilio.connect.isRunning}}
       Connecting...
     {{else if record.isRunning}}

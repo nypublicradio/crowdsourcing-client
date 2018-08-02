@@ -34,7 +34,7 @@
     {{#action-button
       class="playback-screen__approve gtm__click-tracking"
       data-action="Use Recording"
-      data-label=(concat survey.id '|' survey.title)
+      data-label=(concat survey.title '|' survey.id)
       click=(action next 'url' url)
       disabled=(not isReady)}}
       Use This Recording
@@ -43,7 +43,7 @@
     {{#action-button
       class="playback-screen__cancel gtm__click-tracking"
       data-action="Re-Record"
-      data-label=(concat survey.id '|' survey.title)
+      data-label=(concat survey.title '|' survey.id)
       hollow=true
       click=(action back)}}
       Re-Record
@@ -61,7 +61,7 @@
     {{#action-button
       class="personal-info__cancel gtm__click-tracking"
       data-action="Cancel Submission"
-      data-label=(concat survey.id '|' survey.title)
+      data-label=(concat survey.title '|' survey.id)
       hollow=true
       click=(action cancel)}}
       Cancel

@@ -4,7 +4,7 @@
   <button
     class="playback-button gtm__click-tracking"
     data-action="Listen to Recording"
-    data-label={{concat id '|' title}}
+    data-label={{concat title '|' id}}
     disabled={{initAudio.isRunning}}
     {{action 'playOrPause'}}>
     {{#if initAudio.isIdle}}
