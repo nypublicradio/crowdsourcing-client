@@ -35,7 +35,7 @@
       class="playback-screen__approve gtm__click-tracking"
       data-action="Use Recording"
       data-label=(concat survey.id '|' survey.title)
-      data-click=(action next 'url' url)
+      click=(action next 'url' url)
       disabled=(not isReady)}}
       Use This Recording
     {{/action-button}}
