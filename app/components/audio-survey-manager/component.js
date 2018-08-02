@@ -64,7 +64,7 @@ export default Component.extend({
       .then(() => {
         if (window.dataLayer) {
           window.dataLayer.push({
-            event: 'Submission Succsessful',
+            event: 'crowdsourcing submit',
             'Crowdsourcing Survey ID': this.get('survey.id'),
             'Crowdsourcing Survey Title': this.get('survey.title')
           });

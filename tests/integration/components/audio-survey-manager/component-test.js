@@ -33,7 +33,7 @@ test('final step', function(assert) {
 
   window.dataLayer = {push() {}};
   this.mock(window.dataLayer).expects('push').once().withArgs({
-    event: 'Submission Succsessful',
+    event: 'crowdsourcing submit',
     "Crowdsourcing Survey ID": 1,
     "Crowdsourcing Survey Title": 'Test Survey',
   });
