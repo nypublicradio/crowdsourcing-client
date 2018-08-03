@@ -63,7 +63,11 @@ export default Component.extend({
     this.get('submission').save()
       .then(() => {
         if (window.dataLayer) {
-          window.dataLayer.push({ event: 'crowdsourcing submit' });
+          window.dataLayer.push({
+            event: 'crowdsourcing submit',
+            'Crowdsourcing Survey ID': this.get('survey.id'),
+            'Crowdsourcing Survey Title': this.get('survey.title')
+          });
         }
         this.get('router').transitionTo('survey.thank-you');
       })
