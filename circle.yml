@@ -1,32 +1,35 @@
 version: 2
 
+node_key: &node_key
+  key: node-deps-v3-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }} 
+
 jobs:
   build-static:
     docker:
-      - image: circleci/node:8.7
+      - image: circleci/node:8
 
     steps:
       - checkout
 
       - restore_cache:
-          key: node-deps-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
+          <<: *node_key
       - run:
           name: Install node dependencies
           command: npm i --no-package-lock
       - save_cache:
-          key: node-deps-v2-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
+          <<: *node_key
           paths:
             - ./node_modules
 
   test-static:
     docker:
-      - image: circleci/node:8.7-browsers
+      - image: circleci/node:8-browsers
         environment:
           JOBS: 2
     steps:
       - checkout
       - restore_cache:
-          key: node-deps-v2-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
+          <<: *node_key
       - run:
           name: Test
           command: npx ember test
@@ -39,7 +42,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: node-deps-v2-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
+          <<: *node_key
       - run:
           name: Deploy to S3
           command: |
