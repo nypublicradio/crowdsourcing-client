@@ -9,7 +9,8 @@ module.exports = function(defaults) {
       includePaths: [
         'node_modules/include-media/dist'
       ]
-    }
+    },
+    dotEnv: {}
   });
 
   // Use `app.import` to add additional libraries to the generated
