@@ -1,7 +1,7 @@
 version: 2
 
 node_key: &node_key
-  key: node-deps-v3-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }} 
+  key: node-deps-v4-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
 
 jobs:
   build-static:
@@ -15,7 +15,7 @@ jobs:
           <<: *node_key
       - run:
           name: Install node dependencies
-          command: npm i --no-package-lock
+          command: npm ci
       - save_cache:
           <<: *node_key
           paths:
