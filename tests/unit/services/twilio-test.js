@@ -28,8 +28,6 @@ test('it does the expected setup', function(assert) {
     assert.ok(window.addEventListener.calledOnce);
     assert.deepEqual(['focus', service.get('focusHandler'), false], window.addEventListener.getCall(0).args);
 
-    assert.ok(service.get('sampler'));
-
     assert.ok(Twilio.Device.offline.calledOnce, 'setup offline handler');
     assert.ok(Twilio.Device.setup.calledOnce, 'twilio setup was called');
 
@@ -45,9 +43,6 @@ test('connect sets up the proper handlers', function(assert) {
   Twilio.Device.connect.returns({
     accept: this.stub().callsArgAsync(0),
     error: this.mock('connection.error').once(),
-    _monitor: {
-      on: this.mock('connection._monitor.on').once().withArgs('sample')
-    }
   });
   let connection;
   service.get('connect').perform().then(c => connection = c);
@@ -63,35 +58,6 @@ test('connect sets up the proper handlers', function(assert) {
   }
   runAssertions();
 });
-
-test('sampleAnalyser responds to empty packets', function(assert) {
-  let service = this.subject({
-    currentConnection: {
-      _monitor: { removeListener: this.mock('removeListener').once() }
-    }
-  });
-  let unrecoverableMock = this.mock().once();
-  service.on('twilio-unrecoverable', unrecoverableMock);
-  service.sampleAnalyser({ packetsSent: 0 });
-
-  assert.ok(Twilio.Device.destroy.calledOnce, 'destroy called');
-});
-
-test('sampleAnalyser calls off sampling if it detects packets', function(assert) {
-  let connectionMock = {
-    _monitor: {
-      removeListener: this.spy()
-    }
-  };
-  let service = this.subject({
-    currentConnection: connectionMock
-  });
-  let unrecoverableMock = this.mock().never();
-  service.on('twilio-unrecoverable', unrecoverableMock)
-  service.sampleAnalyser({ packetsSent: 1 });
-
-  assert.ok(Twilio.Device.disconnectAll.notCalled, 'disconnectAll NOT called');
-})
 
 test('Twilio disconnect retrieves the active connection and calls disconnect', function(assert) {
   let service = this.subject();

@@ -21,9 +21,6 @@ test('taking an audio survey', function(assert) {
     accept: this.stub().callsArgAsync(0),
     disconnect: this.mock('disconnect').twice(),
     error: this.mock('error').atLeast(4),
-    _monitor: {
-      on: this.mock('_monitor.on').twice().withArgs('sample')
-    },
   });
 
   visit(`/${survey.id}`);
@@ -142,9 +139,6 @@ test('user can cancel and start over', function(assert) {
     accept: this.stub().callsArgAsync(0),
     disconnect: this.mock('disconnect').once(),
     error: this.mock('error').twice(),
-    _monitor: {
-      on: this.mock('_monitor.on').once().withArgs('sample')
-    },
   });
 
   visit(`/${survey.id}`);
@@ -264,48 +258,5 @@ test('a user should be redirected to step zero if they start on cancel', functio
 
   andThen(function() {
     assert.equal(currentURL(), `/${survey.id}`, 'cancel returns to step 0');
-  });
-});
-
-moduleForAcceptance('Acceptance | the bad state', {
-  afterEach() {
-    window.server.shutdown();
-  }
-});
-
-test('bad state shows a modal', function(assert) {
-  createAudioSurvey(server);
-  let [ survey ] = server.db.surveys;
-
-  window.Twilio = stubTwilioGlobal();
-  window.Twilio.Device.connect.returns({
-    accept: this.stub().callsArgAsync(0),
-    disconnect: this.spy(),
-    error: this.mock('error').twice(),
-    _monitor: {
-      on: this.stub().callsArgWithAsync(1, {packetsSent: 0}),
-      removeListener: this.mock().once().withArgs('sample'),
-    },
-  });
-
-  visit(`/${survey.id}`);
-
-  andThen(() => {
-    assert.equal(currentURL(), `/${survey.id}`, 'should be on step 0: introduction');
-    click('.step-zero button');
-  });
-
-  andThen(() => {
-    assert.equal(currentURL(), `/${survey.id}/1`, 'should be on step 1: record audio');
-    click('.audio-recorder__button');
-  });
-
-  andThen(() => {
-    assert.ok(find('.escape-modal'));
-    triggerCopySuccess();
-  });
-
-  andThen(() => {
-    assert.equal(find('.escape-modal__copy-button').text().trim(), 'Copied!');
   });
 });

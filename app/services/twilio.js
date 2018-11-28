@@ -1,5 +1,4 @@
 import Service, { inject as service } from '@ember/service';
-import { bind } from '@ember/runloop';
 import { reads, union } from '@ember/object/computed';
 import Evented from '@ember/object/evented';
 import { task } from 'ember-concurrency';
