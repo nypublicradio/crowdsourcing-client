@@ -32,7 +32,6 @@ export default Service.extend(Evented, {
       console.warn('Twilio SDK is not loaded.'); // eslint-disable-line
     }
     window.addEventListener('focus', this.get('focusHandler'), false);
-    this.set('sampler', bind(this, 'sampleAnalyser'));
 
     this.get('setup').perform();
   },
@@ -63,7 +62,6 @@ export default Service.extend(Evented, {
   connect: task(function * () {
     let connection = Twilio.Device.connect({ To: config.twilioNumber });
     this.get('connections').pushObject(connection);
-    connection._monitor.on('sample', this.get('sampler'));
     yield new Promise((resolve, reject) => {
       connection.accept(resolve);
       connection.error(reject);
@@ -75,15 +73,5 @@ export default Service.extend(Evented, {
     let connection = Twilio.Device.activeConnection();
     connection.disconnect();
     return connection;
-  },
-
-  sampleAnalyser(sample) {
-    let conn = this.get('currentConnection');
-    conn._monitor.removeListener('sample', this.get('sampler'));
-
-    if (sample.packetsSent === 0) {
-      this.trigger('twilio-unrecoverable');
-      Twilio.Device.destroy();
-    }
   },
 });
