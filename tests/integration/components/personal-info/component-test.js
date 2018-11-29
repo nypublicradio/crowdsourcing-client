@@ -2,6 +2,10 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { fillIn, click, findAll } from 'ember-native-dom-helpers';
 
+import { TYPES } from 'crowdsourcing-client/models/question';
+
+const { TEXT, AUDIO, EMAIL } = TYPES;
+
 moduleForComponent('personal-info', 'Integration | Component | personal info', {
   integration: true
 });
@@ -17,15 +21,17 @@ test('it renders', function(assert) {
 
 test('renders expected questions', function(assert) {
   let questions = [{
-    shortName: 'first-name',
+    shortName: 'whats-your-name',
+    inputType: TEXT,
   }, {
-    shortName: 'cats-name'
+    shortName: 'cats-name',
+    inputType: AUDIO,
   }];
   let submission = { answers: {} };
   this.setProperties({ questions, submission });
   this.render(hbs`{{personal-info questions=questions submission=submission}}`);
 
-  assert.equal(this.$('input.personal-info__input').length, 1, 'should only render the first-name input');
+  assert.equal(this.$('input.personal-info__input').length, 1, 'should only render the text input');
 });
 
 test('submitting executes the changeset and calls onSubmit', function(assert) {
@@ -34,10 +40,13 @@ test('submitting executes the changeset and calls onSubmit', function(assert) {
   let done = assert.async();
   let questions = [{
     shortName: 'first-name',
+    inputType: TEXT,
   }, {
-    shortName: 'last-name'
+    shortName: 'last-name',
+    inputType: TEXT,
   }, {
-    shortName: 'email'
+    shortName: 'email',
+    inputType: EMAIL,
   }];
   let submission = { answers: {} };
 
@@ -73,12 +82,14 @@ test('error messages', function(assert) {
   let done = assert.async();
   let questions = [{
     shortName: 'first-name',
+    inputType: TEXT,
     required: true,
   }, {
-    shortName: 'last-name'
+    shortName: 'last-name',
+    inputType: TEXT,
   }, {
     shortName: 'email',
-    inputType: 'e'
+    inputType: EMAIL,
   }];
   let submission = { answers: {} };
 

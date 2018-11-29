@@ -6,15 +6,15 @@ import lookupValidator from 'ember-changeset-validations';
 import { get } from '@ember/object';
 import { next } from '@ember/runloop';
 
+import { TYPES } from '../../models/question';
+
 export default Component.extend({
   tagName:    'form',
   classNames: ['personal-info'],
   hasAgreed: false,
   agreementError: null,
 
-  personalQuestions: filter('questions', q => {
-    return ['first-name', 'last-name', 'email'].includes(get(q, 'shortName'));
-  }),
+  personalQuestions: filter('questions', q => get(q, 'inputType') !== TYPES.AUDIO),
 
   notPristine: not('changeset.isPristine'),
   isReady: and('changeset.isValid','notPristine','hasAgreed'),
