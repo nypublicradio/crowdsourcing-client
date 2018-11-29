@@ -119,6 +119,7 @@ test('taking an audio survey', function(assert) {
   });
 
   andThen(function() {
+    assert.equal(find('.personal-info__errors').length, 0, 'no error messages should be visible after filling form');
     assert.equal(find('.personal-info__submit.disabled').length, 0, 'submit button should not have disabled style after filling form');
     click('.personal-info__submit');
   });
