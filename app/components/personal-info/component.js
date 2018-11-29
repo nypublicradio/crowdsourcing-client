@@ -4,6 +4,7 @@ import { filter, not, and } from '@ember/object/computed';
 import makeSubmissionValidations from '../../validations/submission';
 import lookupValidator from 'ember-changeset-validations';
 import { get } from '@ember/object';
+import { next } from '@ember/runloop';
 
 export default Component.extend({
   tagName:    'form',
@@ -53,12 +54,20 @@ export default Component.extend({
       });
     },
     validateAgreement() {
-      let hasAgreed = get(this, 'hasAgreed');
-      if (hasAgreed) {
-        this.set('agreementError', null);
-      } else {
-        this.set('agreementError', {message: 'please accept the Terms of Use'})
-      }
+      // delay one tick to ensure click event (update checkbox)
+      // registers before change event (validate checkbox)
+      // order of events firing can vary between browsers
+      next(() => {
+        if (this.get("isDestroyed")) {
+          return;
+        }
+        let hasAgreed = get(this, 'hasAgreed');
+        if (hasAgreed) {
+          this.set('agreementError', null);
+        } else {
+          this.set('agreementError', {message: 'please accept the Terms of Use'})
+        }
+      });
     }
   }
 });
