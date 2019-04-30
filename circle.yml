@@ -7,7 +7,7 @@ defaults: &defaults
         JOBS: 2
 
 node_key: &node_key
-  key: node-deps-v4-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}
+  key: node-deps-v4-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}-{{ checksum "circle.yml" }}
 
 restore_node: &restore_node
   restore_cache:
