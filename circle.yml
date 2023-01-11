@@ -132,6 +132,9 @@ workflows:
     jobs:
       - build-static:
           filters:
+            tags:
+              only:
+                - demo
             branches:
               only: master
       - test-static:
