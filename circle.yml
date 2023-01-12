@@ -132,17 +132,40 @@ workflows:
     jobs:
       - build-static:
           filters:
+            tags:
+              only:
+                - demo
             branches:
               only: master
       - test-static:
+          filters:
+            tags:
+              only:
+                - demo
+            branches:
+              only: master
           requires:
             - build-static
       - deploy-static-demo:
+          filters:
+            tags:
+              only:
+                - demo
+            branches:
+              only: master
           requires:
             - test-static
+          context: "AWS Deploy"
       - deploy-fastboot-demo:
+          filters:
+            tags:
+              only:
+                - demo
+            branches:
+              only: master
           requires:
             - deploy-static-demo
+          context: "AWS Deploy"
 
   deploy-prod:
     jobs:
@@ -165,9 +188,11 @@ workflows:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+/
           requires:
             - test-static
+          context: "AWS Deploy"
       - deploy-fastboot-prod:
           filters:
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+/
           requires:
             - deploy-static-prod
+          context: "AWS Deploy"
