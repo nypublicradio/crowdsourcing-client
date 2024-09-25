@@ -111,6 +111,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - setup_env
       - run:
           name: Deploy to S3 $ENV
           command: |
@@ -123,8 +124,17 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - setup_env
       - run:
           name: Deploy to S3 $ENV
           command: |
-            env | sed -n "s/^"$ENV"_//p" > .env
             npx ember deploy `echo $ENV | tr A-Z a-z` --verbose --activate
+
+commands:
+  setup_env:
+    steps:
+      - checkout
+      - run:
+          name: Setup Environment
+          command: |
+            bash ./scripts/rename_env_vars.sh
