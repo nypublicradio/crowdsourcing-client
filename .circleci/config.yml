@@ -107,7 +107,7 @@ jobs:
           command: npx ember test
   deploy-static-demo:
     environment:
-      ENV: DEMO
+      ENV: demo
     <<: *defaults
     steps:
       - checkout
@@ -120,7 +120,7 @@ jobs:
 
   deploy-static-prod:
     environment:
-      ENV: PROD
+      ENV: prod
     <<: *defaults
     steps:
       - checkout
