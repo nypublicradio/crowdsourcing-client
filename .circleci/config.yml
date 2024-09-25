@@ -115,7 +115,7 @@ jobs:
           name: Deploy to S3 $ENV
           command: |
             env | sed -n "s/^"$ENV"_//p" > .env
-            npx ember deploy `echo $ENV | tr A-Z a-z` --verbose --activate
+            npx ember-cli deploy `echo $ENV | tr A-Z a-z` --verbose --activate
 
   deploy-static-prod:
     environment:
