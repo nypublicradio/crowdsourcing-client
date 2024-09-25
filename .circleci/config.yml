@@ -1,0 +1,130 @@
+version: 2.1
+
+orbs:
+  nypr-deploy: nypr/nypr-deploy@0.0.81
+
+filter_all: &filter_all
+  filters:
+    branches:
+      only: /.*/
+    tags:
+      only: /.*/
+
+filter_demo: &filter_demo
+  filters:
+    branches:
+      only: master
+    tags:
+      only: demo
+
+filter_prod: &filter_prod
+  filters:
+    branches:
+      ignore: /.*/
+    tags:
+      only: /^v[0-9]+\.[0-9]+\.[0-9]+/
+
+defaults: &defaults
+  docker:
+    - image: circleci/node:8
+      environment:
+        JOBS: 2
+
+node_key: &node_key
+  key: node-deps-v4-{{ checksum "package-lock.json" }}-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
+
+restore_node: &restore_node
+  restore_cache:
+    <<: *node_key
+
+workflows:
+  test-and-deploy:
+    jobs:
+      - build-static:
+          <<: *filter_all
+      - test-static:
+          <<: *filter_all
+          requires:
+            - build-static
+      - deploy-static-demo:
+          <<: *filter_demo
+          requires:
+            - test-static
+      - deploy-static-prod:
+          <<: *filter_prod
+          requires:
+            - test-static
+      - nypr-deploy/build_and_deploy:
+          <<: *filter_demo
+          name: "Deploy Fastboot to Demo"
+          context: "AWS Deploy"
+          repo: "crowdsourcing-fastboot"
+          serivce: "crowdsourcing-fastboot"
+          cluster: "fastboot"
+          cpu: 256
+          memory: 512
+          requires:
+            - build-static
+            - test-static
+            - deploy-static-demo
+      - nypr-deploy/build_and_deploy:
+          <<: *filter_prod
+          name: "Deploy Fastboot to Prod"
+          context: "AWS Deploy"
+          repo: "crowdsourcing-fastboot"
+          serivce: "crowdsourcing-fastboot"
+          cluster: "fastboot"
+          cpu: 256
+          memory: 512
+          requires:
+            - build-static
+            - test-static
+            - deploy-static-prod
+            
+jobs:
+  build-static:
+    <<: *defaults
+    steps:
+      - checkout
+      - <<: *restore_node
+      - run:
+          name: Install Dependencies
+          command: npm ci
+      - save_cache:
+          <<: *node_key
+          paths:
+            - ./node_modules
+  test-static:
+    docker:
+      - image: circleci/node:8-browsers
+        environment:
+          JOBS: 2
+    steps:
+      - checkout
+      - <<: *restore_node
+      - run:
+          name: Test
+          command: npx ember test
+  deploy-static-demo:
+    environment:
+      ENV: DEMO
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Deploy to S3 $ENV
+          command: |
+            env | sed -n "s/^"$ENV"_//p" > .env
+            npx ember deploy `echo $ENV | tr A-Z a-z` --verbose --activate
+
+  deploy-static-prod:
+    environment:
+      ENV: PROD
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Deploy to S3 $ENV
+          command: |
+            env | sed -n "s/^"$ENV"_//p" > .env
+            npx ember deploy `echo $ENV | tr A-Z a-z` --verbose --activate
