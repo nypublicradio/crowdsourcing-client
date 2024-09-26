@@ -48,10 +48,12 @@ workflows:
             - build-static
       - deploy-static-demo:
           <<: *filter_demo
+          context: "AWS Deploy"
           requires:
             - test-static
       - deploy-static-prod:
           <<: *filter_prod
+          context: "AWS Deploy"
           requires:
             - test-static
       - nypr-deploy/build_and_deploy:
