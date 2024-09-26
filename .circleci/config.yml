@@ -111,6 +111,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - <<: *restore_node
       - run:
           name: Deploy to S3
           command: |
@@ -124,6 +125,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - <<: *restore_node
       - run:
           name: Deploy to S3
           command: |
