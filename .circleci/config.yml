@@ -59,7 +59,7 @@ workflows:
           name: "Deploy Fastboot to Demo"
           context: "AWS Deploy"
           repo: "crowdsourcing-fastboot"
-          serivce: "crowdsourcing-fastboot"
+          service: "crowdsourcing-fastboot"
           cluster: "fastboot"
           cpu: 256
           memory: 512
@@ -72,7 +72,7 @@ workflows:
           name: "Deploy Fastboot to Prod"
           context: "AWS Deploy"
           repo: "crowdsourcing-fastboot"
-          serivce: "crowdsourcing-fastboot"
+          service: "crowdsourcing-fastboot"
           cluster: "fastboot"
           cpu: 256
           memory: 512
@@ -107,34 +107,24 @@ jobs:
           command: npx ember test
   deploy-static-demo:
     environment:
-      ENV: demo
+      ENV: DEMO
     <<: *defaults
     steps:
       - checkout
-      - setup_env
       - run:
-          name: Deploy to S3 $ENV
+          name: Deploy to S3
           command: |
             env | sed -n "s/^"$ENV"_//p" > .env
-            npx ember-cli deploy demo --verbose --activate
+            npx ember deploy `echo $ENV | tr A-Z a-z` --verbose --activate
 
   deploy-static-prod:
     environment:
-      ENV: prod
+      ENV: PROD
     <<: *defaults
     steps:
       - checkout
-      - setup_env
       - run:
-          name: Deploy to S3 $ENV
+          name: Deploy to S3
           command: |
-            npx ember deploy prod --verbose --activate
-
-commands:
-  setup_env:
-    steps:
-      - checkout
-      - run:
-          name: Setup Environment
-          command: |
-            bash ./scripts/rename_env_vars.sh
+            env | sed -n "s/^"$ENV"_//p" > .env
+            npx ember deploy `echo $ENV | tr A-Z a-z` --verbose --activate
