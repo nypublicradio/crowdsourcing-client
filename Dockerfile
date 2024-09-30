@@ -9,6 +9,6 @@ RUN npm install --production
 
 COPY . ./
 
-RUN apt-get update && apt-get install -y unzip
+RUN apt-get update
 
 CMD node fastboot
