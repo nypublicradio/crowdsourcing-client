@@ -82,7 +82,7 @@ workflows:
             - build-static
             - test-static
             - deploy-static-prod
-            
+  
 jobs:
   build-static:
     <<: *defaults
