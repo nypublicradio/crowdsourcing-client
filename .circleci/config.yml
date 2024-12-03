@@ -65,6 +65,7 @@ workflows:
           cluster: "fastboot"
           cpu: 256
           memory: 512
+          env: demo
           use_firelens: true
           requires:
             - build-static
@@ -77,6 +78,7 @@ workflows:
           repo: "crowdsourcing-fastboot"
           service: "crowdsourcing-fastboot"
           cluster: "fastboot"
+          env: prod
           cpu: 256
           memory: 512
           use_firelens: true
